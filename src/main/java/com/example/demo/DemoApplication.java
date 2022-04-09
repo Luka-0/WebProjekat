@@ -28,7 +28,7 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 
-		// kreiramo novi objekat klase Korisnik
+		//  kreiramo novi objekat klase Korisnik
 		Korisnik k = new Korisnik();
 		Korisnik k1 = new Korisnik();
 
