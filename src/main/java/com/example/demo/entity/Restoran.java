@@ -9,4 +9,17 @@ public class Restoran implements  Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column
+    private String naziv;
+
+    @Column
+    private String tipRestorana;
+
+    //artikli
+
+    //lokacije
+
+
+
 }
