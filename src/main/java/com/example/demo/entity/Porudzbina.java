@@ -14,6 +14,4 @@ public class Porudzbina implements Serializable {
     private Kupac kupac;
 
 
-    // @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //private Dostavljac dostavljac;
 }

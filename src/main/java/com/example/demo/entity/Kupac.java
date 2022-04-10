@@ -14,7 +14,7 @@ public class Kupac extends Korisnik implements Serializable {
     @Column
     private int brojSakupljenihBodova;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "tipKupca", referencedColumnName = "id")
     private TipKupca tk;
 
