@@ -19,13 +19,17 @@ public class Restoran implements  Serializable{
     private String tipRestorana;
 
     //Restoran moze imate vise artikala
-   // @OneToMany(mappedBy = "restoran",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    //private Set<Artikal> artikli = new HashSet<>();
+    @OneToMany(mappedBy = "restoran",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Artikal> artikli = new HashSet<>();
 
 
     //Restoran se nalazi na jednoj lokacij
     @OneToOne(mappedBy = "restoran",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Lokacija lokacija;
+
+    //Restoran moze imati vise porudzbina
+    @OneToMany(mappedBy = "restoran",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Porudzbina> porudzbine = new HashSet<>();
 
     public long getId() {
         return id;
@@ -57,5 +61,33 @@ public class Restoran implements  Serializable{
 
     public void setLokacija(Lokacija lokacija) {
         this.lokacija = lokacija;
+    }
+
+    public Set<Artikal> getArtikli() {
+        return artikli;
+    }
+
+    public void setArtikli(Set<Artikal> artikli) {
+        this.artikli = artikli;
+    }
+
+    public Set<Porudzbina> getPorudzbine() {
+        return porudzbine;
+    }
+
+    public void setPorudzbine(Set<Porudzbina> porudzbine) {
+        this.porudzbine = porudzbine;
+    }
+
+    @Override
+    public String toString() {
+        return "Restoran{" +
+                "id=" + id +
+                ", naziv='" + naziv + '\'' +
+                ", tipRestorana='" + tipRestorana + '\'' +
+                ", artikli=" + artikli +
+                ", lokacija=" + lokacija +
+                ", porudzbine=" + porudzbine +
+                '}';
     }
 }

@@ -16,6 +16,11 @@ public class Artikal implements Serializable {
     private Restoran restoran;
 
 
+    //Vise artikala moze pripadati jednoj porudzbini
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "uuidPorudzbine", referencedColumnName = "uuid")
+    private Porudzbina porudzbina;
+
     //Getteri i Setteri
     @Column
     private String naziv;
@@ -80,14 +85,32 @@ public class Artikal implements Serializable {
         this.opis = opis;
     }
 
+    public Restoran getRestoran() {
+        return restoran;
+    }
+
+    public void setRestoran(Restoran restoran) {
+        this.restoran = restoran;
+    }
+
+    public Porudzbina getPorudzbina() {
+        return porudzbina;
+    }
+
+    public void setPorudzbina(Porudzbina porudzbina) {
+        this.porudzbina = porudzbina;
+    }
+
     @Override
     public String toString() {
         return "Artikal{" +
                 "id=" + id +
+                ", restoran=" + restoran +
+                ", porudzbina=" + porudzbina +
                 ", naziv='" + naziv + '\'' +
                 ", cena=" + cena +
                 ", tip='" + tip + '\'' +
-                ", kolicina='" + kolicina + '\'' +
+                ", kolicina=" + kolicina +
                 ", opis='" + opis + '\'' +
                 '}';
     }

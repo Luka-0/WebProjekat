@@ -18,6 +18,11 @@ public class Kupac extends Korisnik implements Serializable {
     @JoinColumn(name = "tipKupca", referencedColumnName = "id")
     private TipKupca tk;
 
+    //Komentari
+
+
+
+
     public Kupac() {
         this.svePorudzbine =  new HashSet<>();
         this.brojSakupljenihBodova = 0;

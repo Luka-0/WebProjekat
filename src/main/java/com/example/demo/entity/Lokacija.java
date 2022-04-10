@@ -55,6 +55,14 @@ public class Lokacija implements Serializable{
         this.id = id;
     }
 
+    public Restoran getRestoran() {
+        return restoran;
+    }
+
+    public void setRestoran(Restoran restoran) {
+        this.restoran = restoran;
+    }
+
     @Override
     public String toString() {
         return "Lokacija{" +
