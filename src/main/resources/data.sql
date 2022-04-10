@@ -1,0 +1,3 @@
+INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, p, datum_rodjenja,uloga, broj_sakupljenih_bodova) VALUES ('Kupac','MarkoM_12', '********', 'Marko', 'Markovic', 'M', '2004-02-10', 'kupac', 0);
+INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, p, datum_rodjenja,uloga, broj_sakupljenih_bodova) VALUES ('Kupac', 'AleksaA_54', '******', 'Aleksa', 'Aleksic', 'M', '2002-02-10', 'kupac', 0);
+INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, p, datum_rodjenja,uloga, broj_sakupljenih_bodova) VALUES ('Kupac', 'MMilic_980', '**********', 'Milica', 'Milic', 'F', '2005-02-10', 'kupac', 0);
