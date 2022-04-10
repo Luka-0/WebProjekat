@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Lokacija {
+public class Lokacija implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,10 @@ public class Lokacija {
 
     @Column
     private String adresa;
+
+    //Na odredjenoj lokaciji se nalazi jedan restoran
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Restoran restoran;
 
     public float getGeografskaSirina() {
         return geografskaSirina;
