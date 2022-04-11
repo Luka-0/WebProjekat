@@ -19,17 +19,15 @@ public class Restoran implements  Serializable{
     private String tipRestorana;
 
     //Restoran moze imate vise artikala
-    @OneToMany(mappedBy = "restoran",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(name = "artikli_u_ponudi",
+            joinColumns = @JoinColumn(name = "id_restorana", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_artikla", referencedColumnName = "id"))
     private Set<Artikal> artikli = new HashSet<>();
 
-
     //Restoran se nalazi na jednoj lokacij
-    @OneToOne(mappedBy = "restoran",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Lokacija lokacija;
-
-    //Restoran moze imati vise porudzbina
-    @OneToMany(mappedBy = "restoran",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Porudzbina> porudzbine = new HashSet<>();
 
     public long getId() {
         return id;
@@ -71,12 +69,8 @@ public class Restoran implements  Serializable{
         this.artikli = artikli;
     }
 
-    public Set<Porudzbina> getPorudzbine() {
-        return porudzbine;
-    }
-
-    public void setPorudzbine(Set<Porudzbina> porudzbine) {
-        this.porudzbine = porudzbine;
+    public boolean dodajArtikal(Artikal a){
+        return artikli.add(a);
     }
 
     @Override
@@ -87,7 +81,6 @@ public class Restoran implements  Serializable{
                 ", tipRestorana='" + tipRestorana + '\'' +
                 ", artikli=" + artikli +
                 ", lokacija=" + lokacija +
-                ", porudzbine=" + porudzbine +
                 '}';
     }
 }
