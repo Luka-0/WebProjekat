@@ -2,39 +2,49 @@ package com.example.demo.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 public class Porudzbina implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long uuid;
-
-    //Kupac
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Kupac kupac;
+    private UUID uuid = UUID.randomUUID();
 
     //Artikli (Porudzbina sadrzi vise artikala)
-    @OneToMany(mappedBy = "porudzbina", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(name = "poruceni_artikli",
+            joinColumns = @JoinColumn(name = "uuid_porudzbine", referencedColumnName = "uuid"),
+            inverseJoinColumns = @JoinColumn(name = "id_artikla", referencedColumnName = "id"))
     private Set<Artikal> artikli = new HashSet<>();
 
     //Restoran (Porudzbina dolazi iz jednog restorana)
+    //Mozda staviti da bude M:N ?
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idRestorana", referencedColumnName = "id")
+    @JoinColumn(name = "id_restorana", referencedColumnName = "id")
     private Restoran restoran;
 
-    private String datum_i_vreme;   //promeniti na DateTime??
+    @Column
+    private LocalDateTime datum_i_vreme;
+
+    @Column
     private float cena;
 
-    private String status;
+    //Kupac
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_kupca", referencedColumnName = "id")
+    private Kupac kupac;
 
-    public long getUuid() {
+    @Column
+    private EnumStatus status;
+
+    public UUID getUuid() {
         return uuid;
     }
 
-    public void setUuid(long uuid) {
+    public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
@@ -62,11 +72,11 @@ public class Porudzbina implements Serializable {
         this.restoran = restoran;
     }
 
-    public String getDatum_i_vreme() {
+    public LocalDateTime getDatum_i_vreme() {
         return datum_i_vreme;
     }
 
-    public void setDatum_i_vreme(String datum_i_vreme) {
+    public void setDatum_i_vreme(LocalDateTime datum_i_vreme) {
         this.datum_i_vreme = datum_i_vreme;
     }
 
@@ -78,11 +88,11 @@ public class Porudzbina implements Serializable {
         this.cena = cena;
     }
 
-    public String getStatus() {
+    public EnumStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(EnumStatus status) {
         this.status = status;
     }
 
@@ -91,7 +101,7 @@ public class Porudzbina implements Serializable {
         return "Porudzbina{" +
                 "uuid=" + uuid +
                 ", kupac=" + kupac +
-                ", artikli=" + artikli +
+               // ", artikli=" + artikli +
                 ", restoran=" + restoran +
                 ", datum_i_vreme='" + datum_i_vreme + '\'' +
                 ", cena=" + cena +

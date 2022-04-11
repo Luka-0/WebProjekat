@@ -16,7 +16,7 @@ public class Komentar implements Serializable {
 
     //Restoran
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idRestorana", referencedColumnName = "id")
+    @JoinColumn(name = "id_restorana", referencedColumnName = "id")
     private Restoran restoran;
 
     @Column
