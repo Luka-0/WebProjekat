@@ -23,14 +23,14 @@ public class Korisnik implements Serializable {
     @Column
     protected String prezime;
 
-    @Column
-    protected String p;
+    @Enumerated(EnumType.STRING)
+    protected EnumPol pol;
 
     @Column
     protected Date datumRodjenja;
 
-    @Column
-    protected String uloga;
+    @Enumerated(EnumType.STRING)
+    protected EnumUloga uloga;
 
     public long getId() {
         return id;
@@ -52,17 +52,15 @@ public class Korisnik implements Serializable {
         return prezime;
     }
 
-    public String getP() {
-        return p;
+    public EnumPol getPol() {
+        return pol;
     }
 
     public Date getDatumRodjenja() {
         return datumRodjenja;
     }
 
-    public String getUloga() {
-        return uloga;
-    }
+    public EnumUloga getUloga() {   return uloga;  }
 
     public void setId(long id) {
         this.id = id;
@@ -84,17 +82,13 @@ public class Korisnik implements Serializable {
         this.prezime = prezime;
     }
 
-    public void setP(String p) {
-        this.p = p;
-    }
+    public void setPol(EnumPol pol) {   this.pol = pol; }
 
     public void setDatumRodjenja(Date datumRodjenja) {
         this.datumRodjenja = datumRodjenja;
     }
 
-    public void setUloga(String uloga) {
-        this.uloga = uloga;
-    }
+    public void setUloga(EnumUloga uloga) { this.uloga = uloga; }
 
     @Override
     public String toString() {
@@ -104,9 +98,9 @@ public class Korisnik implements Serializable {
                 ", lozinka='" + lozinka + '\'' +
                 ", ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +
-                ", p='" + p + '\'' +
+                ", pol=" + pol +
                 ", datumRodjenja=" + datumRodjenja +
-                ", uloga='" + uloga + '\'' +
+                ", uloga=" + uloga +
                 '}';
     }
 }

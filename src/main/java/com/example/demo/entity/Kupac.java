@@ -15,7 +15,7 @@ public class Kupac extends Korisnik implements Serializable {
     private int brojSakupljenihBodova;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "tipKupca", referencedColumnName = "id")
+    @JoinColumn(name = "ID_tipKupca", referencedColumnName = "id")
     private TipKupca tk;
 
     //Komentari
@@ -60,7 +60,7 @@ public class Kupac extends Korisnik implements Serializable {
                 ", lozinka='" + lozinka + '\'' +
                 ", ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +
-                ", p='" + p + '\'' +
+                ", p='" + pol + '\'' +
                 ", datumRodjenja=" + datumRodjenja +
                 ", uloga='" + uloga + '\'' +
                 ", svePorudzbine=" + svePorudzbine +

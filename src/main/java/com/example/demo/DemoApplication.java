@@ -17,20 +17,22 @@ import java.util.Set;
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
 
-
+	EnumPol p1, p2;
+	EnumUloga U1, U2;
 	@Autowired
 	private KorisnikRepository korisnikRep;
 
 	@Override
 	public void run(String... args) {
 
+
 		//  kreiramo novi objekat klase Korisnik
 		Korisnik k = new Korisnik();
 
 		k.setIme("Jovanka");
 		k.setPrezime("Jovkić");
-		k.setUloga("Kupac");
-		k.setP("Z");
+		k.setUloga(U1.KUPAC);
+		k.setPol(p1.Z);
 		k.setKorisnickoIme("jj_742");
 		k.setLozinka("******");
 
@@ -38,8 +40,8 @@ public class DemoApplication implements CommandLineRunner {
 		Kupac kupac1 = new Kupac();
 		kupac1.setIme("Marko");
 		kupac1.setPrezime("Markovic");
-		kupac1.setUloga("Kupac");
-		kupac1.setP("M");
+		kupac1.setUloga(U2.KUPAC);
+		kupac1.setPol(p2.M);
 		kupac1.setKorisnickoIme("jj_742");
 		kupac1.setLozinka("******");
 		kupac1.setBrojSakupljenihBodova(5);

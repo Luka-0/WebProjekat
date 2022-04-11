@@ -9,7 +9,7 @@ import java.util.Set;
 public class Dostavljac extends Korisnik implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "porudzbina", referencedColumnName = "id")
+    @JoinColumn(name = "id_porudzbine")
     private Set<Porudzbina> porudzbine = new HashSet<>();
 
     public Set<Porudzbina> getPorudzbine() {
@@ -25,7 +25,7 @@ public class Dostavljac extends Korisnik implements Serializable {
                 ", lozinka='" + lozinka + '\'' +
                 ", ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +
-                ", p='" + p + '\'' +
+                ", p='" + pol + '\'' +
                 ", datumRodjenja=" + datumRodjenja +
                 ", uloga='" + uloga + '\'' +
                 '}';

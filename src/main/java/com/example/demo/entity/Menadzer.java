@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Menadzer extends Korisnik implements Serializable {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "restoran", referencedColumnName = "id")
+    @JoinColumn(name = "ID_restorana", referencedColumnName = "id")
     private Restoran restoran;
 
     public Restoran getRestoran() {
@@ -26,7 +26,7 @@ public class Menadzer extends Korisnik implements Serializable {
                 ", lozinka='" + lozinka + '\'' +
                 ", ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +
-                ", p='" + p + '\'' +
+                ", p='" + pol + '\'' +
                 ", datumRodjenja=" + datumRodjenja +
                 ", uloga='" + uloga + '\'' +
                 ", restoran=" + restoran +
