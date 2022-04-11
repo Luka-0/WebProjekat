@@ -5,23 +5,11 @@ import java.io.Serializable;
 
 @Entity
 public class Artikal implements Serializable {
+   //Polja
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //Artikal se nalazi u jednom restoranu
-    //Ne moze se fizicki nalaziti na 2 mesta istovremeno
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idRestorana", referencedColumnName = "id")
-    private Restoran restoran;
-
-
-    //Vise artikala moze pripadati jednoj porudzbini
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "uuidPorudzbine", referencedColumnName = "uuid")
-    private Porudzbina porudzbina;
-
-    //Getteri i Setteri
     @Column
     private String naziv;
 
@@ -29,14 +17,15 @@ public class Artikal implements Serializable {
     private float cena;
 
     @Column
-    private String tip;
+    private EnumTip tip;
 
     @Column
-    private float kolicina;
+    private EnumKolicina kolicina;
 
     @Column
     private String opis;
 
+    //Getteri i Setteri
     public long getId() {
         return id;
     }
@@ -61,19 +50,19 @@ public class Artikal implements Serializable {
         this.cena = cena;
     }
 
-    public String getTip() {
+    public EnumTip getTip() {
         return tip;
     }
 
-    public void setTip(String tip) {
+    public void setTip(EnumTip tip) {
         this.tip = tip;
     }
 
-    public float getKolicina() {
+    public EnumKolicina getKolicina() {
         return kolicina;
     }
 
-    public void setKolicina(float kolicina) {
+    public void setKolicina(EnumKolicina kolicina) {
         this.kolicina = kolicina;
     }
 
@@ -85,28 +74,10 @@ public class Artikal implements Serializable {
         this.opis = opis;
     }
 
-    public Restoran getRestoran() {
-        return restoran;
-    }
-
-    public void setRestoran(Restoran restoran) {
-        this.restoran = restoran;
-    }
-
-    public Porudzbina getPorudzbina() {
-        return porudzbina;
-    }
-
-    public void setPorudzbina(Porudzbina porudzbina) {
-        this.porudzbina = porudzbina;
-    }
-
     @Override
     public String toString() {
         return "Artikal{" +
                 "id=" + id +
-                ", restoran=" + restoran +
-                ", porudzbina=" + porudzbina +
                 ", naziv='" + naziv + '\'' +
                 ", cena=" + cena +
                 ", tip='" + tip + '\'' +
