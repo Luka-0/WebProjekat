@@ -19,9 +19,6 @@ public class Lokacija implements Serializable{
     @Column
     private String adresa;
 
-    //Na odredjenoj lokaciji se nalazi jedan restoran
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Restoran restoran;
 
     public float getGeografskaSirina() {
         return geografskaSirina;
@@ -55,13 +52,6 @@ public class Lokacija implements Serializable{
         this.id = id;
     }
 
-    public Restoran getRestoran() {
-        return restoran;
-    }
-
-    public void setRestoran(Restoran restoran) {
-        this.restoran = restoran;
-    }
 
     @Override
     public String toString() {

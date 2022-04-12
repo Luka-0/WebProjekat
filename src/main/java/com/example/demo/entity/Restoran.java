@@ -27,6 +27,7 @@ public class Restoran implements  Serializable{
 
     //Restoran se nalazi na jednoj lokacij
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_lokacije", referencedColumnName = "id")
     private Lokacija lokacija;
 
     public long getId() {
