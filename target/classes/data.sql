@@ -20,6 +20,9 @@ INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Desp
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Mise Dimitrijevica', 23, 42);
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Dositeja Obradovica 4B', 293, 932);
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Vuka Karadzica', 1, 3);
+INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Bulevar Oslobodjenja 63a', 48, 49);
+INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Bulevar oslobođenja 119,',90, 70);
+
 
 /*restorani*/
 INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('BlueMoon','Restaurant & Bar', 2);
@@ -28,6 +31,8 @@ INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Centar 11','Ita
 INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Joker', 'Palacinkarnica', 2);
 INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Krilce i pivce', 'Brza hrana', 4);
 INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Moskva', 'Ukrajinski', 6);
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Richard Gyros ', 'Brza hrana', 7);
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Caribic Pizza ', 'Brza hrana', 8);
 
 /*Menadzeri*/
 INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','M_Arsa','jasamsifra123','Arsa','Arsic','Z','2001-12-02','MENADZER', 2);
@@ -36,6 +41,15 @@ INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rod
 
 /*Komentari*/
 INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 'Dobar restoran', 1, 1);
+
+/*Artikli*/
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(380,'GRAMI', 'Gyros','Greek Salad Gyros','JELO', 5);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(120,'GRAMI', 'Pomfrit','porcija od 200g','JELO', 2);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(530,'GRAMI', 'Rich premium tortilja','Gyros meso, dimljeni kačkavalj, povrće i kiporou salata','JELO', 7);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(190,'GRAMI', 'Capricciosa ','Pizza','JELO', 8);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(190,'MILILITRI', 'Veliki Shake','vanila, jagoda, čokolada, plazma','PICE', 8);
+
+
 
 /*Porudzbine*/
 
