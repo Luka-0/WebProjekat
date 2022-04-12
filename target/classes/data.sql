@@ -49,8 +49,9 @@ INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(530,'G
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(190,'GRAMI', 'Capricciosa ','Pizza','JELO', 8);
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(190,'MILILITRI', 'Veliki Shake','vanila, jagoda, čokolada, plazma','PICE', 8);
 
+/*Komentari*/
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 'Solidan restoran', 2, 1);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 'Sjajan restoran', 3, 2);
 
-
-/*Porudzbine*/
 
 

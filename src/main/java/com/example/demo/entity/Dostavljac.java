@@ -8,12 +8,20 @@ import java.util.Set;
 @Entity
 public class Dostavljac extends Korisnik implements Serializable {
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     //@JoinColumn(name = "id_porudzbine")
     private Set<Porudzbina> porudzbine = new HashSet<>();
 
     public Set<Porudzbina> getPorudzbine() {
         return porudzbine;
+    }
+
+    public void setPorudzbine(Set<Porudzbina> porudzbine) {
+        this.porudzbine = porudzbine;
+    }
+
+    public void dodajPorudzbinu(Porudzbina p){
+        porudzbine.add(p);
     }
 
     @Override

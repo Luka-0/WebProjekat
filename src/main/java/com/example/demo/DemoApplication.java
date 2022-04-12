@@ -44,6 +44,10 @@ public class DemoApplication implements CommandLineRunner {
 	@Autowired
 	private MenadzerRepository menadzerRep;
 
+	@Autowired
+	private DostavljacRepository dostavljacRep;
+
+
 	@Override
 	public void run(String... args) {
 
@@ -167,12 +171,26 @@ public class DemoApplication implements CommandLineRunner {
 
 		System.out.println("Porudzbina : \n" + prvaPorudzbina.toString());
 
-		//Cuvanje kupaca
-		//this.korisnikRep.save(mojKupac);
+		//Druga porudzbina
+		Porudzbina drugaPorudzbina = new Porudzbina();
+		drugaPorudzbina.setRestoran(drugiRestoran);
+		drugaPorudzbina.setKupac(kupac1);
+		drugaPorudzbina.setStatus(EnumStatus.dostavljena);
+		drugaPorudzbina.setCena(1040);
+		drugaPorudzbina.setDatum_i_vreme(datum);
+
+		//Treca porudzbina
+		Porudzbina trecaPorudzbina = new Porudzbina();
+		trecaPorudzbina.setRestoran(prviRestoran);
+		trecaPorudzbina.setKupac(kupac1);
+		trecaPorudzbina.setStatus(EnumStatus.otkazana);
+		trecaPorudzbina.setCena(3241);
+		trecaPorudzbina.setDatum_i_vreme(datum);
 
 		//Cuvanje artikala
 		this.artikalRep.save(prviArtikal);
 		this.artikalRep.save(drugiArtikal);
+
 		//Cuvanje lokacija
 		this.lokacijaRep.save(prvaLokacija);
 		this.lokacijaRep.save(drugaLokacija);
@@ -185,6 +203,8 @@ public class DemoApplication implements CommandLineRunner {
 
 		//Cuvanje porudzbina
 		this.porudzbinaRep.save(prvaPorudzbina);
+		this.porudzbinaRep.save(drugaPorudzbina);
+		this.porudzbinaRep.save(trecaPorudzbina);
 
 		Menadzer prviMenazder = new Menadzer();
 		prviMenazder.setRestoran(prviRestoran);
@@ -196,6 +216,21 @@ public class DemoApplication implements CommandLineRunner {
 		prviMenazder.setKorisnickoIme("rade_420");
 
 		this.menadzerRep.save(prviMenazder);
+
+		//Dodajem dostavljaca koji ce razneti porudzbine
+		Dostavljac luka = new Dostavljac();
+		luka.dodajPorudzbinu(prvaPorudzbina);
+		luka.dodajPorudzbinu(drugaPorudzbina);
+
+		luka.setIme("Luka");
+		luka.setLozinka("*****l");
+		luka.setKorisnickoIme("L__uka");
+		luka.setPol(EnumPol.M);
+		luka.setPrezime("Lukic");
+		luka.setUloga(EnumUloga.DOSTAVLJAC);
+		luka.setDatumRodjenja(datum);
+
+		this.dostavljacRep.save(luka);
 
 	}
 
