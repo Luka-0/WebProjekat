@@ -98,14 +98,13 @@ public class Porudzbina implements Serializable {
 
     @Override
     public String toString() {
-        return "Porudzbina{" +
-                "uuid=" + uuid +
-                ", kupac=" + kupac +
-               // ", artikli=" + artikli +
-                ", restoran=" + restoran +
-                ", datum_i_vreme='" + datum_i_vreme + '\'' +
-                ", cena=" + cena +
-                ", status='" + status + '\'' +
-                '}';
+        return "Porudzbina: " +
+                " \n    uuid=" + uuid +
+                ",\n    kupac = " + kupac +
+                ",\n    artikli = " + artikli +
+                ",\n    restoran = " + restoran +
+                ",\n    datum_i_vreme = '" + datum_i_vreme + '\'' +
+                ",\n    cena = " + cena +
+                ",\n    status = '" + status + '\'';
     }
 }
