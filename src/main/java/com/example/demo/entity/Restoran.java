@@ -26,7 +26,7 @@ public class Restoran implements  Serializable{
     private Set<Artikal> artikli = new HashSet<>();
 
     //Restoran se nalazi na jednoj lokacij
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "ID_lokacije", referencedColumnName = "id")
     private Lokacija lokacija;
 
