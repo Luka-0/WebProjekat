@@ -24,3 +24,9 @@ INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rod
 INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 'Dobar restoran', 1, 1);
 
 INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','M_Arsa','jasamsifra123','Arsa','Arsic','Z','2001-02-02','MENADZER', 1);
+
+
+/*TipoviKupca*/
+INSERT INTO TIP_KUPCA (ime,popust, trazeni_broj_bodova) VALUES('Zlatni',20,3);
+INSERT INTO TIP_KUPCA (ime,popust, trazeni_broj_bodova) VALUES('Srebrni',30,5);
+INSERT INTO TIP_KUPCA (ime,popust, trazeni_broj_bodova) VALUES('Bronzani',10,1);
