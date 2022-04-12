@@ -11,10 +11,10 @@ public class Korisnik implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
-    @Column
+    @Column(unique = true, nullable = false)
     protected String korisnickoIme;
 
-    @Column
+    @Column(nullable = false)
     protected String lozinka;
 
     @Column

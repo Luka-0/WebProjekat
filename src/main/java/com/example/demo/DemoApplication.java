@@ -42,7 +42,7 @@ public class DemoApplication implements CommandLineRunner {
 		kupac1.setPrezime("Markovic");
 		kupac1.setUloga(U2.KUPAC);
 		kupac1.setPol(p2.M);
-		kupac1.setKorisnickoIme("jj_742");
+		kupac1.setKorisnickoIme("mm_742");
 		kupac1.setLozinka("******");
 		kupac1.setBrojSakupljenihBodova(5);
 
