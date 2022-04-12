@@ -27,7 +27,7 @@ public class Porudzbina implements Serializable {
     private Restoran restoran;
 
     @Column
-    private LocalDateTime datum_i_vreme;
+    private String datum_i_vreme;
 
     @Column
     private float cena;
@@ -71,11 +71,11 @@ public class Porudzbina implements Serializable {
         this.restoran = restoran;
     }
 
-    public LocalDateTime getDatum_i_vreme() {
+    public String getDatum_i_vreme() {
         return datum_i_vreme;
     }
 
-    public void setDatum_i_vreme(LocalDateTime datum_i_vreme) {
+    public void setDatum_i_vreme(String datum_i_vreme) {
         this.datum_i_vreme = datum_i_vreme;
     }
 
