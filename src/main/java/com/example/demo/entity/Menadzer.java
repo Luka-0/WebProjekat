@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 public class Menadzer extends Korisnik implements Serializable {
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "ID_restorana", referencedColumnName = "id")
     private Restoran restoran;
 
