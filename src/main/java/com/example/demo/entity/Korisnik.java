@@ -27,7 +27,8 @@ public class Korisnik implements Serializable {
     protected EnumPol pol;
 
     @Column
-    protected Date datumRodjenja;
+    @Temporal(TemporalType.TIMESTAMP)
+    protected Date datumRodjenja = new Date();
 
     @Enumerated(EnumType.STRING)
     protected EnumUloga uloga;
