@@ -2,7 +2,7 @@ package com.example.demo;
 
 import com.example.demo.entity.*;
 
-import com.example.demo.repository.KorisnikRepository;
+import com.example.demo.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +22,27 @@ public class DemoApplication implements CommandLineRunner {
 	EnumUloga U1, U2;
 	@Autowired
 	private KorisnikRepository korisnikRep;
+
+	@Autowired
+	private LokacijaRepository lokacijaRep;
+
+	@Autowired
+	private PorudzbinaRepository porudzbinaRep;
+
+	@Autowired
+	private ArtikalRepository artikalRep;
+
+	@Autowired
+	private KupacRepository kupacRep;
+
+	@Autowired
+	private KomentarRepository KomentarRep;
+
+	@Autowired
+	private RestoranRepository restoranRep;
+
+	@Autowired
+	private MenadzerRepository menadzerRep;
 
 	@Override
 	public void run(String... args) {
@@ -69,6 +91,13 @@ public class DemoApplication implements CommandLineRunner {
 
 		System.out.println(prviArtikal.toString());
 
+		Artikal drugiArtikal = new Artikal();
+		drugiArtikal.setCena(200);
+		drugiArtikal.setKolicina(EnumKolicina.MILILITRI);
+		drugiArtikal.setTip(EnumTip.PICE);
+		drugiArtikal.setNaziv("Sok");
+		drugiArtikal.setOpis("Negazirani");
+
 		//Novi restoran
 		Restoran prviRestoran = new Restoran();
 		prviRestoran.setNaziv("Moj lepi restoran");
@@ -86,6 +115,19 @@ public class DemoApplication implements CommandLineRunner {
 
 		System.out.println("Moj restoran: \n" + prviRestoran.toString());
 
+		//-------------------------------------------------------------------
+		Restoran drugiRestoran = new Restoran();
+		drugiRestoran.setTipRestorana("Domaca hrana");
+		drugiRestoran.setNaziv("Koliba");
+			//Nova lokacija
+			Lokacija drugaLokacija = new Lokacija();
+			prvaLokacija.setAdresa("Dositeja Obradovica 21");
+			prvaLokacija.setGeografskaDuzina(222);
+			prvaLokacija.setGeografskaSirina(333);
+
+		drugiRestoran.setLokacija(drugaLokacija);
+		drugiRestoran.dodajArtikal(drugiArtikal);
+
 		//Testiraj komentar
 		Komentar prviCom = new Komentar();
 		prviCom.setOcena(5);
@@ -93,8 +135,24 @@ public class DemoApplication implements CommandLineRunner {
 		prviCom.setTekstKomentara("Ovo je tekst prvog komentara");
 			//Kupac
 			Kupac mojKupac = new Kupac();
+			mojKupac.setIme("Marinko");
+			mojKupac.setLozinka("lozinka123");
+			mojKupac.setKorisnickoIme("Marinko_1");
+			mojKupac.setPrezime("Rokvic");
+			mojKupac.setPol(EnumPol.M);
+			mojKupac.setUloga(EnumUloga.KUPAC);
+			mojKupac.setBrojSakupljenihBodova(10);
+				//Tip kupca dodat
+				TipKupca tip1 = new TipKupca();
+				tip1.setIme("Zlatni");
+				tip1.setPopust(10);
+				tip1.setTrazeniBrojBodova(10);
+			mojKupac.setTk(tip1);
 
+			Date datum = new Date();
+			mojKupac.setDatumRodjenja(datum);
 		prviCom.setKupac(mojKupac);
+
 		System.out.println("Moj com : \n" + prviCom.toString());
 
 
@@ -104,9 +162,40 @@ public class DemoApplication implements CommandLineRunner {
 		prvaPorudzbina.setKupac(mojKupac);
 		prvaPorudzbina.setStatus(EnumStatus.ceka_dostavljaca);
 		prvaPorudzbina.setCena(2000);
-		prvaPorudzbina.setDatum_i_vreme(LocalDateTime.now());
+		//prvaPorudzbina.setDatum_i_vreme(LocalDateTime.now());
 
 		System.out.println("Porudzbina : \n" + prvaPorudzbina.toString());
+
+		//Cuvanje kupaca
+		//this.korisnikRep.save(mojKupac);
+
+		//Cuvanje artikala
+		this.artikalRep.save(prviArtikal);
+		this.artikalRep.save(drugiArtikal);
+		//Cuvanje lokacija
+		this.lokacijaRep.save(prvaLokacija);
+		this.lokacijaRep.save(drugaLokacija);
+
+		//Cuvanje komentara
+		this.KomentarRep.save(prviCom);
+
+		//Cuvanje restorana
+		this.restoranRep.save(drugiRestoran);
+
+		//Cuvanje porudzbina
+		this.porudzbinaRep.save(prvaPorudzbina);
+
+		Menadzer prviMenazder = new Menadzer();
+		prviMenazder.setRestoran(prviRestoran);
+		prviMenazder.setIme("Radovan");
+		prviMenazder.setLozinka("kuca321");
+		prviMenazder.setPrezime("Radovanovic");
+		prviMenazder.setPol(EnumPol.M);
+		prviMenazder.setUloga(EnumUloga.MENADZER);
+		prviMenazder.setKorisnickoIme("rade_420");
+
+		this.menadzerRep.save(prviMenazder);
+
 	}
 
 
