@@ -34,7 +34,6 @@ public class Porudzbina implements Serializable {
 
     //Kupac
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_kupca", referencedColumnName = "id")
     private Kupac kupac;
 
     @Column
