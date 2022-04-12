@@ -166,7 +166,7 @@ public class DemoApplication implements CommandLineRunner {
 		prvaPorudzbina.setKupac(mojKupac);
 		prvaPorudzbina.setStatus(EnumStatus.ceka_dostavljaca);
 		prvaPorudzbina.setCena(2000);
-
+		prvaPorudzbina.dodajArtikal(prviArtikal);
 		prvaPorudzbina.setDatum_i_vreme(datum);
 
 		System.out.println("Porudzbina : \n" + prvaPorudzbina.toString());
@@ -178,6 +178,7 @@ public class DemoApplication implements CommandLineRunner {
 		drugaPorudzbina.setStatus(EnumStatus.dostavljena);
 		drugaPorudzbina.setCena(1040);
 		drugaPorudzbina.setDatum_i_vreme(datum);
+		drugaPorudzbina.dodajArtikal(drugiArtikal);
 
 		//Treca porudzbina
 		Porudzbina trecaPorudzbina = new Porudzbina();
@@ -186,6 +187,8 @@ public class DemoApplication implements CommandLineRunner {
 		trecaPorudzbina.setStatus(EnumStatus.otkazana);
 		trecaPorudzbina.setCena(3241);
 		trecaPorudzbina.setDatum_i_vreme(datum);
+		trecaPorudzbina.dodajArtikal(prviArtikal);
+		trecaPorudzbina.dodajArtikal(drugiArtikal);
 
 		//Cuvanje artikala
 		this.artikalRep.save(prviArtikal);

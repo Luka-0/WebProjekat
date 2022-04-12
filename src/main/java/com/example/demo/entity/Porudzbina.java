@@ -48,6 +48,10 @@ public class Porudzbina implements Serializable {
         this.uuid = uuid;
     }
 
+    public void dodajArtikal(Artikal a){
+        artikli.add(a);
+    }
+
     public Kupac getKupac() {
         return kupac;
     }
