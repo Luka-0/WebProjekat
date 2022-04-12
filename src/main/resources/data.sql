@@ -16,3 +16,7 @@ INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rod
 /*Menadzeri
 INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga,id_restorana) VALUES ('Menadzer', 'MM_SS_78', '******', 'Stefan', 'Stefanovic', 'M', '1994-02-10','MENADZER',1);
 */
+
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 'Dobar restoran', 1, 1);
+
+INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga) VALUES ('Menadzer','M_Arsa','jasamsifra123','Arsa','Arsic','Z','2001-02-02','MENADZER');
