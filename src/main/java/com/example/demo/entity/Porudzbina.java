@@ -36,7 +36,7 @@ public class Porudzbina implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Kupac kupac;
 
-    @Column
+    @Enumerated(EnumType.STRING)
     private EnumStatus status;
 
     public UUID getUuid() {

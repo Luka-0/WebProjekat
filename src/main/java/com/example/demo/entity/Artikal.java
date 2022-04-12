@@ -16,10 +16,10 @@ public class Artikal implements Serializable {
     @Column
     private float cena;
 
-    @Column
+    @Enumerated(EnumType.STRING)
     private EnumTip tip;
 
-    @Column
+    @Enumerated(EnumType.STRING)
     private EnumKolicina kolicina;
 
     @Column
