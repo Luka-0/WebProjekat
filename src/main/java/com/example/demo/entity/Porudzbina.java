@@ -2,7 +2,7 @@ package com.example.demo.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -27,7 +27,8 @@ public class Porudzbina implements Serializable {
     private Restoran restoran;
 
     @Column
-    private String datum_i_vreme;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datum_i_vreme = new Date();
 
     @Column
     private float cena;
@@ -71,11 +72,11 @@ public class Porudzbina implements Serializable {
         this.restoran = restoran;
     }
 
-    public String getDatum_i_vreme() {
+    public Date getDatum_i_vreme() {
         return datum_i_vreme;
     }
 
-    public void setDatum_i_vreme(String datum_i_vreme) {
+    public void setDatum_i_vreme(Date datum_i_vreme) {
         this.datum_i_vreme = datum_i_vreme;
     }
 

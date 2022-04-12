@@ -162,7 +162,8 @@ public class DemoApplication implements CommandLineRunner {
 		prvaPorudzbina.setKupac(mojKupac);
 		prvaPorudzbina.setStatus(EnumStatus.ceka_dostavljaca);
 		prvaPorudzbina.setCena(2000);
-		//prvaPorudzbina.setDatum_i_vreme(LocalDateTime.now());
+
+		prvaPorudzbina.setDatum_i_vreme(datum);
 
 		System.out.println("Porudzbina : \n" + prvaPorudzbina.toString());
 

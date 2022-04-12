@@ -19,10 +19,16 @@ public class Restoran implements  Serializable{
     private String tipRestorana;
 
     //Restoran moze imate vise artikala
+    /*
     @ManyToMany
     @JoinTable(name = "artikli_u_ponudi",
             joinColumns = @JoinColumn(name = "id_restorana", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_artikla", referencedColumnName = "id"))
+    private Set<Artikal> artikli = new HashSet<>();
+     */
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_restorana", referencedColumnName = "id")
     private Set<Artikal> artikli = new HashSet<>();
 
     //Restoran se nalazi na jednoj lokacij
