@@ -11,20 +11,20 @@ public class Lokacija implements Serializable{
     private long id;
 
     @Column
-    private float geografskaSirina;
+    private double geografskaSirina;
 
     @Column
-    private float geografskaDuzina;
+    private double geografskaDuzina;
 
     @Column
     private String adresa;
 
 
-    public float getGeografskaSirina() {
+    public double getGeografskaSirina() {
         return geografskaSirina;
     }
 
-    public float getGeografskaDuzina() {
+    public double getGeografskaDuzina() {
         return geografskaDuzina;
     }
 
@@ -32,11 +32,11 @@ public class Lokacija implements Serializable{
         return adresa;
     }
 
-    public void setGeografskaSirina(float geografskaSirina) {
+    public void setGeografskaSirina(double geografskaSirina) {
         this.geografskaSirina = geografskaSirina;
     }
 
-    public void setGeografskaDuzina(float geografskaDuzina) {
+    public void setGeografskaDuzina(double geografskaDuzina) {
         this.geografskaDuzina = geografskaDuzina;
     }
 

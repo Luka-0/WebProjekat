@@ -21,7 +21,6 @@ public class Porudzbina implements Serializable {
     private Set<Artikal> artikli = new HashSet<>();
 
     //Restoran (Porudzbina dolazi iz jednog restorana)
-    //Mozda staviti da bude M:N ?
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_restorana", referencedColumnName = "id")
     private Restoran restoran;
@@ -31,7 +30,7 @@ public class Porudzbina implements Serializable {
     private Date datum_i_vreme = new Date();
 
     @Column
-    private float cena;
+    private double cena;
 
     //Kupac
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -84,11 +83,11 @@ public class Porudzbina implements Serializable {
         this.datum_i_vreme = datum_i_vreme;
     }
 
-    public float getCena() {
+    public double getCena() {
         return cena;
     }
 
-    public void setCena(float cena) {
+    public void setCena(double cena) {
         this.cena = cena;
     }
 

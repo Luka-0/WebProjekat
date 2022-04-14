@@ -51,6 +51,8 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 
+	/*
+
 
 		//  kreiramo novi objekat klase Korisnik
 		Korisnik k = new Korisnik();
@@ -88,7 +90,7 @@ public class DemoApplication implements CommandLineRunner {
 		Artikal prviArtikal = new Artikal();
 		prviArtikal.setCena(100);
 
-		prviArtikal.setKolicina(EnumKolicina.GRAMI);
+		prviArtikal.setKolicina(100);
 		prviArtikal.setTip(EnumTip.JELO);
 		prviArtikal.setNaziv("Cokolada");
 		prviArtikal.setOpis("Mlecna");
@@ -97,7 +99,7 @@ public class DemoApplication implements CommandLineRunner {
 
 		Artikal drugiArtikal = new Artikal();
 		drugiArtikal.setCena(200);
-		drugiArtikal.setKolicina(EnumKolicina.MILILITRI);
+		drugiArtikal.setKolicina(500);
 		drugiArtikal.setTip(EnumTip.PICE);
 		drugiArtikal.setNaziv("Sok");
 		drugiArtikal.setOpis("Negazirani");
@@ -125,9 +127,9 @@ public class DemoApplication implements CommandLineRunner {
 		drugiRestoran.setNaziv("Koliba");
 			//Nova lokacija
 			Lokacija drugaLokacija = new Lokacija();
-			prvaLokacija.setAdresa("Dositeja Obradovica 21");
-			prvaLokacija.setGeografskaDuzina(222);
-			prvaLokacija.setGeografskaSirina(333);
+			drugaLokacija.setAdresa("Dositeja Obradovica 21");
+			drugaLokacija.setGeografskaDuzina(222);
+			drugaLokacija.setGeografskaSirina(333);
 
 		drugiRestoran.setLokacija(drugaLokacija);
 		drugiRestoran.dodajArtikal(drugiArtikal);
@@ -235,6 +237,11 @@ public class DemoApplication implements CommandLineRunner {
 
 		this.dostavljacRep.save(luka);
 
+
+
+	 */
+
+		System.out.println("\nPROGRAM SE KOMPAJLIRA! \n\n");
 	}
 
 

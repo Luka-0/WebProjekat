@@ -14,13 +14,13 @@ public class Artikal implements Serializable {
     private String naziv;
 
     @Column
-    private float cena;
+    private double cena;
 
     @Enumerated(EnumType.STRING)
     private EnumTip tip;
 
-    @Enumerated(EnumType.STRING)
-    private EnumKolicina kolicina;
+    @Column
+    private double kolicina;
 
     @Column
     private String opis;
@@ -42,7 +42,7 @@ public class Artikal implements Serializable {
         this.naziv = naziv;
     }
 
-    public float getCena() {
+    public double getCena() {
         return cena;
     }
 
@@ -58,11 +58,15 @@ public class Artikal implements Serializable {
         this.tip = tip;
     }
 
-    public EnumKolicina getKolicina() {
+    public void setCena(double cena) {
+        this.cena = cena;
+    }
+
+    public double getKolicina() {
         return kolicina;
     }
 
-    public void setKolicina(EnumKolicina kolicina) {
+    public void setKolicina(double kolicina) {
         this.kolicina = kolicina;
     }
 
