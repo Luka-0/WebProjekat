@@ -72,4 +72,13 @@ INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(7, '212375e3b4744021b
 INSERT INTO PORUCENI_ARTIKLI(uuid_porudzbine, id_artikla) VALUES ('0cba75e3b4744021b1b9fc19c4d00e18', 1);
 INSERT INTO PORUCENI_ARTIKLI(uuid_porudzbine, id_artikla) VALUES ('0cba75e3b4744021b1b9fc19c4d00e18', 2);
 INSERT INTO PORUCENI_ARTIKLI(uuid_porudzbine, id_artikla) VALUES ('0cba75e3b4744021b1b9fc19c4d00e18', 3);
+INSERT INTO PORUCENI_ARTIKLI(uuid_porudzbine, id_artikla) VALUES ('4aba75e3b4744021b1b9fc19c4d00e15', 2);
+INSERT INTO PORUCENI_ARTIKLI(uuid_porudzbine, id_artikla) VALUES ('4aba75e3b4744021b1b9fc19c4d00e15', 5);
+
+/*Stavke porudzbine*/
+INSERT INTO STAVKA_PORUDZBINE(broj_porucenog_artikla, id_artikla, uuid_porudzbine) VALUES (10, 1, '0cba75e3b4744021b1b9fc19c4d00e18');
+INSERT INTO STAVKA_PORUDZBINE(broj_porucenog_artikla, id_artikla, uuid_porudzbine) VALUES (4, 2, '0cba75e3b4744021b1b9fc19c4d00e18');
+INSERT INTO STAVKA_PORUDZBINE(broj_porucenog_artikla, id_artikla, uuid_porudzbine) VALUES (12, 3, '0cba75e3b4744021b1b9fc19c4d00e18');
+INSERT INTO STAVKA_PORUDZBINE(broj_porucenog_artikla, id_artikla, uuid_porudzbine) VALUES (5, 2, '4aba75e3b4744021b1b9fc19c4d00e15');
+INSERT INTO STAVKA_PORUDZBINE(broj_porucenog_artikla, id_artikla, uuid_porudzbine) VALUES (7, 5, '4aba75e3b4744021b1b9fc19c4d00e15');
 
