@@ -46,7 +46,7 @@ public class Artikal implements Serializable {
         return cena;
     }
 
-    public void setCena(float cena) {
+    public void setCena(double cena) {
         this.cena = cena;
     }
 
@@ -56,10 +56,6 @@ public class Artikal implements Serializable {
 
     public void setTip(EnumTip tip) {
         this.tip = tip;
-    }
-
-    public void setCena(double cena) {
-        this.cena = cena;
     }
 
     public double getKolicina() {

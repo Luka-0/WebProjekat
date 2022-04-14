@@ -62,6 +62,14 @@ INSERT INTO PORUDZBINA(uuid, cena, datum_i_vreme, status, kupac_id, id_restorana
 INSERT INTO PORUDZBINA(uuid, cena, datum_i_vreme, status, kupac_id, id_restorana) VALUES('812375e3b4744021b1b9fc19c4d00e14', 500, '2022-07-11', 'dostavljena', 1, 7);
 INSERT INTO PORUDZBINA(uuid, cena, datum_i_vreme, status, kupac_id, id_restorana) VALUES('212375e3b4744021b1b9fc19c4d00e13', 750, '2020-01-03', 'u_pripremi', 2, 4);
 
+/*Dostave*/
+INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(7, '0cba75e3b4744021b1b9fc19c4d00e18');
+INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(8, '4aba75e3b4744021b1b9fc19c4d00e15');
+INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(9, '812375e3b4744021b1b9fc19c4d00e14');
+INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(7, '212375e3b4744021b1b9fc19c4d00e13');
 
-
+/*Poruceni artikli*/
+INSERT INTO PORUCENI_ARTIKLI(uuid_porudzbine, id_artikla) VALUES ('0cba75e3b4744021b1b9fc19c4d00e18', 1);
+INSERT INTO PORUCENI_ARTIKLI(uuid_porudzbine, id_artikla) VALUES ('0cba75e3b4744021b1b9fc19c4d00e18', 2);
+INSERT INTO PORUCENI_ARTIKLI(uuid_porudzbine, id_artikla) VALUES ('0cba75e3b4744021b1b9fc19c4d00e18', 3);
 

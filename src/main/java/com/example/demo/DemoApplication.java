@@ -47,12 +47,14 @@ public class DemoApplication implements CommandLineRunner {
 	@Autowired
 	private DostavljacRepository dostavljacRep;
 
+	@Autowired
+	private StavkaPorudzbineRepository stavkaPorudzbineRep;
 
 	@Override
 	public void run(String... args) {
 
-	/*
 
+	/*
 
 		//  kreiramo novi objekat klase Korisnik
 		Korisnik k = new Korisnik();
@@ -75,14 +77,14 @@ public class DemoApplication implements CommandLineRunner {
 		kupac1.setBrojSakupljenihBodova(5);
 
 		// čuvamo objekate u bazi
-		this.korisnikRep.save(k);
-		this.korisnikRep.save(kupac1);
+		//this.korisnikRep.save(k);
+		//this.korisnikRep.save(kupac1);
 
-		List<Korisnik> korisnici = this.korisnikRep.findAll();
+		//List<Korisnik> korisnici = this.korisnikRep.findAll();
 
-		for (Korisnik kk : korisnici){
-			System.out.println(kk);
-		}
+		//for (Korisnik kk : korisnici){
+		//	System.out.println(kk);
+		//}
 
 		System.out.println("\n\n\n\n");
 
@@ -95,7 +97,7 @@ public class DemoApplication implements CommandLineRunner {
 		prviArtikal.setNaziv("Cokolada");
 		prviArtikal.setOpis("Mlecna");
 
-		System.out.println(prviArtikal.toString());
+		//System.out.println(prviArtikal.toString());
 
 		Artikal drugiArtikal = new Artikal();
 		drugiArtikal.setCena(200);
@@ -119,7 +121,7 @@ public class DemoApplication implements CommandLineRunner {
 
 		prviRestoran.dodajArtikal(prviArtikal);
 
-		System.out.println("Moj restoran: \n" + prviRestoran.toString());
+		//System.out.println("Moj restoran: \n" + prviRestoran.toString());
 
 		//-------------------------------------------------------------------
 		Restoran drugiRestoran = new Restoran();
@@ -159,7 +161,7 @@ public class DemoApplication implements CommandLineRunner {
 			mojKupac.setDatumRodjenja(datum);
 		prviCom.setKupac(mojKupac);
 
-		System.out.println("Moj com : \n" + prviCom.toString());
+		//System.out.println("Moj com : \n" + prviCom.toString());
 
 
 		//Testiraj porudzbinu
@@ -171,7 +173,7 @@ public class DemoApplication implements CommandLineRunner {
 		prvaPorudzbina.dodajArtikal(prviArtikal);
 		prvaPorudzbina.setDatum_i_vreme(datum);
 
-		System.out.println("Porudzbina : \n" + prvaPorudzbina.toString());
+		//System.out.println("Porudzbina : \n" + prvaPorudzbina.toString());
 
 		//Druga porudzbina
 		Porudzbina drugaPorudzbina = new Porudzbina();
@@ -193,23 +195,23 @@ public class DemoApplication implements CommandLineRunner {
 		trecaPorudzbina.dodajArtikal(drugiArtikal);
 
 		//Cuvanje artikala
-		this.artikalRep.save(prviArtikal);
-		this.artikalRep.save(drugiArtikal);
+		//this.artikalRep.save(prviArtikal);
+		//this.artikalRep.save(drugiArtikal);
 
 		//Cuvanje lokacija
-		this.lokacijaRep.save(prvaLokacija);
-		this.lokacijaRep.save(drugaLokacija);
+		//this.lokacijaRep.save(prvaLokacija);
+		//this.lokacijaRep.save(drugaLokacija);
 
 		//Cuvanje komentara
-		this.KomentarRep.save(prviCom);
+		//this.KomentarRep.save(prviCom);
 
 		//Cuvanje restorana
-		this.restoranRep.save(drugiRestoran);
+		//this.restoranRep.save(drugiRestoran);
 
 		//Cuvanje porudzbina
-		this.porudzbinaRep.save(prvaPorudzbina);
-		this.porudzbinaRep.save(drugaPorudzbina);
-		this.porudzbinaRep.save(trecaPorudzbina);
+		//this.porudzbinaRep.save(prvaPorudzbina);
+		//this.porudzbinaRep.save(drugaPorudzbina);
+		//this.porudzbinaRep.save(trecaPorudzbina);
 
 		Menadzer prviMenazder = new Menadzer();
 		prviMenazder.setRestoran(prviRestoran);
@@ -220,7 +222,7 @@ public class DemoApplication implements CommandLineRunner {
 		prviMenazder.setUloga(EnumUloga.MENADZER);
 		prviMenazder.setKorisnickoIme("rade_420");
 
-		this.menadzerRep.save(prviMenazder);
+		//this.menadzerRep.save(prviMenazder);
 
 		//Dodajem dostavljaca koji ce razneti porudzbine
 		Dostavljac luka = new Dostavljac();
@@ -235,11 +237,82 @@ public class DemoApplication implements CommandLineRunner {
 		luka.setUloga(EnumUloga.DOSTAVLJAC);
 		luka.setDatumRodjenja(datum);
 
-		this.dostavljacRep.save(luka);
-
+		//this.dostavljacRep.save(luka);
 
 
 	 */
+
+	/*
+		//Test stavke
+
+		Artikal prviArtikal = new Artikal();
+		prviArtikal.setCena(100);
+		prviArtikal.setKolicina(100);
+		prviArtikal.setTip(EnumTip.JELO);
+		prviArtikal.setNaziv("Cokolada");
+		prviArtikal.setOpis("Mlecna");
+
+		Artikal drugiArtikal = new Artikal();
+		drugiArtikal.setCena(200);
+		drugiArtikal.setKolicina(300);
+		drugiArtikal.setTip(EnumTip.JELO);
+		drugiArtikal.setNaziv("Keks");
+		drugiArtikal.setOpis("Integralni");
+
+		//Novi restoran
+		Restoran prviRestoran = new Restoran();
+		prviRestoran.setNaziv("Moj lepi restoran");
+		prviRestoran.setTipRestorana("SrBski");
+
+		//Nova lokacija
+		Lokacija prvaLokacija = new Lokacija();
+		prvaLokacija.setAdresa("Jug Bogdana bb");
+		prvaLokacija.setGeografskaDuzina(22);
+		prvaLokacija.setGeografskaSirina(33);
+
+		prviRestoran.setLokacija(prvaLokacija);
+		prviRestoran.dodajArtikal(prviArtikal);
+
+		Porudzbina prvaPorudzbina = new Porudzbina();
+		prvaPorudzbina.setRestoran(prviRestoran);
+		//prvaPorudzbina.setKupac(mojKupac);
+		prvaPorudzbina.setStatus(EnumStatus.ceka_dostavljaca);
+		prvaPorudzbina.setCena(2000);
+		prvaPorudzbina.dodajArtikal(prviArtikal);
+		prvaPorudzbina.dodajArtikal(drugiArtikal);
+		//prvaPorudzbina.setDatum_i_vreme(datum);
+
+
+		StavkaPorudzbine stavka = new StavkaPorudzbine();
+		stavka.setArtkli(prviArtikal);
+		stavka.setBroj_porucenih_artikala(100);
+		stavka.setPorudzbine(prvaPorudzbina);
+
+		StavkaPorudzbine stavka1 = new StavkaPorudzbine();
+		stavka1.setArtkli(prviArtikal);
+		stavka1.setBroj_porucenih_artikala(10);
+		stavka1.setPorudzbine(prvaPorudzbina);
+
+		StavkaPorudzbine stavka2 = new StavkaPorudzbine();
+		stavka2.setArtkli(drugiArtikal);
+		stavka2.setBroj_porucenih_artikala(9);
+		stavka2.setPorudzbine(prvaPorudzbina);
+
+		this.artikalRep.save(prviArtikal);
+		this.artikalRep.save(drugiArtikal);
+		this.lokacijaRep.save(prvaLokacija);
+		this.restoranRep.save(prviRestoran);
+		this.porudzbinaRep.save(prvaPorudzbina);
+
+		this.stavkaPorudzbineRep.save(stavka);
+		this.stavkaPorudzbineRep.save(stavka1);
+		this.stavkaPorudzbineRep.save(stavka2);
+
+	*/
+
+
+
+
 
 		System.out.println("\nPROGRAM SE KOMPAJLIRA! \n\n");
 	}
