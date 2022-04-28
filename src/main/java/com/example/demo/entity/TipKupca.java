@@ -14,7 +14,7 @@ public class TipKupca implements Serializable {
     private String ime;
 
     @Column
-    private float popust;
+    private double popust;
 
     @Column
     private int trazeniBrojBodova;
@@ -23,7 +23,7 @@ public class TipKupca implements Serializable {
         return ime;
     }
 
-    public float getPopust() {
+    public double getPopust() {
         return popust;
     }
 
@@ -35,7 +35,7 @@ public class TipKupca implements Serializable {
         this.ime = ime;
     }
 
-    public void setPopust(float popust) {
+    public void setPopust(double popust) {
         this.popust = popust;
     }
 
