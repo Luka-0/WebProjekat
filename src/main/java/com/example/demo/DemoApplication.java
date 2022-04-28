@@ -10,9 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @SpringBootApplication
@@ -273,43 +271,43 @@ public class DemoApplication implements CommandLineRunner {
 		prviRestoran.setLokacija(prvaLokacija);
 		prviRestoran.dodajArtikal(prviArtikal);
 
+		StavkaPorudzbine stavka = new StavkaPorudzbine();
+		stavka.setPorucenaKolicina(100);
+		stavka.setArtikal(prviArtikal);
+
+		StavkaPorudzbine stavka1 = new StavkaPorudzbine();
+		stavka1.setArtikal(drugiArtikal);
+		stavka1.setPorucenaKolicina(42);
+
+		StavkaPorudzbine stavka2 = new StavkaPorudzbine();
+		stavka2.setArtikal(prviArtikal);
+		stavka2.setPorucenaKolicina(11);
+
+		Set<StavkaPorudzbine> stavke = new HashSet<>();
+		stavke.add(stavka);
+		stavke.add(stavka1);
+		stavke.add(stavka2);
+
+
 		Porudzbina prvaPorudzbina = new Porudzbina();
 		prvaPorudzbina.setRestoran(prviRestoran);
 		//prvaPorudzbina.setKupac(mojKupac);
 		prvaPorudzbina.setStatus(EnumStatus.ceka_dostavljaca);
 		prvaPorudzbina.setCena(2000);
-		prvaPorudzbina.dodajArtikal(prviArtikal);
-		prvaPorudzbina.dodajArtikal(drugiArtikal);
-		//prvaPorudzbina.setDatum_i_vreme(datum);
-
-
-		StavkaPorudzbine stavka = new StavkaPorudzbine();
-		stavka.setArtkli(prviArtikal);
-		stavka.setBroj_porucenih_artikala(100);
-		stavka.setPorudzbine(prvaPorudzbina);
-
-		StavkaPorudzbine stavka1 = new StavkaPorudzbine();
-		stavka1.setArtkli(prviArtikal);
-		stavka1.setBroj_porucenih_artikala(10);
-		stavka1.setPorudzbine(prvaPorudzbina);
-
-		StavkaPorudzbine stavka2 = new StavkaPorudzbine();
-		stavka2.setArtkli(drugiArtikal);
-		stavka2.setBroj_porucenih_artikala(9);
-		stavka2.setPorudzbine(prvaPorudzbina);
+		prvaPorudzbina.setStavkePorudzbine(stavke);
 
 		this.artikalRep.save(prviArtikal);
 		this.artikalRep.save(drugiArtikal);
 		this.lokacijaRep.save(prvaLokacija);
 		this.restoranRep.save(prviRestoran);
-		this.porudzbinaRep.save(prvaPorudzbina);
+
 
 		this.stavkaPorudzbineRep.save(stavka);
 		this.stavkaPorudzbineRep.save(stavka1);
 		this.stavkaPorudzbineRep.save(stavka2);
 
-	*/
-
+		this.porudzbinaRep.save(prvaPorudzbina);
+	 */
 
 
 

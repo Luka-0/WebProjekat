@@ -13,21 +13,19 @@ public class Porudzbina implements Serializable {
     @Id
     private UUID uuid = UUID.randomUUID();
 
-    //Artikli (Porudzbina sadrzi vise artikala)
-    @ManyToMany
-    @JoinTable(name = "poruceni_artikli",
-            joinColumns = @JoinColumn(name = "uuid_porudzbine", referencedColumnName = "uuid"),
-            inverseJoinColumns = @JoinColumn(name = "id_artikla", referencedColumnName = "id"))
-    private Set<Artikal> artikli = new HashSet<>();
+    //Stavke porudzbine
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "uuid_porudzbine", referencedColumnName = "uuid")
+    private Set<StavkaPorudzbine> stavkePorudzbine = new HashSet<>();
 
-    //Restoran (Porudzbina dolazi iz jednog restorana)
+    //Restoran
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_restorana", referencedColumnName = "id")
     private Restoran restoran;
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date datum_i_vreme = new Date();
+    private Date datumIVreme = new Date();
 
     @Column
     private double cena;
@@ -47,10 +45,6 @@ public class Porudzbina implements Serializable {
         this.uuid = uuid;
     }
 
-    public void dodajArtikal(Artikal a){
-        artikli.add(a);
-    }
-
     public Kupac getKupac() {
         return kupac;
     }
@@ -59,28 +53,12 @@ public class Porudzbina implements Serializable {
         this.kupac = kupac;
     }
 
-    public Set<Artikal> getArtikli() {
-        return artikli;
-    }
-
-    public void setArtikli(Set<Artikal> artikli) {
-        this.artikli = artikli;
-    }
-
     public Restoran getRestoran() {
         return restoran;
     }
 
     public void setRestoran(Restoran restoran) {
         this.restoran = restoran;
-    }
-
-    public Date getDatum_i_vreme() {
-        return datum_i_vreme;
-    }
-
-    public void setDatum_i_vreme(Date datum_i_vreme) {
-        this.datum_i_vreme = datum_i_vreme;
     }
 
     public double getCena() {
@@ -99,15 +77,32 @@ public class Porudzbina implements Serializable {
         this.status = status;
     }
 
+    public Set<StavkaPorudzbine> getStavkePorudzbine() {
+        return stavkePorudzbine;
+    }
+
+    public void setStavkePorudzbine(Set<StavkaPorudzbine> stavkePorudzbine) {
+        this.stavkePorudzbine = stavkePorudzbine;
+    }
+
+    public Date getDatumIVreme() {
+        return datumIVreme;
+    }
+
+    public void setDatumIVreme(Date datumIVreme) {
+        this.datumIVreme = datumIVreme;
+    }
+
     @Override
     public String toString() {
-        return "Porudzbina: " +
-                " \n    uuid=" + uuid +
-                ",\n    kupac = " + kupac +
-                ",\n    artikli = " + artikli +
-                ",\n    restoran = " + restoran +
-                ",\n    datum_i_vreme = '" + datum_i_vreme + '\'' +
-                ",\n    cena = " + cena +
-                ",\n    status = '" + status + '\'';
+        return "Porudzbina{" +
+                "uuid=" + uuid +
+                ", stavkePorudzbine=" + stavkePorudzbine +
+                ", restoran=" + restoran +
+                ", datumIVreme=" + datumIVreme +
+                ", cena=" + cena +
+                ", kupac=" + kupac +
+                ", status=" + status +
+                '}';
     }
 }

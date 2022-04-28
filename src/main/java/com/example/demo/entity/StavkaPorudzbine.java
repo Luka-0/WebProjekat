@@ -9,18 +9,13 @@ public class StavkaPorudzbine implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //Veza ka porudzbinama
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "uuid_porudzbine", referencedColumnName = "uuid")
-    private Porudzbina porudzbine;
-
     //Veza ka artiklima
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_artikla", referencedColumnName = "id")
-    private Artikal artkli;
+    private Artikal artikal;
 
     @Column
-    private int broj_porucenog_artikla;
+    private int porucenaKolicina;
 
     public long getId() {
         return id;
@@ -30,37 +25,28 @@ public class StavkaPorudzbine implements Serializable {
         this.id = id;
     }
 
-    public Porudzbina getPorudzbine() {
-        return porudzbine;
+    public Artikal getArtikal() {
+        return artikal;
     }
 
-    public void setPorudzbine(Porudzbina porudzbine) {
-        this.porudzbine = porudzbine;
+    public void setArtikal(Artikal artikal) {
+        this.artikal = artikal;
     }
 
-    public Artikal getArtkli() {
-        return artkli;
+    public int getPorucenaKolicina() {
+        return porucenaKolicina;
     }
 
-    public void setArtkli(Artikal artkli) {
-        this.artkli = artkli;
-    }
-
-    public int getBroj_porucenih_artikala() {
-        return broj_porucenog_artikla;
-    }
-
-    public void setBroj_porucenih_artikala(int broj_porucenih_artikala) {
-        this.broj_porucenog_artikla = broj_porucenih_artikala;
+    public void setPorucenaKolicina(int porucenaKolicina) {
+        this.porucenaKolicina = porucenaKolicina;
     }
 
     @Override
     public String toString() {
         return "StavkaPorudzbine{" +
                 "id=" + id +
-                ", porudzbine=" + porudzbine +
-                ", artkli=" + artkli +
-                ", broj_porucenog_artikla=" + broj_porucenog_artikla +
+                ", artikal=" + artikal +
+                ", porucenaKolicina=" + porucenaKolicina +
                 '}';
     }
 }
