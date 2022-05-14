@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.EnumUloga;
 import com.example.demo.entity.Korisnik;
 import com.example.demo.repository.KorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class KorisnikService {
         return  korisnik;
     }
 
+    public List<Korisnik> findAllByUlogaOrderById(EnumUloga uloga) {
+        return korisnikRepository.findAllByUlogaOrderById(uloga);
+    }
 
     public List<Korisnik> findAll() {
         return korisnikRepository.findAll();
