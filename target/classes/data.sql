@@ -83,3 +83,4 @@ INSERT INTO STAVKA_PORUDZBINE(porucena_kolicina, id_artikla, uuid_porudzbine) VA
 INSERT INTO STAVKA_PORUDZBINE(porucena_kolicina, id_artikla, uuid_porudzbine) VALUES (5, 5, '812375e3b4744021b1b9fc19c4d00e14');
 
 
+
