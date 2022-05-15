@@ -19,6 +19,8 @@ public class TipKupca implements Serializable {
     @Column
     private int trazeniBrojBodova;
 
+    public TipKupca(){}
+
     public String getIme() {
         return ime;
     }

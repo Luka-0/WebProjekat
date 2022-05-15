@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +24,8 @@ public class Dostavljac extends Korisnik implements Serializable {
     public void dodajPorudzbinu(Porudzbina p){
         porudzbine.add(p);
     }
+
+    public Dostavljac(){}
 
     @Override
     public String toString() {

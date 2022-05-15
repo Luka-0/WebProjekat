@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -19,6 +21,7 @@ public class Porudzbina implements Serializable {
     private Set<StavkaPorudzbine> stavkePorudzbine = new HashSet<>();
 
     //Restoran
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_restorana", referencedColumnName = "id")
     private Restoran restoran;
@@ -31,11 +34,14 @@ public class Porudzbina implements Serializable {
     private double cena;
 
     //Kupac
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Kupac kupac;
 
     @Enumerated(EnumType.STRING)
     private EnumStatus status;
+
+    public Porudzbina(){}
 
     public UUID getUuid() {
         return uuid;

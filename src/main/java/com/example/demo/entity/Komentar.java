@@ -25,6 +25,8 @@ public class Komentar implements Serializable {
     @Column
     private int ocena;
 
+    public Komentar(){}
+
     //Getteri i setteri
     public long getId() {
         return id;

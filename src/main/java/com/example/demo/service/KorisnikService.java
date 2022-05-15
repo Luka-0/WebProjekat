@@ -1,9 +1,12 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.EnumUloga;
 import com.example.demo.entity.Korisnik;
 import com.example.demo.repository.KorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class KorisnikService {
@@ -14,14 +17,18 @@ public class KorisnikService {
         return korisnikRepository.save(korisnik);
     }
 
+    public Korisnik login(String korisnickoIme, String lozinka) {
+        Korisnik korisnik = korisnikRepository.getBykorisnickoIme(korisnickoIme);
+        if(korisnik == null || !korisnik.getLozinka().equals(lozinka))
+            return null;
+        return  korisnik;
+    }
 
+    public List<Korisnik> findAllByUlogaOrderById(EnumUloga uloga) {
+        return korisnikRepository.findAllByUlogaOrderById(uloga);
+    }
 
-
-
-
-
-
-
-
-
+    public List<Korisnik> findAll() {
+        return korisnikRepository.findAll();
+    }
 }

@@ -18,6 +18,8 @@ public class Menadzer extends Korisnik implements Serializable {
         this.restoran = restoran;
     }
 
+    public Menadzer(){}
+
     @Override
     public String toString() {
         return "Menadzer{" +

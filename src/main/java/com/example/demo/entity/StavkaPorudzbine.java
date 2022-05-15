@@ -17,6 +17,8 @@ public class StavkaPorudzbine implements Serializable {
     @Column
     private int porucenaKolicina;
 
+    public StavkaPorudzbine(){}
+
     public long getId() {
         return id;
     }

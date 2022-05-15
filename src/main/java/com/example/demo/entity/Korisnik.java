@@ -33,6 +33,19 @@ public class Korisnik implements Serializable {
     @Enumerated(EnumType.STRING)
     protected EnumUloga uloga;
 
+    public Korisnik(){}
+
+    public Korisnik(long id, String korisnickoIme, String lozinka, String ime, String prezime, EnumPol pol, Date datumRodjenja, EnumUloga uloga) {
+        this.id = id;
+        this.korisnickoIme = korisnickoIme;
+        this.lozinka = lozinka;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.pol = pol;
+        this.datumRodjenja = datumRodjenja;
+        this.uloga = uloga;
+    }
+
     public long getId() {
         return id;
     }

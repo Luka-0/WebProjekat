@@ -25,6 +25,8 @@ public class Artikal implements Serializable {
     @Column
     private String opis;
 
+    public Artikal(){}
+
     //Getteri i Setteri
     public long getId() {
         return id;
