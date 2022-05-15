@@ -14,7 +14,6 @@ public class PorudzbinaService {
     @Autowired
     private PorudzbinaRepository porudzbinaRepository;
 
-    //List<Porudzbina> findAllByRestoranOrderById(Restoran restoran);
     public List<Porudzbina> findAllByRestoranOrderById(Restoran restoran){
         return porudzbinaRepository.findAllByRestoranOrderByUuid(restoran);
     }

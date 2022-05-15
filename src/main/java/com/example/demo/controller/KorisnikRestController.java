@@ -1,13 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.KorisnikDto;
-import com.example.demo.dto.LoginDto;
-import com.example.demo.dto.MenadzerovPregledDto;
-import com.example.demo.dto.RegisterDto;
+import com.example.demo.dto.*;
 import com.example.demo.entity.*;
-import com.example.demo.service.KupacService;
+import com.example.demo.service.*;
 
-import com.example.demo.service.PorudzbinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.service.KorisnikService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -31,6 +26,15 @@ public class KorisnikRestController {
 
     @Autowired
     private PorudzbinaService porudzbinaService;
+
+    @Autowired
+    private MenadzerService menadzerService;
+
+    @Autowired
+    private DostavljacService dostavljacService;
+
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping("/api/")
     public String welcome(){
@@ -101,7 +105,7 @@ public class KorisnikRestController {
     }
     */
 
-    @GetMapping("/api/menadzerov-pregled")
+    @GetMapping("/api/menadzer-pregled")
     public ResponseEntity<MenadzerovPregledDto> prikaziPregledMenadzera(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
@@ -124,6 +128,43 @@ public class KorisnikRestController {
             else{
                 return new ResponseEntity(
                         "Ulogovani korisnik nije menadzer",
+                        HttpStatus.UNAUTHORIZED);
+            }
+        }
+    }
+
+    @GetMapping("/api/admin-pregled")
+    public ResponseEntity<PregledAdminaDto> prikaziPregledAdmina(HttpSession session){
+        Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if(ulogovaniKorisnik == null){
+            return new ResponseEntity(
+                    "Korisnik nije ulogovan",
+                    HttpStatus.NOT_FOUND);
+        }else{
+            if(ulogovaniKorisnik.getUloga() == EnumUloga.ADMIN){
+                Admin ulogovaniAdmin = (Admin) session.getAttribute("korisnik");
+                PregledAdminaDto pregledDto = new PregledAdminaDto();   //objekat dto koji metoda vraca
+
+                List<Menadzer> menadzeriMedjuKorisnicima = menadzerService.findAll();
+                pregledDto.setListaMenadzera(menadzeriMedjuKorisnicima);
+
+                List<Dostavljac> dostavljaciMedjuKorisnicima = dostavljacService.findAll();
+                pregledDto.setListaDostavljaca(dostavljaciMedjuKorisnicima);
+
+                List<Kupac> kupciMedjuKorisnicima = kupacService.findAll();
+                pregledDto.setListaKupaca(kupciMedjuKorisnicima);
+
+
+
+                List<Admin> adminiMedjuKorisnicima = adminService.findAll();
+                pregledDto.setListaAdmina(adminiMedjuKorisnicima);
+
+                return ResponseEntity.ok(pregledDto);
+            }
+            else{
+                return new ResponseEntity(
+                        "Ulogovani korisnik nije admin",
                         HttpStatus.UNAUTHORIZED);
             }
         }
