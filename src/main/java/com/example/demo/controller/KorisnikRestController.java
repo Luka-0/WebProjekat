@@ -7,10 +7,7 @@ import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -41,6 +38,7 @@ public class KorisnikRestController {
         return "Hello from api!";
     }
 
+    //Registracija korisnika
     @PostMapping("/api/register")
     public String registrujKorisnika(@RequestBody RegisterDto newDto) {
 
@@ -65,6 +63,7 @@ public class KorisnikRestController {
         return "Korisnik" + newDto.getKorisnickoIme() + "je uspesno registrovan";
     }
 
+    //LogIn korisnika
     @PostMapping("api/login")
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpSession session){
         //provera podataka
@@ -79,6 +78,7 @@ public class KorisnikRestController {
         return ResponseEntity.ok("Korisnik " + ulogovaniKorisnik.getKorisnickoIme() + " je uspesno ulogovan!");
     }
 
+    //LogOut korisnika
     @PostMapping("api/logout")
     public ResponseEntity logOut(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
@@ -105,6 +105,7 @@ public class KorisnikRestController {
     }
     */
 
+    //Omoguceno menadzeru da pregleda odgovarajuce podatke
     @GetMapping("/api/menadzer-pregled")
     public ResponseEntity<MenadzerovPregledDto> prikaziPregledMenadzera(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
@@ -133,6 +134,7 @@ public class KorisnikRestController {
         }
     }
 
+    //Omoguceno adminu da pregleda sve korisnike
     @GetMapping("/api/admin-pregled")
     public ResponseEntity<PregledAdminaDto> prikaziPregledAdmina(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
@@ -167,6 +169,46 @@ public class KorisnikRestController {
                         "Ulogovani korisnik nije admin",
                         HttpStatus.UNAUTHORIZED);
             }
+        }
+    }
+
+    //Update podataka
+    @PutMapping("/api/update-licni-podaci")
+    public ResponseEntity<Korisnik> updateLicnihPodataka(@RequestBody UpdateKorisnikaDto azuriranKorisnik, HttpSession session){
+        Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if(ulogovaniKorisnik == null){
+            return new ResponseEntity(
+                    "Korisnik nije ulogovan",
+                    HttpStatus.NOT_FOUND);
+        }else{
+
+            if(azuriranKorisnik.getKorisnickoIme() != null && !azuriranKorisnik.getKorisnickoIme().isEmpty()) {
+                ulogovaniKorisnik.setKorisnickoIme(azuriranKorisnik.getKorisnickoIme());
+            }
+
+            if(azuriranKorisnik.getIme() != null && !azuriranKorisnik.getIme().isEmpty()) {
+                ulogovaniKorisnik.setIme(azuriranKorisnik.getIme());
+            }
+
+            if(azuriranKorisnik.getPrezime() != null && !azuriranKorisnik.getPrezime().isEmpty()) {
+                ulogovaniKorisnik.setPrezime(azuriranKorisnik.getPrezime());
+            }
+
+            if(azuriranKorisnik.getLozinka() != null && !azuriranKorisnik.getLozinka().isEmpty()) {
+                ulogovaniKorisnik.setLozinka(azuriranKorisnik.getLozinka());
+            }
+
+            if(azuriranKorisnik.getPol() != null && !azuriranKorisnik.getPol().equals("")) {
+                ulogovaniKorisnik.setPol(azuriranKorisnik.getPol());
+            }
+
+            if(azuriranKorisnik.getDatumRodjenja() != null && !azuriranKorisnik.getDatumRodjenja().equals("")) {
+                ulogovaniKorisnik.setDatumRodjenja(azuriranKorisnik.getDatumRodjenja());
+            }
+
+            final Korisnik updatedKorisnik = korisnikService.save(ulogovaniKorisnik);
+            return ResponseEntity.ok(updatedKorisnik);
         }
     }
 
