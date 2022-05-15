@@ -18,6 +18,10 @@ public class RestoranService {
     @Autowired
     private RestoranRepository restoranRepository;
 
+    public Restoran save(Restoran restoran){
+        return this.restoranRepository.save(restoran);
+    }
+
     //pronalazenje svih restorana
     public List<Restoran> findAll() {
         return restoranRepository.findAll();

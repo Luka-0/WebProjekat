@@ -14,4 +14,6 @@ public class MenadzerService {
         return this.menadzerRepository.save(menadzer);
     }
 
+
+
 }

@@ -19,6 +19,9 @@ public class AdminService {
     @Autowired
     private DostavljacService dostavljacService;
 
+    @Autowired
+    private  RestoranService restoranService;
+
     public Admin save(Admin admin){
         return  this.adminRepository.save(admin);
     }

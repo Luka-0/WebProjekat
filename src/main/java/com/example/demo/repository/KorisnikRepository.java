@@ -12,4 +12,5 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Long>{
     List<Korisnik> findAllByImeOrderById(String ime);
 
     List<Korisnik> findAllByUlogaOrderById(String uloga);
+
 }
