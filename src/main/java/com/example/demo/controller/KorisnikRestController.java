@@ -1,11 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.KorisnikDto;
 import com.example.demo.dto.LoginDto;
 import com.example.demo.dto.RegisterDto;
-import com.example.demo.entity.EnumUloga;
-import com.example.demo.entity.Korisnik;
-import com.example.demo.entity.Kupac;
-import com.example.demo.entity.TipKupca;
+import com.example.demo.entity.*;
 import com.example.demo.service.KupacService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.service.KorisnikService;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -72,7 +71,7 @@ public class KorisnikRestController {
     }
 
     @PostMapping("api/logout")
-    public ResponseEntity Logout(HttpSession session){
+    public ResponseEntity logOut(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
         if (ulogovaniKorisnik == null)
@@ -80,6 +79,19 @@ public class KorisnikRestController {
 
         session.invalidate();
         return new ResponseEntity("Korisnik uspesno izlogovan", HttpStatus.OK);
+    }
+
+    @GetMapping("/api/ucitaj-admine")
+    public ResponseEntity<List<KorisnikDto>> ucitajAdmine(HttpSession session){
+        List<Korisnik> listaAdmina = korisnikService.findAllByUlogaOrderById(EnumUloga.ADMIN);
+
+
+        List<KorisnikDto> dtos = new ArrayList<>();
+        for(Korisnik korisnik : listaAdmina){
+            KorisnikDto dto = new KorisnikDto(korisnik);
+            dtos.add(dto);
+        }
+        return ResponseEntity.ok(dtos);
     }
 
     /*

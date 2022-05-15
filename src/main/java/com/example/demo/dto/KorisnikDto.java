@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.entity.EnumPol;
 import com.example.demo.entity.EnumUloga;
+import com.example.demo.entity.Korisnik;
 
 public class KorisnikDto {
     private String ime;
@@ -16,6 +17,13 @@ public class KorisnikDto {
         this.prezime = prezime;
         this.pol = pol;
         this.uloga = uloga;
+    }
+
+    public KorisnikDto(Korisnik korisnik){
+        this.ime = korisnik.getIme();
+        this.prezime = korisnik.getPrezime();
+        this.pol = korisnik.getPol();
+        this.uloga = korisnik.getUloga();
     }
 
     public String getIme() {
