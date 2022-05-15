@@ -37,6 +37,8 @@ public class Porudzbina implements Serializable {
     @Enumerated(EnumType.STRING)
     private EnumStatus status;
 
+    public Porudzbina(){}
+
     public UUID getUuid() {
         return uuid;
     }

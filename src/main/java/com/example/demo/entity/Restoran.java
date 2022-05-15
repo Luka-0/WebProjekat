@@ -28,6 +28,8 @@ public class Restoran implements  Serializable{
     @JoinColumn(name = "ID_lokacije", referencedColumnName = "id")
     private Lokacija lokacija;
 
+    public Restoran(){}
+
     public long getId() {
         return id;
     }
