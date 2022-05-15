@@ -11,7 +11,7 @@ public class MenadzerService {
     public MenadzerRepository menadzerRepository;
 
     public Menadzer save(Menadzer menadzer){
-        return menadzerRepository.save(menadzer);
+        return this.menadzerRepository.save(menadzer);
     }
 
 }
