@@ -26,10 +26,24 @@ public class AdminRestController {
         if(ulogovani.getUloga() != EnumUloga.ADMIN)
             return new ResponseEntity("Funkcionalnost je dostupna samo administratorima aplikacije", HttpStatus.BAD_REQUEST);
 
+
         this.adminService.saveMenadzer(noviMenadzer);
 
-        return ResponseEntity.ok("Kreiranje Menadzera: Uspesno");
+        return ResponseEntity.ok("Dodavanje Menadzera: Uspesno");
 
     }
-    
+
+    @PostMapping("/api/dodavanjeDostavljaca")
+    public ResponseEntity<String> dodavanjeDostavljaca(@RequestBody Dostavljac noviDostavljac, HttpSession session) {
+        Korisnik ulogovani = (Korisnik) session.getAttribute("korisnik");
+
+        if (ulogovani == null)
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        if (ulogovani.getUloga() != EnumUloga.ADMIN)
+            return new ResponseEntity("Funkcionalnost je dostupna samo administratorima aplikacije", HttpStatus.BAD_REQUEST);
+
+        this.adminService.saveDostavljac(noviDostavljac);
+
+        return ResponseEntity.ok("Dodavanje Dostavljaca: Uspesno");
+    }
 }
