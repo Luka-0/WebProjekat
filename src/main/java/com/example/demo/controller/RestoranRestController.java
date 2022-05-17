@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,15 @@ public class RestoranRestController {
     private RestoranService restoranService;
 
     @GetMapping("/api/restorani")
-    public ResponseEntity<List<RestoranDto>> getRestorani(){
-        List<Restoran> restorani = this.restoranService.findAll();
+    public ResponseEntity<List<RestoranDto>> getRestorani(HttpSession session){
 
-        //dodati ogranicenje za sesiju
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
+
+        if(uk == null) {
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        }
+        
+        List<Restoran> restorani = this.restoranService.findAll();
 
         List<RestoranDto> dtos = new ArrayList<>();
         for(Restoran restoran : restorani){
