@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Dostavljac;
+import com.example.demo.entity.Kupac;
 import com.example.demo.entity.Porudzbina;
 import com.example.demo.entity.Restoran;
 import com.example.demo.repository.PorudzbinaRepository;
@@ -17,5 +19,15 @@ public class PorudzbinaService {
     public List<Porudzbina> findAllByRestoranOrderById(Restoran restoran){
         return porudzbinaRepository.findAllByRestoranOrderByUuid(restoran);
     }
+
+    public List<Porudzbina> findAll(){
+        return porudzbinaRepository.findAll();
+    }
+
+    public List<Porudzbina> findAllByKupac(Kupac kupac){
+        return porudzbinaRepository.findAllByKupac(kupac);
+    }
+
+
 
 }

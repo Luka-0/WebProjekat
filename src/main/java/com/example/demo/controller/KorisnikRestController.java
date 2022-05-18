@@ -106,7 +106,7 @@ public class KorisnikRestController {
     */
 
     //Omoguceno menadzeru da pregleda odgovarajuce podatke
-    @GetMapping("/api/menadzer-pregled")
+    @GetMapping("/api/menadzer-pregled") //TODO prebaciti u menadzerRestControler
     public ResponseEntity<MenadzerovPregledDto> prikaziPregledMenadzera(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
@@ -135,6 +135,9 @@ public class KorisnikRestController {
     }
 
     //Omoguceno adminu da pregleda sve korisnike
+
+    /*
+
     @GetMapping("/api/admin-pregled")
     public ResponseEntity<PregledAdminaDto> prikaziPregledAdmina(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
@@ -163,6 +166,30 @@ public class KorisnikRestController {
                 pregledDto.setListaAdmina(adminiMedjuKorisnicima);
 
                 return ResponseEntity.ok(pregledDto);
+            }
+            else{
+                return new ResponseEntity(
+                        "Ulogovani korisnik nije admin",
+                        HttpStatus.UNAUTHORIZED);
+            }
+        }
+    }
+
+    */
+
+    @GetMapping("/api/admin-pregled")
+    public ResponseEntity<List<Korisnik>> prikaziPregledAdmina(HttpSession session){
+        Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if(ulogovaniKorisnik == null){
+            return new ResponseEntity(
+                    "Korisnik nije ulogovan",
+                    HttpStatus.NOT_FOUND);
+        }else{
+            if(ulogovaniKorisnik.getUloga() == EnumUloga.ADMIN){
+
+                List<Korisnik> sviKorisnici = korisnikService.findAll();
+                return ResponseEntity.ok(sviKorisnici);
             }
             else{
                 return new ResponseEntity(
@@ -209,6 +236,21 @@ public class KorisnikRestController {
 
             final Korisnik updatedKorisnik = korisnikService.save(ulogovaniKorisnik);
             return ResponseEntity.ok(updatedKorisnik);
+        }
+    }
+
+    //Pregled podaatka
+    @GetMapping("/api/pregled-licni-podaci")
+    public ResponseEntity<Korisnik> pregledLicnihPodataka(HttpSession session){
+        Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if(ulogovaniKorisnik == null){
+            return new ResponseEntity(
+                    "Korisnik nije ulogovan",
+                    HttpStatus.NOT_FOUND);
+        }else{
+
+            return ResponseEntity.ok(ulogovaniKorisnik);
         }
     }
 
