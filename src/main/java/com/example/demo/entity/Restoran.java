@@ -28,6 +28,9 @@ public class Restoran implements  Serializable{
     @JoinColumn(name = "ID_lokacije", referencedColumnName = "id")
     private Lokacija lokacija;
 
+    @Enumerated(EnumType.STRING)
+    private EnumStatusRestorana status;
+
     public Restoran(){}
 
     public long getId() {

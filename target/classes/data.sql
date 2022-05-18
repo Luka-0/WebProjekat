@@ -32,14 +32,14 @@ INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Bule
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Sekspirova 42',190,270);
 
 /*Restorani*/
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('BlueMoon','Restaurant & Bar', 2);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Atrijum','Studentski',5);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Centar 11','Italijanski', 1);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Joker', 'Palacinkarnica', 3);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Krilce i pivce', 'Brza hrana', 4);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Moskva', 'Ukrajinski', 6);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Richard Gyros ', 'Brza hrana', 7);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Caribic Pizza ', 'Brza hrana', 8);
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status) VALUES ('BlueMoon','Restaurant & Bar', 2, 'radi');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status) VALUES ('Atrijum','Studentski',5, 'radi');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status) VALUES ('Centar 11','Italijanski', 1, 'radi');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status) VALUES ('Joker', 'Palacinkarnica', 3, 'radi');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status) VALUES ('Krilce i pivce', 'Brza hrana', 4, 'ne_radi');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status) VALUES ('Moskva', 'Ukrajinski', 6, 'ne_radi');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status) VALUES ('Richard Gyros ', 'Brza hrana', 7, 'ne_radi');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status) VALUES ('Caribic Pizza ', 'Brza hrana', 8, 'ne_radi');
 
 /*Menadzeri*/
 INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','M_Arsa','jasamsifra123','Arsa','Arsic','Z','2001-12-02','MENADZER', 2);
