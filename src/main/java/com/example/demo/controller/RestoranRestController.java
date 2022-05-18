@@ -141,7 +141,6 @@ public class RestoranRestController {
 
         return ResponseEntity.ok(rezultatPretrage);
     }
-
     @GetMapping("/api/pretraga/naziv/{naziv}")
     public ResponseEntity<PrikazRestoranaDto> getRestoranByNaziv(@PathVariable(name = "naziv") String naziv){
 
