@@ -147,7 +147,7 @@ public class RestoranRestController {
     @GetMapping("/api/pretraga/naziv/{naziv}")
     public ResponseEntity<PrikazRestoranaDto> getRestoranByNaziv(@PathVariable(name = "naziv") String naziv){
 
-        Restoran restoran = restoranService.finOneByNaziv(naziv);
+        Restoran restoran = restoranService.findByNaziv(naziv);
         List<Komentar> komentariRestorana = restoranService.findAllComments(restoran);
 
         PrikazRestoranaDto prikazDto = new PrikazRestoranaDto();
