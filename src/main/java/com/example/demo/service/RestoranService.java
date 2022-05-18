@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Komentar;
 import com.example.demo.entity.Restoran;
 
 import com.example.demo.entity.Korisnik;
@@ -18,6 +19,9 @@ public class RestoranService {
     @Autowired
     private RestoranRepository restoranRepository;
 
+    @Autowired
+    private KomentarService komentarService;
+
     public Restoran save(Restoran restoran){
         return this.restoranRepository.save(restoran);
     }
@@ -26,6 +30,14 @@ public class RestoranService {
     public List<Restoran> findAll() {
         return restoranRepository.findAll();
     }
+
+    //pronalazenje svih komentara koji restoran ima
+    public List<Komentar>  findAllComments(Restoran restoran){
+
+        return this.komentarService.findAllByRestoran(restoran);
+    }
+
+
     //pronalazenje restorana po nazivu
     public Restoran finOneByNaziv(String naziv){
         Optional<Restoran> r = restoranRepository.findByNaziv(naziv);
