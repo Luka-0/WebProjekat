@@ -11,18 +11,18 @@ public class RestoranDto {
 
     private String tipRestorana;
 
-    private Lokacija lokacija;
+    private String adresaLokacije;
 
     public RestoranDto(){}
     public RestoranDto(String naziv, Lokacija lokacija, String tipRestorana){
         this.naziv = naziv;
-        this.lokacija = lokacija;
+        this.adresaLokacije = lokacija.getAdresa();
         this.tipRestorana = tipRestorana;
     }
     public RestoranDto(Restoran restoran){
         this.naziv = restoran.getNaziv();
         this.tipRestorana = restoran.getTipRestorana();
-        this.lokacija = restoran.getLokacija();
+        this.adresaLokacije = restoran.getLokacija().getAdresa();
     }
 
     public String getNaziv() {  return  naziv;  }
@@ -31,7 +31,7 @@ public class RestoranDto {
     public String getTipRestorana() {  return  tipRestorana;  }
     public void setTipRestorana(String tip){  this.tipRestorana = tip;  }
 
-    public Lokacija getLokacija() {  return  lokacija;  }
-    public void setLokacija(Lokacija lokacija) {  this.lokacija = lokacija;  }
+    public String getAdresaLokacije() { return adresaLokacije;  }
 
+    public void setAdresaLokacije(String adresaLokacije) {  this.adresaLokacije = adresaLokacije;   }
 }
