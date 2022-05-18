@@ -32,14 +32,14 @@ INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Bule
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Sekspirova 42',190,270);
 
 /*Restorani*/
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('BlueMoon','Restaurant & Bar', 2);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Atrijum','Studentski',5);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Centar 11','Italijanski', 1);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Joker', 'Palacinkarnica', 3);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Krilce i pivce', 'Brza hrana', 4);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Moskva', 'Ukrajinski', 6);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Richard Gyros ', 'Brza hrana', 7);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije) VALUES ('Caribic Pizza ', 'Brza hrana', 8);
+INSERT INTO RESTORAN(naziv,	status_restorana, tip_restorana, id_lokacije) VALUES ('BlueMoon','NE_RADI','Restaurant & Bar', 2);
+INSERT INTO RESTORAN(naziv, status_restorana, tip_restorana, id_lokacije) VALUES ('Atrijum','RADI','Studentski',5);
+INSERT INTO RESTORAN(naziv, status_restorana, tip_restorana, id_lokacije) VALUES ('Centar_11','RADI','Italijanski', 1);
+INSERT INTO RESTORAN(naziv, status_restorana, tip_restorana, id_lokacije) VALUES ('Joker','RADI', 'Palacinkarnica', 3);
+INSERT INTO RESTORAN(naziv, status_restorana, tip_restorana, id_lokacije) VALUES ('Krilce_i_pivce', 'RADI', 'Brza hrana', 4);
+INSERT INTO RESTORAN(naziv, status_restorana, tip_restorana, id_lokacije) VALUES ('Moskva', 'NE_RADI', 'Ukrajinski', 6);
+INSERT INTO RESTORAN(naziv, status_restorana, tip_restorana, id_lokacije) VALUES ('Richard_Gyros','RADI', 'Brza hrana', 7);
+INSERT INTO RESTORAN(naziv, status_restorana, tip_restorana, id_lokacije) VALUES ('Caribic_Pizza','RADI', 'Brza hrana', 8);
 
 /*Menadzeri*/
 INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','M_Arsa','jasamsifra123','Arsa','Arsic','Z','2001-12-02','MENADZER', 2);
@@ -50,7 +50,7 @@ INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 
 
 /*Artikli*/
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(380,10, 'Gyros','Greek Salad Gyros','JELO', 5);
-INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(120,15, 'Pomfrit','porcija od 200g','JELO', 2);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(120,15, 'Pomfrit','junior','JELO', 2);
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(530,30, 'Rich premium tortilja','Gyros meso, dimljeni kačkavalj, povrće i kiporou salata','JELO', 7);
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(190,40, 'Capricciosa ','Pizza','JELO', 8);
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(190,200, 'Veliki Shake','vanila, jagoda, čokolada, plazma','PICE', 8);

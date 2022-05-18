@@ -16,19 +16,19 @@ public class PrikazRestoranaDto {
 
     private Lokacija lokacija;
 
-    private EnumStatusRestorana status;
+    private String status;
 
     private double prosecnaOcena;
 
-    private List<Komentar> komentari;
+    private List<KomentarRestoranaDto> komentari;
 
-    private Set<Artikal> artikli;
+    private Set<ArtikalPrikazDto> artikli;
 
     public  PrikazRestoranaDto() { }
 
     public PrikazRestoranaDto(String naziv, String tipRestorana, Lokacija lokacija,
-                              EnumStatusRestorana status, double prosecnaOcena,
-                              List<Komentar> komentari, Set<Artikal> artikli) {
+                              String status, double prosecnaOcena,
+                              List<KomentarRestoranaDto> komentari, Set<ArtikalPrikazDto> artikli) {
         this.naziv = naziv;
         this.tipRestorana = tipRestorana;
         this.lokacija = lokacija;
@@ -51,7 +51,7 @@ public class PrikazRestoranaDto {
         return lokacija;
     }
 
-    public EnumStatusRestorana getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -59,11 +59,11 @@ public class PrikazRestoranaDto {
         return prosecnaOcena;
     }
 
-    public List<Komentar> getKomentari() {
+    public List<KomentarRestoranaDto> getKomentari() {
         return komentari;
     }
 
-    public Set<Artikal> getArtikli() {
+    public Set<ArtikalPrikazDto> getArtikli() {
         return artikli;
     }
 
@@ -81,7 +81,7 @@ public class PrikazRestoranaDto {
         this.lokacija = lokacija;
     }
 
-    public void setStatus(EnumStatusRestorana status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -89,11 +89,12 @@ public class PrikazRestoranaDto {
         this.prosecnaOcena = prosecnaOcena;
     }
 
-    public void setKomentari(List<Komentar> komentari) {
+    public void setKomentari(List<KomentarRestoranaDto> komentari) {
         this.komentari = komentari;
     }
 
-    public void setArtikli(Set<Artikal> artikli) {
-        this.artikli = artikli;
+    public void setArtikli(Set<ArtikalPrikazDto> artikli) {
+
+         this.artikli = artikli;
     }
 }

@@ -1,8 +1,9 @@
 package com.example.demo.controller;
+import com.example.demo.dto.ArtikalPrikazDto;
+import com.example.demo.dto.KomentarRestoranaDto;
 import com.example.demo.dto.PrikazRestoranaDto;
 import com.example.demo.dto.RestoranDto;
 import com.example.demo.entity.*;
-import com.example.demo.service.KorisnikService;
 import com.example.demo.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @RestController
 public class RestoranRestController {
@@ -147,28 +145,51 @@ public class RestoranRestController {
     @GetMapping("/api/pretraga/naziv/{naziv}")
     public ResponseEntity<PrikazRestoranaDto> getRestoranByNaziv(@PathVariable(name = "naziv") String naziv){
 
-        Restoran restoran = restoranService.finOneByNaziv(naziv);
+        //pronalazenje izabranog restorana
+        Restoran restoran = restoranService.findByNaziv(naziv);
+
+        //dobavljanje svih komentara
         List<Komentar> komentariRestorana = restoranService.findAllComments(restoran);
 
+        List<KomentarRestoranaDto> komentariZaPrikaz = new ArrayList<>();
+
+        //ucitavanje svih artikala
+        Set<Artikal> artikliRestorana = new HashSet<Artikal>();
+        artikliRestorana = restoran.getArtikli();
+
+        Set<ArtikalPrikazDto> artikliPrikaza = new HashSet<ArtikalPrikazDto>();
+
+        for(Komentar komentar : komentariRestorana){
+            KomentarRestoranaDto dto = new KomentarRestoranaDto(komentar);
+            komentariZaPrikaz.add(dto);
+        }
+
         PrikazRestoranaDto prikazDto = new PrikazRestoranaDto();
+
         prikazDto.setNaziv(restoran.getNaziv());
         prikazDto.setLokacija(restoran.getLokacija());
         prikazDto.setTipRestorana(restoran.getTipRestorana());
-        prikazDto.setKomentari(komentariRestorana);
+        prikazDto.setKomentari(komentariZaPrikaz);
 
         double prosecnaOcena = 0;
         for(Komentar komentar :  komentariRestorana){
             prosecnaOcena += komentar.getOcena();
         }
-        prosecnaOcena = prosecnaOcena / komentariRestorana.size();
+
+        if(komentariRestorana.size() > 0) {
+            prosecnaOcena = prosecnaOcena / komentariRestorana.size();
+        }
 
         prikazDto.setProsecnaOcena(prosecnaOcena);
-        prikazDto.setArtikli(restoran.getArtikli());
-        //za pocetak uvek OPEN radi testiranja
-        prikazDto.setStatus(EnumStatusRestorana.OPEN);
+
+        for(Artikal artikal : artikliRestorana){
+            ArtikalPrikazDto dto = new ArtikalPrikazDto(artikal);
+            artikliPrikaza.add(dto);
+        }
+
+        prikazDto.setArtikli(artikliPrikaza);
+        prikazDto.setStatus(restoran.getStatusRestorana().toString());
 
         return ResponseEntity.ok(prikazDto);
     }
-
-
 }

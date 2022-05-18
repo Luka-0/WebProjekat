@@ -39,7 +39,7 @@ public class RestoranService {
 
 
     //pronalazenje restorana po nazivu
-    public Restoran finOneByNaziv(String naziv){
+    public Restoran findByNaziv(String naziv){
         Optional<Restoran> r = restoranRepository.findByNaziv(naziv);
 
         if(r.isPresent()){
