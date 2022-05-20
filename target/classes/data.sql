@@ -30,7 +30,7 @@ INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Vuka
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Bulevar Oslobodjenja 63a', 48, 49);
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Bulevar oslobođenja 119',90, 70);
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Sekspirova 42',190,270);
-
+INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Urosa Predica 8',110,290);
 /*Restorani*/
 INSERT INTO RESTORAN(naziv,	status_restorana, tip_restorana, id_lokacije) VALUES ('BlueMoon','NE_RADI','Restaurant & Bar', 2);
 INSERT INTO RESTORAN(naziv, status_restorana, tip_restorana, id_lokacije) VALUES ('Atrijum','RADI','Studentski',5);

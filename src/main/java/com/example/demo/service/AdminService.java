@@ -1,8 +1,5 @@
 package com.example.demo.service;
-import com.example.demo.entity.Admin;
-import com.example.demo.entity.Korisnik;
-import com.example.demo.entity.Menadzer;
-import  com.example.demo.entity.Dostavljac;
+import com.example.demo.entity.*;
 import com.example.demo.repository.AdminRepository;
 import com.example.demo.service.MenadzerService;
 import com.example.demo.service.DostavljacService;
@@ -28,9 +25,8 @@ public class AdminService {
     @Autowired
     private KorisnikService korisnikService;
 
-    public Admin save(Admin admin){
-        return  this.adminRepository.save(admin);
-    }
+    @Autowired
+    private  LokacijaService lokacijaService;
 
     public Menadzer saveMenadzer(Menadzer noviMenadzer){
         return this.menadzerService.save(noviMenadzer);
@@ -38,6 +34,10 @@ public class AdminService {
 
     public Dostavljac saveDostavljac(Dostavljac dostavljac){
         return this.dostavljacService.save(dostavljac);
+    }
+
+    public Restoran saveRestoran(Restoran noviRestoran){
+        return this.restoranService.save(noviRestoran);
     }
 
     public List<Admin> findAll(){
@@ -48,4 +48,11 @@ public class AdminService {
         return  this.korisnikService.findByKorisnickoIme(userName);
     }
 
+    public Restoran getByLokacija(Lokacija lokacija){
+        return  this.restoranService.findOneByLokacija(lokacija);
+    }
+
+    public Lokacija getLokacijaById(Long id){
+        return  this.lokacijaService.getLokacijaById(id);
+    }
 }

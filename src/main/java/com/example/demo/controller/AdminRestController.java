@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.NewDMDto;
+import com.example.demo.dto.RestoranDto;
 import com.example.demo.entity.*;
 import com.example.demo.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class AdminRestController {
             return new ResponseEntity("Izabrana uloga mora biti: MENADZER", HttpStatus.BAD_REQUEST);
 
         if(this.adminService.getByKorisnickoIme(noviMenadzer.getKorisnickoIme()) != null)
-            return new ResponseEntity("Korisnicko ime je zauzeto.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Korisnicko ime je vec zauzeto.", HttpStatus.BAD_REQUEST);
 
         this.adminService.saveMenadzer(noviMenadzer);
 
@@ -70,10 +71,37 @@ public class AdminRestController {
             return new ResponseEntity("Izabrana uloga mora biti: DOSTAVLJAC", HttpStatus.BAD_REQUEST);
 
         if(this.adminService.getByKorisnickoIme(noviDostavljac.getKorisnickoIme()) != null)
-            return new ResponseEntity("Korisnicko ime je zauzeto.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Korisnicko ime je vec zauzeto.", HttpStatus.BAD_REQUEST);
 
         this.adminService.saveDostavljac(noviDostavljac);
 
         return ResponseEntity.ok("Dodavanje Dostavljaca: Uspesno");
+    }
+
+
+    @PostMapping("/api/kreiraj-restoran")
+    public ResponseEntity<String> dodavanjeRestorana(@RequestBody RestoranDto restoranDto, HttpSession session) {
+        Korisnik ulogovani = (Korisnik) session.getAttribute("korisnik");
+
+        if (ulogovani == null)
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        if (ulogovani.getUloga() != EnumUloga.ADMIN)
+            return new ResponseEntity("Funkcionalnost je dostupna samo administratorima aplikacije", HttpStatus.BAD_REQUEST);
+
+        Restoran noviRestoran = new Restoran();
+        noviRestoran.setNaziv(restoranDto.getNazivRestorana());
+        noviRestoran.setTipRestorana(restoranDto.getTipRestorana());
+
+        Lokacija lokacija = this.adminService.getLokacijaById(restoranDto.getIdLokacije());
+
+        if(this.adminService.getByLokacija(lokacija) != null){
+            return new ResponseEntity("Restoran na ovoj lokaciji vec postoji.", HttpStatus.BAD_REQUEST);
+        }
+
+        noviRestoran.setLokacija(lokacija);
+
+        this.adminService.saveRestoran(noviRestoran);
+
+        return ResponseEntity.ok("Dodavanje novog restorana: Uspesno");
     }
 }
