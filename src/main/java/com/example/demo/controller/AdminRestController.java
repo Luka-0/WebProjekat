@@ -19,7 +19,7 @@ public class AdminRestController {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping("/api/dodaj-menadzera")
+    @PostMapping("/api/admin/dodavanje-menadzera")
     public ResponseEntity<String> dodavanjeMenadzera(@RequestBody NewDMDto newDMDto, HttpSession session) {
         Korisnik ulogovani = (Korisnik) session.getAttribute("korisnik");
 
@@ -49,7 +49,7 @@ public class AdminRestController {
 
     }
 
-    @PostMapping("/api/dodaj-dostavljaca")
+    @PostMapping("/api/admin/dodavanje-dostavljaca")
     public ResponseEntity<String> dodavanjeDostavljaca(@RequestBody NewDMDto newDMDto, HttpSession session) {
         Korisnik ulogovani = (Korisnik) session.getAttribute("korisnik");
 
@@ -79,7 +79,7 @@ public class AdminRestController {
     }
 
 
-    @PostMapping("/api/kreiraj-restoran")
+    @PostMapping("/api/admin/kreiranje-restorana")
     public ResponseEntity<String> dodavanjeRestorana(@RequestBody RestoranDto restoranDto, HttpSession session) {
         Korisnik ulogovani = (Korisnik) session.getAttribute("korisnik");
 

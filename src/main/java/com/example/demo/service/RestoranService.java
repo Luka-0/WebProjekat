@@ -58,6 +58,17 @@ public class RestoranService {
 
         return null;
     }
+
+    //pronalazenje restorana po odredjenom id-u
+    public Restoran findById(long idRestorana){
+        Optional<Restoran> r = restoranRepository.findById(idRestorana);
+
+        if(r.isPresent()){
+            return r.get();
+        }
+        return null;
+    }
+
     //pronalazenje restorana po odredjenom tipu
     public Restoran findOneByTipRestorana(String tip){
         Optional<Restoran> r = restoranRepository.findByTipRestorana(tip);
