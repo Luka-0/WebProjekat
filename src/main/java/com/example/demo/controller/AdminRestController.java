@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.NewDMDto;
 import com.example.demo.entity.*;
 import com.example.demo.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class AdminRestController {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping("/api/dodavanjeMenadzera")
-    public ResponseEntity<String> dodavanjeMenadzera(@RequestBody Menadzer noviMenadzer, HttpSession session) {
+    @PostMapping("/api/dodaj-menadzera")
+    public ResponseEntity<String> dodavanjeMenadzera(@RequestBody NewDMDto newDMDto, HttpSession session) {
         Korisnik ulogovani = (Korisnik) session.getAttribute("korisnik");
 
         if(ulogovani == null)
@@ -26,6 +27,20 @@ public class AdminRestController {
         if(ulogovani.getUloga() != EnumUloga.ADMIN)
             return new ResponseEntity("Funkcionalnost je dostupna samo administratorima aplikacije", HttpStatus.BAD_REQUEST);
 
+        Menadzer noviMenadzer = new Menadzer();
+
+        noviMenadzer.setIme(newDMDto.getIme());
+        noviMenadzer.setPrezime(newDMDto.getPrezime());
+        noviMenadzer.setLozinka(newDMDto.getLozinka());
+        noviMenadzer.setPol(newDMDto.getPol());
+        noviMenadzer.setKorisnickoIme(newDMDto.getKorisnickoIme());
+        noviMenadzer.setUloga(newDMDto.getUloga());
+
+        if(noviMenadzer.getUloga() != EnumUloga.MENADZER)
+            return new ResponseEntity("Izabrana uloga mora biti: MENADZER", HttpStatus.BAD_REQUEST);
+
+        if(this.adminService.getByKorisnickoIme(noviMenadzer.getKorisnickoIme()) != null)
+            return new ResponseEntity("Korisnicko ime je zauzeto.", HttpStatus.BAD_REQUEST);
 
         this.adminService.saveMenadzer(noviMenadzer);
 
@@ -33,14 +48,29 @@ public class AdminRestController {
 
     }
 
-    @PostMapping("/api/dodavanjeDostavljaca")
-    public ResponseEntity<String> dodavanjeDostavljaca(@RequestBody Dostavljac noviDostavljac, HttpSession session) {
+    @PostMapping("/api/dodaj-dostavljaca")
+    public ResponseEntity<String> dodavanjeDostavljaca(@RequestBody NewDMDto newDMDto, HttpSession session) {
         Korisnik ulogovani = (Korisnik) session.getAttribute("korisnik");
 
-        if (ulogovani == null)
+        if(ulogovani == null)
             return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
-        if (ulogovani.getUloga() != EnumUloga.ADMIN)
+        if(ulogovani.getUloga() != EnumUloga.ADMIN)
             return new ResponseEntity("Funkcionalnost je dostupna samo administratorima aplikacije", HttpStatus.BAD_REQUEST);
+
+        Dostavljac noviDostavljac = new Dostavljac();
+
+        noviDostavljac.setIme(newDMDto.getIme());
+        noviDostavljac.setPrezime(newDMDto.getPrezime());
+        noviDostavljac.setLozinka(newDMDto.getLozinka());
+        noviDostavljac.setPol(newDMDto.getPol());
+        noviDostavljac.setKorisnickoIme(newDMDto.getKorisnickoIme());
+        noviDostavljac.setUloga(newDMDto.getUloga());
+
+        if(noviDostavljac.getUloga() != EnumUloga.DOSTAVLJAC)
+            return new ResponseEntity("Izabrana uloga mora biti: DOSTAVLJAC", HttpStatus.BAD_REQUEST);
+
+        if(this.adminService.getByKorisnickoIme(noviDostavljac.getKorisnickoIme()) != null)
+            return new ResponseEntity("Korisnicko ime je zauzeto.", HttpStatus.BAD_REQUEST);
 
         this.adminService.saveDostavljac(noviDostavljac);
 

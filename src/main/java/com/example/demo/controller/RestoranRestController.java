@@ -2,7 +2,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.ArtikalPrikazDto;
 import com.example.demo.dto.KomentarRestoranaDto;
 import com.example.demo.dto.PrikazRestoranaDto;
-import com.example.demo.dto.RestoranDto;
+import com.example.demo.dto.PretragaDto;
 import com.example.demo.entity.*;
 import com.example.demo.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class RestoranRestController {
     private RestoranService restoranService;
 
     @GetMapping("/api/restorani")
-    public ResponseEntity<List<RestoranDto>> getRestorani(HttpSession session){
+    public ResponseEntity<List<PretragaDto>> getRestorani(HttpSession session){
 
         Korisnik uk = (Korisnik) session.getAttribute("korisnik");
 
@@ -30,9 +30,9 @@ public class RestoranRestController {
         
         List<Restoran> restorani = this.restoranService.findAll();
 
-        List<RestoranDto> dtos = new ArrayList<>();
+        List<PretragaDto> dtos = new ArrayList<>();
         for(Restoran restoran : restorani){
-            RestoranDto dto = new RestoranDto(restoran);
+            PretragaDto dto = new PretragaDto(restoran);
             dtos.add(dto);
         }
         return ResponseEntity.ok(dtos);
@@ -40,7 +40,7 @@ public class RestoranRestController {
     }
 
     @PostMapping("/api/pretraga")
-    public ResponseEntity<List<RestoranDto>> pretraziRestorane(@RequestBody RestoranDto dtoPretraga, HttpSession session) {
+    public ResponseEntity<List<PretragaDto>> pretraziRestorane(@RequestBody PretragaDto dtoPretraga, HttpSession session) {
 
         Korisnik uk = (Korisnik) session.getAttribute("korisnik");
 
@@ -50,7 +50,7 @@ public class RestoranRestController {
 
         List<Restoran> restorani = restoranService.findAll();
 
-        List<RestoranDto> rezultatPretrage = new ArrayList<>();
+        List<PretragaDto> rezultatPretrage = new ArrayList<>();
 
         if(dtoPretraga.getNaziv() != null) {
 
@@ -62,13 +62,13 @@ public class RestoranRestController {
 
                 if (restoran.getNaziv().toLowerCase(Locale.ROOT).indexOf(dtoPretraga.getNaziv().toLowerCase(Locale.ROOT)) != -1) {
 
-                    RestoranDto r = new RestoranDto((restoran));
+                    PretragaDto r = new PretragaDto((restoran));
 
                     boolean postoji = false;
                 // rezliciti kriterijumi pretrage mogu odgovarati istom restoranu
                 // ako je rezultat pretrage, tj. restoran vec u listi ne dodaje se ponovo
                     if(!rezultatPretrage.isEmpty()){
-                        for(RestoranDto dto : rezultatPretrage){
+                        for(PretragaDto dto : rezultatPretrage){
                 //uporedjivanje adresa - jer mogu postojati dva restorana sa istim nazivom, ali ne na istoj adresi
                             if(dto.getAdresaLokacije().equals(r.getAdresaLokacije())){
                                 postoji = true;
@@ -90,12 +90,12 @@ public class RestoranRestController {
 
                 if (restoran.getLokacija().getAdresa().toLowerCase(Locale.ROOT).indexOf(dtoPretraga.getAdresaLokacije().toLowerCase()) != -1) {
 
-                    RestoranDto r = new RestoranDto((restoran));
+                    PretragaDto r = new PretragaDto((restoran));
 
                     boolean postoji = false;
 
                     if(!rezultatPretrage.isEmpty()){
-                        for(RestoranDto dto : rezultatPretrage){
+                        for(PretragaDto dto : rezultatPretrage){
                             if(dto.getAdresaLokacije().equals(r.getAdresaLokacije())){
                                 postoji = true;
                                 break;
@@ -114,12 +114,12 @@ public class RestoranRestController {
             for (Restoran restoran : restorani) {
                 if (restoran.getTipRestorana().toLowerCase(Locale.ROOT).indexOf(dtoPretraga.getTipRestorana().toLowerCase(Locale.ROOT)) != -1) {
 
-                    RestoranDto r = new RestoranDto((restoran));
+                    PretragaDto r = new PretragaDto((restoran));
 
                     boolean postoji = false;
 
                     if(!rezultatPretrage.isEmpty()){
-                        for(RestoranDto dto : rezultatPretrage){
+                        for(PretragaDto dto : rezultatPretrage){
                             if(dto.getAdresaLokacije().equals(r.getAdresaLokacije())){
                                 postoji = true;
                                 break;

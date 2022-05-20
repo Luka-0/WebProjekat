@@ -1,5 +1,6 @@
 package com.example.demo.service;
 import com.example.demo.entity.Admin;
+import com.example.demo.entity.Korisnik;
 import com.example.demo.entity.Menadzer;
 import  com.example.demo.entity.Dostavljac;
 import com.example.demo.repository.AdminRepository;
@@ -24,6 +25,9 @@ public class AdminService {
     @Autowired
     private  RestoranService restoranService;
 
+    @Autowired
+    private KorisnikService korisnikService;
+
     public Admin save(Admin admin){
         return  this.adminRepository.save(admin);
     }
@@ -39,4 +43,9 @@ public class AdminService {
     public List<Admin> findAll(){
         return adminRepository.findAll();
     }
+
+    public Korisnik getByKorisnickoIme(String userName){
+        return  this.korisnikService.findByKorisnickoIme(userName);
+    }
+
 }
