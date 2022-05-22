@@ -24,18 +24,10 @@ public class RestoranService {
     public Restoran save(Restoran restoran){
         return this.restoranRepository.save(restoran);
     }
-    public Artikal saveArtikal(Artikal artikal){  return  this.artikalService.save(artikal);  }
-    public void deleteArtikal(Artikal artikal){  artikalService.delete(artikal); }
 
     //pronalazenje svih restorana
     public List<Restoran> findAll() {
         return restoranRepository.findAll();
-    }
-
-    //pronalazenje svih komentara koji restoran ima
-    public List<Komentar>  findAllComments(Restoran restoran){
-
-        return this.komentarService.findAllByRestoran(restoran);
     }
 
     //pronalazenje restorana po nazivu
@@ -69,6 +61,10 @@ public class RestoranService {
         return null;
     }
 
+    public Artikal findArtikalById(long idArtikla){
+       return this.artikalService.findById(idArtikla);
+    }
+
     //pronalazenje restorana po odredjenom tipu
     public Restoran findOneByTipRestorana(String tip){
         Optional<Restoran> r = restoranRepository.findByTipRestorana(tip);
@@ -78,4 +74,15 @@ public class RestoranService {
         }
         return null;
     }
+
+    //pronalazenje svih komentara koji restoran ima
+    public List<Komentar>  findAllComments(Restoran restoran){
+
+        return this.komentarService.findAllByRestoran(restoran);
+    }
+
+    public Artikal saveArtikal(Artikal artikal){  return  this.artikalService.save(artikal);  }
+
+    public void deleteArtikal(Artikal artikal){  artikalService.delete(artikal); }
+
 }

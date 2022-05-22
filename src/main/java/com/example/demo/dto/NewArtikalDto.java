@@ -6,7 +6,7 @@ public class NewArtikalDto {
 
     private String naziv;
     private double cena;
-    private EnumTip tip;
+    private String tip;
     private double kolicina;
     private String opis;
 
@@ -14,7 +14,7 @@ public class NewArtikalDto {
 
     public NewArtikalDto() { }
 
-    public NewArtikalDto(String naziv, double cena, EnumTip tip, double kolicina, String opis) {
+    public NewArtikalDto(String naziv, double cena, String tip, double kolicina, String opis) {
         this.naziv = naziv;
         this.cena = cena;
         this.tip = tip;
@@ -30,7 +30,7 @@ public class NewArtikalDto {
         return cena;
     }
 
-    public EnumTip getTip() {
+    public String getTip() {
         return tip;
     }
 
@@ -50,7 +50,7 @@ public class NewArtikalDto {
         this.cena = cena;
     }
 
-    public void setTip(EnumTip tip) {
+    public void setTip(String tip) {
         this.tip = tip;
     }
 

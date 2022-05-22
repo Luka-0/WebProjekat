@@ -189,7 +189,7 @@ public class RestoranRestController {
         return ResponseEntity.ok(prikazDto);
     }
 
-    @PutMapping("/api/dodaj-novi-artikal")
+    @PostMapping("/api/dodaj-novi-artikal")
     public ResponseEntity<Restoran> addArtikal(@RequestBody NewArtikalDto dto, HttpSession session) {
 
         Korisnik uk = (Korisnik) session.getAttribute("korisnik");
@@ -202,8 +202,13 @@ public class RestoranRestController {
             return new ResponseEntity("Nemate prava pristupa.", HttpStatus.UNAUTHORIZED);
         }
 
-        if(dto.getNaziv().isEmpty()  || dto.getTip() == null || dto.getCena() <= 0){
+        if(dto.getNaziv().isEmpty()  || dto.getTip().isEmpty() || dto.getCena() <= 0){
             return new ResponseEntity("Obavezni podaci za unos: NAZIV, TIP, CENA", HttpStatus.BAD_REQUEST);
+        }
+
+        dto.getTip().toUpperCase(Locale.ROOT);
+        if(!dto.getTip().equals("JELO") && !dto.getTip().equals("PICE")) {
+            return new ResponseEntity("Tip artikla moze biti: JELO ili PICE", HttpStatus.BAD_REQUEST);
         }
 
         Artikal noviArtikal = new Artikal();
@@ -211,7 +216,7 @@ public class RestoranRestController {
         noviArtikal.setNaziv(dto.getNaziv());
         noviArtikal.setCena(dto.getCena());
         noviArtikal.setOpis(dto.getOpis());
-        noviArtikal.setTip(dto.getTip());
+        noviArtikal.setTip(EnumTip.valueOf(dto.getTip()));
         noviArtikal.setKolicina(dto.getKolicina());
 
         this.restoranService.saveArtikal(noviArtikal);
@@ -255,5 +260,68 @@ public class RestoranRestController {
             }
         }
         return ResponseEntity.ok("Nepostojeci artikal!");
+    }
+
+    @PutMapping("/api/artikal-update/{id}")
+    public ResponseEntity<String>  updateArtikal(@PathVariable(name = "id") Long id, @RequestBody NewArtikalDto artikalDto, HttpSession session){
+
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
+
+        if (uk == null) {
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        }
+
+        if (uk.getUloga() != EnumUloga.MENADZER) {
+            return new ResponseEntity("Nemate prava pristupa.", HttpStatus.UNAUTHORIZED);
+        }
+
+        Menadzer menadzer = (Menadzer) uk;
+
+        //da li artikal postoji u menadzerovom restoranu
+        //menadzer moze menjati podatke o artiklu/ima, samo iz svog resorana
+        boolean postoji = false;
+
+        for(Artikal artikal : menadzer.getRestoran().getArtikli()){
+            if(artikal.getId() == id){
+                postoji = true;
+                break;
+            }
+        }
+
+        if(!postoji){
+            return new ResponseEntity("Nepostojeci srtikal!", HttpStatus.BAD_REQUEST);
+        }
+
+        Artikal toBeUpdated = new Artikal();
+        toBeUpdated = this.restoranService.findArtikalById(id);
+
+        if(!artikalDto.getTip().isEmpty()){
+
+            artikalDto.getTip().toUpperCase(Locale.ROOT);
+            if(!artikalDto.getTip().equals("JELO") && !artikalDto.getTip().equals("PICE")) {
+                return new ResponseEntity("Tip artikla mora biti: JELO ili PICE", HttpStatus.BAD_REQUEST);
+            }
+            toBeUpdated.setTip(EnumTip.valueOf(artikalDto.getTip()));
+        }
+
+        if(!artikalDto.getNaziv().isEmpty()){
+            toBeUpdated.setNaziv(artikalDto.getNaziv());
+        }
+
+        if(artikalDto.getCena() > 0){
+            toBeUpdated.setCena(artikalDto.getCena());
+        }
+
+        if(!artikalDto.getOpis().isEmpty()){
+            toBeUpdated.setOpis(artikalDto.getOpis());
+        }
+
+        if(artikalDto.getKolicina() > 0){
+            toBeUpdated.setKolicina(artikalDto.getKolicina());
+        }
+
+        this.restoranService.saveArtikal(toBeUpdated);
+
+        return ResponseEntity.ok("Uspesno promnjeni podaci o artiklu!");
     }
 }
