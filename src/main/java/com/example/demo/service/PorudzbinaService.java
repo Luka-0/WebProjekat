@@ -1,9 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Dostavljac;
-import com.example.demo.entity.Kupac;
-import com.example.demo.entity.Porudzbina;
-import com.example.demo.entity.Restoran;
+import com.example.demo.entity.*;
 import com.example.demo.repository.PorudzbinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +25,16 @@ public class PorudzbinaService {
         return porudzbinaRepository.findAllByKupac(kupac);
     }
 
+    public Porudzbina save(Porudzbina porudzbina){
+        return porudzbinaRepository.save(porudzbina);
+    }
 
+    public List<Porudzbina> findAllByStatus(EnumStatus status){
+        return porudzbinaRepository.findAllByStatus(status);
+    }
+
+    public Porudzbina findFirstByStatus(EnumStatus status, long id){
+        return porudzbinaRepository.findFirstByStatusAndKupac_Id(status, id);
+    }
 
 }

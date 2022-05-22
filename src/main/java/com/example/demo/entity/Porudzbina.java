@@ -43,6 +43,22 @@ public class Porudzbina implements Serializable {
 
     public Porudzbina(){}
 
+    public void dodajStavku(StavkaPorudzbine novaStavka){
+        this.stavkePorudzbine.add(novaStavka);
+    }
+
+    public double izracunajCenu(){
+        cena = 0;
+        for(StavkaPorudzbine s: stavkePorudzbine){
+            cena += (s.getPorucenaKolicina() * s.getArtikal().getCena());
+        }
+        return cena;
+    }
+
+    public void ukloniStavku(StavkaPorudzbine stavkaZaUkloniti){
+        this.stavkePorudzbine.remove(stavkaZaUkloniti);
+    }
+
     public UUID getUuid() {
         return uuid;
     }
