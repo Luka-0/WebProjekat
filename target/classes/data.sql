@@ -32,14 +32,14 @@ INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Bule
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Sekspirova 42',190,270);
 
 /*Restorani*/
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije ) VALUES ('BlueMoon','Restaurant & Bar', 2);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije ) VALUES ('Atrijum','Studentski',5);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije ) VALUES ('Centar 11','Italijanski', 1);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije ) VALUES ('Joker', 'Palacinkarnica', 3);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije ) VALUES ('Krilce i pivce', 'Brza hrana', 4);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije ) VALUES ('Moskva', 'Ukrajinski', 6);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije ) VALUES ('Richard Gyros ', 'Brza hrana', 7);
-INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije ) VALUES ('Caribic Pizza ', 'Brza hrana', 8);
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUES ('BlueMoon','Restaurant & Bar', 2, 'RADI');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUES ('Atrijum','Studentski',5, 'RADI');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUES ('Centar 11','Italijanski', 1, 'NE_RADI');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUES ('Joker', 'Palacinkarnica', 3, 'NE_RADI');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUES ('Krilce i pivce', 'Brza hrana', 4, 'RADI');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUES ('Moskva', 'Ukrajinski', 6, 'RADI');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUES ('Richard Gyros ', 'Brza hrana', 7, 'RADI');
+INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUES ('Caribic Pizza ', 'Brza hrana', 8, 'RADI');
 
 /*Menadzeri*/
 INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','M_Arsa','jasamsifra123','Arsa','Arsic','Z','2001-12-02','MENADZER', 2);

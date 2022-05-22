@@ -28,19 +28,18 @@ public class Restoran implements  Serializable{
     @JoinColumn(name = "ID_lokacije", referencedColumnName = "id")
     private Lokacija lokacija;
 
-    //TODO vidi sto ne radi pregled artikala restoran kada se doda ova
-    //@Enumerated(EnumType.STRING)
-    //private EnumStatusRestorana statusRestorana;
+    @Enumerated(EnumType.STRING)
+    private EnumStatusRestorana statusRestorana;
 
     public Restoran(){}
 
-   // public EnumStatusRestorana getStatusRestorana() {
-   //     return statusRestorana;
-  //  }
+    public EnumStatusRestorana getStatusRestorana() {
+        return statusRestorana;
+    }
 
-    //public void setStatusRestorana(EnumStatusRestorana statusRestorana) {
-    //    this.statusRestorana = statusRestorana;
-   // }
+    public void setStatusRestorana(EnumStatusRestorana statusRestorana) {
+        this.statusRestorana = statusRestorana;
+    }
 
     public long getId() {
         return id;
@@ -94,6 +93,7 @@ public class Restoran implements  Serializable{
                 ", tipRestorana='" + tipRestorana + '\'' +
                 ", artikli=" + artikli +
                 ", lokacija=" + lokacija +
+                ", statusRestorana=" + statusRestorana +
                 '}';
     }
 }

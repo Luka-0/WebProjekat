@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.IzmenaPoruceneKolicineDto;
 import com.example.demo.dto.PregledArtiklaDto;
 import com.example.demo.dto.PregledKorpeDto;
 import com.example.demo.entity.*;
@@ -29,8 +30,8 @@ public class NarucivanjeRestController {
     private StavkaPorudzbineService stavkaPorudzbineService;
 
     //Kreiram porudzbinu, aj Boze pomozi
-    @GetMapping("/api/kreiranje-porudzbine")
-    public ResponseEntity<Porudzbina> pregledPorudzbinaKupca(HttpSession session){
+    @GetMapping("/api/kreiranje-porudzbine/{id}")
+    public ResponseEntity<String> kreiranjePorudzbine(@PathVariable(name = "id") long idRestorana, HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
         if(ulogovaniKorisnik == null){
@@ -41,11 +42,23 @@ public class NarucivanjeRestController {
             if(ulogovaniKorisnik.getUloga() == EnumUloga.KUPAC){
                 Kupac ulogovaniKupac = (Kupac) session.getAttribute("korisnik");
 
-                Porudzbina kreiranaPorudzbina = new Porudzbina();
-                kreiranaPorudzbina.setStatus(EnumStatus.kreira_se);
-                kreiranaPorudzbina.setKupac(ulogovaniKupac);
-                porudzbinaService.save(kreiranaPorudzbina);
-                return ResponseEntity.ok(kreiranaPorudzbina);
+                Restoran trazeniRestoran = restoranService.findOneById(idRestorana);
+                if(trazeniRestoran == null)
+                    return new ResponseEntity(
+                            "Restoran nije pronadjen",
+                            HttpStatus.NOT_FOUND);
+
+                if(trazeniRestoran.getStatusRestorana() == EnumStatusRestorana.NE_RADI){
+                    return new ResponseEntity("Restoran ne radi", HttpStatus.FORBIDDEN);
+                }else{
+                    Porudzbina kreiranaPorudzbina = new Porudzbina();
+                    kreiranaPorudzbina.setStatus(EnumStatus.kreira_se);
+                    kreiranaPorudzbina.setKupac(ulogovaniKupac);
+                    porudzbinaService.save(kreiranaPorudzbina);
+                    return ResponseEntity.ok("Porudzbina je kreirana!\n");
+                }
+
+
             }
             else{
                 return new ResponseEntity(
@@ -56,9 +69,9 @@ public class NarucivanjeRestController {
     }
 
     //Izlistaj artikle iz restorana
-    @GetMapping("/api/pregled-artikala-resotrana/{naziv}")    //TODO mozda ovo pomeriti u ArtikalRestController?
-    public ResponseEntity<Set<Artikal>> prikaziArtikleRestorana(@PathVariable(name = "naziv") String naziv){
-        Restoran trazeniRestoran = restoranService.finOneByNaziv(naziv);
+    @GetMapping("/api/pregled-artikala-resotrana/{id}")    //TODO mozda ovo pomeriti u ArtikalRestController?
+    public ResponseEntity<Set<Artikal>> prikaziArtikleRestorana(@PathVariable(name = "id") long id){
+        Restoran trazeniRestoran = restoranService.findOneById(id);
         if(trazeniRestoran == null){
             return new ResponseEntity(
                     "Restoran nije pronadjen",
@@ -95,7 +108,6 @@ public class NarucivanjeRestController {
         }
     }
 
-    //TODO realizuj brisanje iz baze
     //Brisanje stavke iz korpe
     @DeleteMapping("/api/izbrisi-stavku/{id}")
     public ResponseEntity<String> izbrisiStavkuPorudzbine(@PathVariable(name = "id") long stavkaId, HttpSession session){
@@ -125,6 +137,22 @@ public class NarucivanjeRestController {
     }
 
     //TODO dodaj metode za smanjivanje i povecavanje porucene kolicine
+    //Izmena kolicine
+    @PutMapping("/api/izmeni-kolicinu")
+    public ResponseEntity<String> izmeniKolicinu(@RequestBody IzmenaPoruceneKolicineDto izmenaDto){
+            StavkaPorudzbine stavkaKojaSeAzurira = stavkaPorudzbineService.getById(izmenaDto.getIdStavkeKojaSeMenja());
+
+            if(izmenaDto.getNovaPorucenaKolicina() > 0){
+                stavkaKojaSeAzurira.setPorucenaKolicina(izmenaDto.getNovaPorucenaKolicina());
+                stavkaPorudzbineService.save(stavkaKojaSeAzurira);
+                return ResponseEntity.ok("Stavka " + stavkaKojaSeAzurira.toString() + " uspesno azurirana");
+            }else{
+                return new ResponseEntity(
+                        "Kolicina mora biti veca od nule",
+                        HttpStatus.BAD_REQUEST);
+            }
+
+    }
 
     //Pregled stvari za porucivanje
     @GetMapping("/api/pregled-korpe")
@@ -167,9 +195,9 @@ public class NarucivanjeRestController {
         }
     }
 
-    //Porucivanje                   //TODO return da bude string a ne porudzbina
-    @PutMapping("/api/poruci")  //TODO dodaj porudzbinu u listu porudzbina (povezi sa restoranom)
-    public ResponseEntity<Porudzbina> porucivanje(HttpSession session){
+    //Porucivanje
+    @PutMapping("/api/poruci/{id}")
+    public ResponseEntity<String> porucivanje(@PathVariable(name = "id") long idRestorana, HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
         if(ulogovaniKorisnik == null){
@@ -182,8 +210,12 @@ public class NarucivanjeRestController {
                 Porudzbina korpa = porudzbinaService.findFirstByStatus(EnumStatus.kreira_se, ulogovaniKupac.getId());
                 korpa.setStatus(EnumStatus.Obrada);
                 korpa.setCena(korpa.izracunajCenu());
+
+                Restoran trazeniRestoran = restoranService.findOneById(idRestorana);
+                korpa.setRestoran(trazeniRestoran);
+
                 porudzbinaService.save(korpa);
-                return ResponseEntity.ok(korpa);
+                return ResponseEntity.ok("Kraj narucivanja. Porudzbina se obradjuje!");
             }
             else{
                 return new ResponseEntity(

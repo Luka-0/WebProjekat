@@ -13,4 +13,5 @@ public interface RestoranRepository extends JpaRepository<Restoran, Long> {
     Optional<Restoran> findByNaziv(String naziv);
     Optional<Restoran> findByLokacija(Lokacija lokacija);
     Optional<Restoran> findByTipRestorana(String tipRestorana);
+    Restoran findById(long id);
 }

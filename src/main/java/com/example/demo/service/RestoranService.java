@@ -51,4 +51,8 @@ public class RestoranService {
         }
         return null;
     }
+
+    public Restoran findOneById(long id){
+        return restoranRepository.findById(id);
+    }
 }
