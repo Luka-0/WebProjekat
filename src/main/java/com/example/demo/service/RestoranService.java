@@ -25,6 +25,7 @@ public class RestoranService {
         return this.restoranRepository.save(restoran);
     }
     public Artikal saveArtikal(Artikal artikal){  return  this.artikalService.save(artikal);  }
+    public void deleteArtikal(Artikal artikal){  artikalService.delete(artikal); }
 
     //pronalazenje svih restorana
     public List<Restoran> findAll() {
@@ -36,7 +37,6 @@ public class RestoranService {
 
         return this.komentarService.findAllByRestoran(restoran);
     }
-
 
     //pronalazenje restorana po nazivu
     public Restoran findByNaziv(String naziv){

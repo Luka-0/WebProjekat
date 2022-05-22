@@ -14,4 +14,6 @@ public class ArtikalService {
     public Artikal save(Artikal artikal){
         return this.artikalRepository.save(artikal);
     }
+
+    public void delete(Artikal artikal) {   artikalRepository.delete(artikal);  }
 }

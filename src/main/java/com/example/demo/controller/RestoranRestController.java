@@ -224,4 +224,36 @@ public class RestoranRestController {
         this.restoranService.save(restoran);
         return ResponseEntity.ok(restoran);
     }
+
+    @DeleteMapping("/api/brisanje-artikla/{id}")
+    public ResponseEntity<String> deleteArtikal(@PathVariable(name = "id") Long id, HttpSession session) {
+
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
+
+        if (uk == null) {
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        }
+
+        if (uk.getUloga() != EnumUloga.MENADZER) {
+            return new ResponseEntity("Nemate prava pristupa.", HttpStatus.UNAUTHORIZED);
+        }
+
+        Menadzer menadzer = (Menadzer) uk;
+        Restoran restoran = menadzer.getRestoran();
+
+        for(Artikal artikal : restoran.getArtikli()){
+
+            if(artikal.getId() == id){
+                restoran.getArtikli().remove(artikal);
+
+                //brisanje iz restorana
+                this.restoranService.save(restoran);
+                //brisanje iz baze
+                this.restoranService.deleteArtikal(artikal);
+
+                return ResponseEntity.ok("Uspesno obrisan artikal!");
+            }
+        }
+        return ResponseEntity.ok("Nepostojeci artikal!");
+    }
 }
