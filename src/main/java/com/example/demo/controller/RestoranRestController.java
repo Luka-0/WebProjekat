@@ -5,9 +5,13 @@ import com.example.demo.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.*;
 
 @RestController
@@ -190,7 +194,24 @@ public class RestoranRestController {
     }
 
     @PostMapping("/api/dodaj-novi-artikal")
-    public ResponseEntity<Restoran> addArtikal(@RequestBody NewArtikalDto dto, HttpSession session) {
+    public ResponseEntity<Restoran> addArtikal(@RequestParam(name="image", required=true) MultipartFile multipartFile,
+                                                @RequestParam(name="naziv", required=true) String naziv,
+                                                @RequestParam(name="cena", required=true) String cena,
+                                                @RequestParam(name="tip", required=true) String tip,
+                                                @RequestParam(name="kolicina", required=false) String kolicina,
+                                                @RequestParam(name="opis", required=false) String opis,
+                                                HttpSession session)
+    {
+        double kolicinaArtikla = 0;
+        if(kolicina!= null && !kolicina.isEmpty()){
+            kolicinaArtikla = Double.parseDouble(kolicina);
+        }
+
+        double cenaArtikla = 0;
+        if(cena!= null && !cena.isEmpty()){
+            cenaArtikla = Double.parseDouble(cena);
+        }
+        NewArtikalDto dto = new NewArtikalDto(naziv, cenaArtikla, tip, kolicinaArtikla, opis);
 
         Korisnik uk = (Korisnik) session.getAttribute("korisnik");
 
@@ -202,8 +223,8 @@ public class RestoranRestController {
             return new ResponseEntity("Nemate prava pristupa.", HttpStatus.UNAUTHORIZED);
         }
 
-        if(dto.getNaziv().isEmpty()  || dto.getTip().isEmpty() || dto.getCena() <= 0){
-            return new ResponseEntity("Obavezni podaci za unos: NAZIV, TIP, CENA", HttpStatus.BAD_REQUEST);
+        if(dto.getNaziv().isEmpty()  || dto.getTip().isEmpty() || dto.getCena() <= 0 || multipartFile.isEmpty()){
+            return new ResponseEntity("Obavezni podaci za unos: NAZIV, TIP, CENA, SLIKA", HttpStatus.BAD_REQUEST);
         }
 
         dto.getTip().toUpperCase(Locale.ROOT);
@@ -219,7 +240,12 @@ public class RestoranRestController {
         noviArtikal.setTip(EnumTip.valueOf(dto.getTip()));
         noviArtikal.setKolicina(dto.getKolicina());
 
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        noviArtikal.setPhoto(fileName);
+
+
         this.restoranService.saveArtikal(noviArtikal);
+        this.restoranService.uploadToLocal(multipartFile);
 
         Menadzer menadzer = (Menadzer) uk;
         Restoran restoran = menadzer.getRestoran();
@@ -263,7 +289,15 @@ public class RestoranRestController {
     }
 
     @PutMapping("/api/artikal-update/{id}")
-    public ResponseEntity<String>  updateArtikal(@PathVariable(name = "id") Long id, @RequestBody NewArtikalDto artikalDto, HttpSession session){
+    public ResponseEntity<String>  updateArtikal(@PathVariable(name = "id") Long id,
+                                                 @RequestParam(name="image", required = false) MultipartFile multipartFile,
+                                                 @RequestParam(name="naziv", required = false) String naziv,
+                                                 @RequestParam(name="cena", required = false) String cena,
+                                                 @RequestParam(name="tip", required = false) String tip,
+                                                 @RequestParam(name="kolicina", required = false) String kolicina,
+                                                 @RequestParam(name="opis", required = false) String opis,
+                                                 HttpSession session)
+    {
 
         Korisnik uk = (Korisnik) session.getAttribute("korisnik");
 
@@ -295,29 +329,38 @@ public class RestoranRestController {
         Artikal toBeUpdated = new Artikal();
         toBeUpdated = this.restoranService.findArtikalById(id);
 
-        if(!artikalDto.getTip().isEmpty()){
+        if(tip != null && !tip.isEmpty()){
+            String tipArtikla = tip;
 
-            artikalDto.getTip().toUpperCase(Locale.ROOT);
-            if(!artikalDto.getTip().equals("JELO") && !artikalDto.getTip().equals("PICE")) {
+            tipArtikla.toUpperCase(Locale.ROOT);
+            if(!tipArtikla.equals("JELO") && !tipArtikla.equals("PICE")) {
                 return new ResponseEntity("Tip artikla mora biti: JELO ili PICE", HttpStatus.BAD_REQUEST);
             }
-            toBeUpdated.setTip(EnumTip.valueOf(artikalDto.getTip()));
+            toBeUpdated.setTip(EnumTip.valueOf(tipArtikla));
         }
 
-        if(!artikalDto.getNaziv().isEmpty()){
-            toBeUpdated.setNaziv(artikalDto.getNaziv());
+        if(naziv != null && !naziv.isEmpty()){
+            toBeUpdated.setNaziv(naziv);
         }
 
-        if(artikalDto.getCena() > 0){
-            toBeUpdated.setCena(artikalDto.getCena());
+        if(cena != null && !cena.isEmpty()){
+            double cenaArtikla = Double.parseDouble(cena);
+            toBeUpdated.setCena(cenaArtikla);
         }
 
-        if(!artikalDto.getOpis().isEmpty()){
-            toBeUpdated.setOpis(artikalDto.getOpis());
+        if(opis != null && !opis.isEmpty()){
+            toBeUpdated.setOpis(opis);
         }
 
-        if(artikalDto.getKolicina() > 0){
-            toBeUpdated.setKolicina(artikalDto.getKolicina());
+        if(kolicina != null && !kolicina.isEmpty()){
+            double kolicinaArtikla = Double.parseDouble(kolicina);
+            toBeUpdated.setKolicina(kolicinaArtikla);
+        }
+
+        if(multipartFile != null && !multipartFile.isEmpty()){
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            toBeUpdated.setPhoto(fileName);
+            this.restoranService.uploadToLocal(multipartFile);
         }
 
         this.restoranService.saveArtikal(toBeUpdated);

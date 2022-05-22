@@ -5,6 +5,7 @@ import com.example.demo.entity.*;
 import com.example.demo.repository.RestoranRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,9 @@ public class RestoranService {
 
     @Autowired
     private  ArtikalService artikalService;
+
+    @Autowired
+    private ImageUploadService imageUploadService;
 
     public Restoran save(Restoran restoran){
         return this.restoranRepository.save(restoran);
@@ -84,5 +88,9 @@ public class RestoranService {
     public Artikal saveArtikal(Artikal artikal){  return  this.artikalService.save(artikal);  }
 
     public void deleteArtikal(Artikal artikal){  artikalService.delete(artikal); }
+
+    public void uploadToLocal(MultipartFile multipartFile) {
+        this.imageUploadService.uploadToLocal(multipartFile);
+    }
 
 }
