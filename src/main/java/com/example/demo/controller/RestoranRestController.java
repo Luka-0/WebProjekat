@@ -1,8 +1,5 @@
 package com.example.demo.controller;
-import com.example.demo.dto.ArtikalPrikazDto;
-import com.example.demo.dto.KomentarRestoranaDto;
-import com.example.demo.dto.PrikazRestoranaDto;
-import com.example.demo.dto.PretragaDto;
+import com.example.demo.dto.*;
 import com.example.demo.entity.*;
 import com.example.demo.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -192,4 +189,39 @@ public class RestoranRestController {
         return ResponseEntity.ok(prikazDto);
     }
 
+    @PutMapping("/api/dodaj-novi-artikal")
+    public ResponseEntity<Restoran> addArtikal(@RequestBody NewArtikalDto dto, HttpSession session) {
+
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
+
+        if (uk == null) {
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        }
+
+        if (uk.getUloga() != EnumUloga.MENADZER) {
+            return new ResponseEntity("Nemate prava pristupa.", HttpStatus.UNAUTHORIZED);
+        }
+
+        if(dto.getNaziv().isEmpty()  || dto.getTip() == null || dto.getCena() <= 0){
+            return new ResponseEntity("Obavezni podaci za unos: NAZIV, TIP, CENA", HttpStatus.BAD_REQUEST);
+        }
+
+        Artikal noviArtikal = new Artikal();
+
+        noviArtikal.setNaziv(dto.getNaziv());
+        noviArtikal.setCena(dto.getCena());
+        noviArtikal.setOpis(dto.getOpis());
+        noviArtikal.setTip(dto.getTip());
+        noviArtikal.setKolicina(dto.getKolicina());
+
+        this.restoranService.saveArtikal(noviArtikal);
+
+        Menadzer menadzer = (Menadzer) uk;
+        Restoran restoran = menadzer.getRestoran();
+
+        restoran.getArtikli().add(noviArtikal);
+
+        this.restoranService.save(restoran);
+        return ResponseEntity.ok(restoran);
+    }
 }

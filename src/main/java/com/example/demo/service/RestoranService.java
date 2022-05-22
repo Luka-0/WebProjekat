@@ -1,10 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Komentar;
-import com.example.demo.entity.Restoran;
-
-import com.example.demo.entity.Korisnik;
-import com.example.demo.entity.Lokacija;
+import com.example.demo.entity.*;
 
 import com.example.demo.repository.RestoranRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +18,13 @@ public class RestoranService {
     @Autowired
     private KomentarService komentarService;
 
+    @Autowired
+    private  ArtikalService artikalService;
+
     public Restoran save(Restoran restoran){
         return this.restoranRepository.save(restoran);
     }
+    public Artikal saveArtikal(Artikal artikal){  return  this.artikalService.save(artikal);  }
 
     //pronalazenje svih restorana
     public List<Restoran> findAll() {
