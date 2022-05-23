@@ -86,6 +86,14 @@ public class KorisnikRestController {
         if (ulogovaniKorisnik == null)
             return new ResponseEntity("Niste se ulogovali", HttpStatus.FORBIDDEN);
 
+        if(ulogovaniKorisnik.getUloga() == EnumUloga.KUPAC){
+            Porudzbina korpa = porudzbinaService.findFirstByStatus(EnumStatus.kreira_se, ulogovaniKorisnik.getId());
+            if(korpa != null){
+                korpa.setStatus(EnumStatus.otkazana);
+                porudzbinaService.save(korpa);
+            }
+        }
+
         session.invalidate();
         return new ResponseEntity("Korisnik uspesno izlogovan", HttpStatus.OK);
     }
