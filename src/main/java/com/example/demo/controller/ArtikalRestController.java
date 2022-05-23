@@ -19,7 +19,7 @@ public class ArtikalRestController {
     private RestoranService restoranService;
 
     //Prikaz artikala restorana
-    @GetMapping("/api/pregled-artikala-resotrana/{id}")    //TODO mozda ovo pomeriti u ArtikalRestController?
+    @GetMapping("/api/pregled-artikala-resotrana/{id}")
     public ResponseEntity<Set<Artikal>> prikaziArtikleRestorana(@PathVariable(name = "id") long id){
         Restoran trazeniRestoran = restoranService.findOneById(id);
         if(trazeniRestoran == null){

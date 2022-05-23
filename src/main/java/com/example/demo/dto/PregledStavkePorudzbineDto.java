@@ -1,14 +1,14 @@
 package com.example.demo.dto;
 
-public class PregledArtiklaDto {
+public class PregledStavkePorudzbineDto {
     private String nazivArtikla;
     private double cenaArtikla;
     private double kolicinaArtikla;
     private int porucenaKolicina;
 
-    public PregledArtiklaDto(){}
+    public PregledStavkePorudzbineDto(){}
 
-    public PregledArtiklaDto(String nazivArtikla, double cenaArtikla, double kolicinaArtikla, int porucenaKolicina) {
+    public PregledStavkePorudzbineDto(String nazivArtikla, double cenaArtikla, double kolicinaArtikla, int porucenaKolicina) {
         this.nazivArtikla = nazivArtikla;
         this.cenaArtikla = cenaArtikla;
         this.kolicinaArtikla = kolicinaArtikla;

@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.MenadzerovPregledDto;
-import com.example.demo.dto.PregledArtiklaDto;
+import com.example.demo.dto.PregledStavkePorudzbineDto;
 import com.example.demo.dto.PregledKorpeDto;
 import com.example.demo.entity.*;
 import com.example.demo.service.KupacService;
@@ -175,12 +174,12 @@ public class PorudzbinaRestController {
                 Porudzbina korpa = porudzbinaService.findFirstByStatus(EnumStatus.kreira_se, ulogovaniKupac.getId());
                 korpa.setCena(korpa.izracunajCenu());
 
-                List<PregledArtiklaDto> listaP = new ArrayList<>();
-                PregledArtiklaDto pregledArtikla;
+                List<PregledStavkePorudzbineDto> listaP = new ArrayList<>();
+                PregledStavkePorudzbineDto pregledArtikla;
                 PregledKorpeDto pregledKorpe = new PregledKorpeDto();
 
                 for(StavkaPorudzbine st: korpa.getStavkePorudzbine()){
-                    pregledArtikla = new PregledArtiklaDto();
+                    pregledArtikla = new PregledStavkePorudzbineDto();
                     pregledArtikla.setNazivArtikla(st.getArtikal().getNaziv());
                     pregledArtikla.setCenaArtikla(st.getArtikal().getCena());
                     pregledArtikla.setPorucenaKolicina(st.getPorucenaKolicina());
