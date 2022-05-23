@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.IzmenaPoruceneKolicineDto;
+import com.example.demo.dto.NovaStavkaDto;
 import com.example.demo.entity.*;
+import com.example.demo.service.ArtikalService;
 import com.example.demo.service.PorudzbinaService;
 import com.example.demo.service.StavkaPorudzbineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,12 @@ public class StavkaPorudzbineRestController {
     @Autowired
     private StavkaPorudzbineService stavkaPorudzbineService;
 
+    @Autowired
+    private ArtikalService artikalService;
+
     //Dodavanje stavke u korpu
     @PostMapping("/api/dodaj-stavku")
-    public ResponseEntity<String> dodajStavkuPorudzbine(@RequestBody StavkaPorudzbine novaStavka, HttpSession session){
+    public ResponseEntity<String> dodajStavkuPorudzbine(@RequestBody NovaStavkaDto novaStavkaDto, HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
         if(ulogovaniKorisnik == null){
@@ -34,9 +39,13 @@ public class StavkaPorudzbineRestController {
                 Kupac ulogovaniKupac = (Kupac) session.getAttribute("korisnik");
                 Porudzbina korpa = porudzbinaService.findFirstByStatus(EnumStatus.kreira_se, ulogovaniKupac.getId());
 
-                korpa.dodajStavku(novaStavka);
-                stavkaPorudzbineService.save(novaStavka);
-                return ResponseEntity.ok("Stavka " + novaStavka.toString() + " je uspesno dodata!");
+                StavkaPorudzbine stavkaKojaSeDodaje = new StavkaPorudzbine();
+                stavkaKojaSeDodaje.setArtikal(artikalService.findOneById(novaStavkaDto.getIdArtikla()));
+                stavkaKojaSeDodaje.setPorucenaKolicina(novaStavkaDto.getPorucenaKolicina());
+
+                korpa.dodajStavku(stavkaKojaSeDodaje);
+                stavkaPorudzbineService.save(stavkaKojaSeDodaje);
+                return ResponseEntity.ok("Stavka " + stavkaKojaSeDodaje.toString() + " je uspesno dodata!");
             }
             else{
                 return new ResponseEntity(
