@@ -53,6 +53,11 @@ public class RestoranService {
     }
 
     public Restoran findOneById(long id){
-        return restoranRepository.findById(id);
+        Optional<Restoran> r = restoranRepository.findById(id);
+
+        if(r.isPresent()){
+            return r.get();
+        }
+        return null;
     }
 }
