@@ -226,13 +226,9 @@ public class KorisnikRestController {
                 ulogovaniKorisnik.setLozinka(azuriranKorisnik.getLozinka());
             }
 
-            if(azuriranKorisnik.getPol() != null && !azuriranKorisnik.getPol().equals("")) {
-                ulogovaniKorisnik.setPol(azuriranKorisnik.getPol());
-            }
+            ulogovaniKorisnik.setPol(azuriranKorisnik.getPol());
+            ulogovaniKorisnik.setDatumRodjenja(azuriranKorisnik.getDatumRodjenja());
 
-            if(azuriranKorisnik.getDatumRodjenja() != null && !azuriranKorisnik.getDatumRodjenja().equals("")) {
-                ulogovaniKorisnik.setDatumRodjenja(azuriranKorisnik.getDatumRodjenja());
-            }
 
             final Korisnik updatedKorisnik = korisnikService.save(ulogovaniKorisnik);
             return ResponseEntity.ok(updatedKorisnik);
