@@ -31,18 +31,7 @@ public class Restoran implements  Serializable{
     @JoinColumn(name = "ID_lokacije", referencedColumnName = "id")
     private Lokacija lokacija;
 
-    @Enumerated(EnumType.STRING)
-    private EnumStatusRestorana statusRestorana;
-
     public Restoran(){}
-
-    public EnumStatusRestorana getStatusRestorana() {
-        return statusRestorana;
-    }
-
-    public void setStatusRestorana(EnumStatusRestorana statusRestorana) {
-        this.statusRestorana = statusRestorana;
-    }
 
     public long getId() {
         return id;

@@ -40,7 +40,7 @@ public class StavkaPorudzbineRestController {
                 Porudzbina korpa = porudzbinaService.findFirstByStatus(EnumStatus.kreira_se, ulogovaniKupac.getId());
 
                 StavkaPorudzbine stavkaKojaSeDodaje = new StavkaPorudzbine();
-                stavkaKojaSeDodaje.setArtikal(artikalService.findOneById(novaStavkaDto.getIdArtikla()));
+                stavkaKojaSeDodaje.setArtikal(artikalService.findById(novaStavkaDto.getIdArtikla()));
                 stavkaKojaSeDodaje.setPorucenaKolicina(novaStavkaDto.getPorucenaKolicina());
 
                 korpa.dodajStavku(stavkaKojaSeDodaje);
