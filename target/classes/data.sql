@@ -30,6 +30,7 @@ INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Vuka
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Bulevar Oslobodjenja 63a', 48, 49);
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Bulevar oslobođenja 119',90, 70);
 INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Sekspirova 42',190,270);
+INSERT INTO LOKACIJA(adresa, geografska_duzina,geografska_sirina) VALUES ( 'Urosa Predica 8',110,290);
 
 /*Restorani*/
 INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUES ('BlueMoon','Restaurant & Bar', 2, 'RADI');
@@ -50,7 +51,7 @@ INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 
 
 /*Artikli*/
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(380,10, 'Gyros','Greek Salad Gyros','JELO', 5);
-INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(120,15, 'Pomfrit','porcija od 200g','JELO', 2);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(120,15, 'Pomfrit','junior','JELO', 2);
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(530,30, 'Rich premium tortilja','Gyros meso, dimljeni kačkavalj, povrće i kiporou salata','JELO', 7);
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(190,40, 'Capricciosa ','Pizza','JELO', 8);
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(190,200, 'Veliki Shake','vanila, jagoda, čokolada, plazma','PICE', 8);
@@ -83,5 +84,6 @@ INSERT INTO STAVKA_PORUDZBINE(porucena_kolicina, id_artikla, uuid_porudzbine) VA
 INSERT INTO STAVKA_PORUDZBINE(porucena_kolicina, id_artikla, uuid_porudzbine) VALUES (22, 3, '212375e3b4744021b1b9fc19c4d00e13');
 INSERT INTO STAVKA_PORUDZBINE(porucena_kolicina, id_artikla, uuid_porudzbine) VALUES (12, 4, '812375e3b4744021b1b9fc19c4d00e14');
 INSERT INTO STAVKA_PORUDZBINE(porucena_kolicina, id_artikla, uuid_porudzbine) VALUES (5, 5, '812375e3b4744021b1b9fc19c4d00e14');
+
 
 

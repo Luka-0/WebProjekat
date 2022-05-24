@@ -20,6 +20,7 @@ public class Menadzer extends Korisnik implements Serializable {
 
     public Menadzer(){}
 
+
     @Override
     public String toString() {
         return "Menadzer{" +

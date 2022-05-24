@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.Spliterator;
 
 @Repository
 public interface RestoranRepository extends JpaRepository<Restoran, Long> {
@@ -13,5 +14,6 @@ public interface RestoranRepository extends JpaRepository<Restoran, Long> {
     Optional<Restoran> findByNaziv(String naziv);
     Optional<Restoran> findByLokacija(Lokacija lokacija);
     Optional<Restoran> findByTipRestorana(String tipRestorana);
-    Optional<Restoran> findById(long id);
-}
+    Optional<Restoran> findById(long idRestorana);
+
+
