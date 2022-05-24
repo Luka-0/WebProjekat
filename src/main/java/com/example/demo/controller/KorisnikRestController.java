@@ -86,6 +86,14 @@ public class KorisnikRestController {
         if (ulogovaniKorisnik == null)
             return new ResponseEntity("Niste se ulogovali", HttpStatus.FORBIDDEN);
 
+        if(ulogovaniKorisnik.getUloga() == EnumUloga.KUPAC){
+            Porudzbina korpa = porudzbinaService.findFirstByStatus(EnumStatus.kreira_se, ulogovaniKorisnik.getId());
+            if(korpa != null){
+                korpa.setStatus(EnumStatus.otkazana);
+                porudzbinaService.save(korpa);
+            }
+        }
+
         session.invalidate();
         return new ResponseEntity("Korisnik uspesno izlogovan", HttpStatus.OK);
     }
@@ -106,7 +114,7 @@ public class KorisnikRestController {
     */
 
     //Omoguceno menadzeru da pregleda odgovarajuce podatke
-    @GetMapping("/api/menadzer-pregled")
+    @GetMapping("/api/menadzer-pregled") //TODO prebaciti u menadzerRestControler
     public ResponseEntity<MenadzerovPregledDto> prikaziPregledMenadzera(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
@@ -135,6 +143,9 @@ public class KorisnikRestController {
     }
 
     //Omoguceno adminu da pregleda sve korisnike
+
+    /*
+
     @GetMapping("/api/admin-pregled")
     public ResponseEntity<PregledAdminaDto> prikaziPregledAdmina(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
@@ -172,6 +183,30 @@ public class KorisnikRestController {
         }
     }
 
+    */
+
+    @GetMapping("/api/admin-pregled")
+    public ResponseEntity<List<Korisnik>> prikaziPregledAdmina(HttpSession session){
+        Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if(ulogovaniKorisnik == null){
+            return new ResponseEntity(
+                    "Korisnik nije ulogovan",
+                    HttpStatus.NOT_FOUND);
+        }else{
+            if(ulogovaniKorisnik.getUloga() == EnumUloga.ADMIN){
+
+                List<Korisnik> sviKorisnici = korisnikService.findAll();
+                return ResponseEntity.ok(sviKorisnici);
+            }
+            else{
+                return new ResponseEntity(
+                        "Ulogovani korisnik nije admin",
+                        HttpStatus.UNAUTHORIZED);
+            }
+        }
+    }
+
     //Update podataka
     @PutMapping("/api/update-licni-podaci")
     public ResponseEntity<Korisnik> updateLicnihPodataka(@RequestBody UpdateKorisnikaDto azuriranKorisnik, HttpSession session){
@@ -199,16 +234,27 @@ public class KorisnikRestController {
                 ulogovaniKorisnik.setLozinka(azuriranKorisnik.getLozinka());
             }
 
-            if(azuriranKorisnik.getPol() != null && !azuriranKorisnik.getPol().equals("")) {
-                ulogovaniKorisnik.setPol(azuriranKorisnik.getPol());
-            }
+            ulogovaniKorisnik.setPol(azuriranKorisnik.getPol());
+            ulogovaniKorisnik.setDatumRodjenja(azuriranKorisnik.getDatumRodjenja());
 
-            if(azuriranKorisnik.getDatumRodjenja() != null && !azuriranKorisnik.getDatumRodjenja().equals("")) {
-                ulogovaniKorisnik.setDatumRodjenja(azuriranKorisnik.getDatumRodjenja());
-            }
 
             final Korisnik updatedKorisnik = korisnikService.save(ulogovaniKorisnik);
             return ResponseEntity.ok(updatedKorisnik);
+        }
+    }
+
+    //Pregled podaatka
+    @GetMapping("/api/pregled-licni-podaci")
+    public ResponseEntity<Korisnik> pregledLicnihPodataka(HttpSession session){
+        Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if(ulogovaniKorisnik == null){
+            return new ResponseEntity(
+                    "Korisnik nije ulogovan",
+                    HttpStatus.NOT_FOUND);
+        }else{
+
+            return ResponseEntity.ok(ulogovaniKorisnik);
         }
     }
 

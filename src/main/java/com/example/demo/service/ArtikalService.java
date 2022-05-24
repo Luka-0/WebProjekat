@@ -13,6 +13,7 @@ public class ArtikalService {
     @Autowired
     private ArtikalRepository artikalRepository;
 
+
     public Artikal save(Artikal artikal){
         return this.artikalRepository.save(artikal);
     }

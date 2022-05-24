@@ -79,6 +79,16 @@ public class RestoranService {
         return null;
     }
 
+
+    public Restoran findOneById(long id){
+        Optional<Restoran> r = restoranRepository.findById(id);
+
+        if(r.isPresent()){
+            return r.get();
+        }
+        return null;
+    }
+
     //pronalazenje svih komentara koji restoran ima
     public List<Komentar>  findAllComments(Restoran restoran){
 
@@ -92,5 +102,6 @@ public class RestoranService {
     public void uploadToLocal(MultipartFile multipartFile) {
         this.imageUploadService.uploadToLocal(multipartFile);
     }
+
 
 }
