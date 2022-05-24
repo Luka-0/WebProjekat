@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 public class PorudzbinaRestController {
@@ -112,7 +113,7 @@ public class PorudzbinaRestController {
             }
             else{
                 return new ResponseEntity(
-                        "Ulogovani korisnik nije dostavljac",
+                        "Ulogovani korisnik nije menadzer.",
                         HttpStatus.UNAUTHORIZED);
             }
         }
@@ -230,12 +231,50 @@ public class PorudzbinaRestController {
         }
     }
 
+    @PutMapping("/api/menadzer-pregled-porudzbina/{uuid}")
+    public ResponseEntity<String> menadzerMenjaStatus(@PathVariable(name = "uuid") String uuidPorudzbine, HttpSession session) {
 
+        UUID uuid_porudzbine = UUID.fromString(uuidPorudzbine);
 
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
 
+        if (uk == null) {
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        }
 
+        if (uk.getUloga() != EnumUloga.MENADZER) {
+            return new ResponseEntity("Nemate prava pristupa.", HttpStatus.UNAUTHORIZED);
+        }
 
+        Porudzbina porudzbina = new Porudzbina();
+        porudzbina = this.porudzbinaService.findOneByUuid(uuid_porudzbine);
 
+        if (porudzbina == null) {
+            return new ResponseEntity("Porudzbina nije pronadjena.", HttpStatus.BAD_REQUEST);
+        }
 
+        if (porudzbina.getStatus() == EnumStatus.ceka_dostavljaca) {
+            return new ResponseEntity("Nije moguce promeniti status porudzbine - porudzbina ceka dostavljaca.", HttpStatus.BAD_REQUEST);
+        }
 
+        if (porudzbina.getStatus() == EnumStatus.u_transportu) {
+            return new ResponseEntity("Nije moguce promeniti status porudzbine - porudzbina je u transportu.", HttpStatus.BAD_REQUEST);
+        }
+
+        if (porudzbina.getStatus() == EnumStatus.Obrada || porudzbina.getStatus() == EnumStatus.u_pripremi) {
+
+            if (porudzbina.getStatus() == EnumStatus.Obrada) {
+
+                porudzbina.setStatus(EnumStatus.u_pripremi);
+                //this.porudzbinaService.save(porudzbina);
+            }
+            else {
+
+                porudzbina.setStatus(EnumStatus.ceka_dostavljaca);
+                // this.porudzbinaService.save(porudzbina);
+            }
+            this.porudzbinaService.save(porudzbina);
+        }
+        return ResponseEntity.ok("Uspesno promenjen status porudzbine u: "+ porudzbina.getStatus().name()+".");
+    }
 }

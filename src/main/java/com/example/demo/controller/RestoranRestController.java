@@ -143,7 +143,13 @@ public class RestoranRestController {
         return ResponseEntity.ok(rezultatPretrage);
     }
     @GetMapping("/api/pretraga/naziv/{naziv}")
-    public ResponseEntity<PrikazRestoranaDto> getRestoranByNaziv(@PathVariable(name = "naziv") String naziv){
+    public ResponseEntity<PrikazRestoranaDto> getRestoranByNaziv(@PathVariable(name = "naziv") String naziv, HttpSession session){
+
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
+
+        if(uk == null) {
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        }
 
         //pronalazenje izabranog restorana
         Restoran restoran = restoranService.findByNaziv(naziv);

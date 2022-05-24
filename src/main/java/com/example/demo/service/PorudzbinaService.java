@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PorudzbinaService {
@@ -35,6 +37,15 @@ public class PorudzbinaService {
 
     public Porudzbina findFirstByStatus(EnumStatus status, long id){
         return porudzbinaRepository.findFirstByStatusAndKupac_Id(status, id);
+    }
+
+    public Porudzbina findOneByUuid(UUID uuid){
+        Optional<Porudzbina> porudzbina = porudzbinaRepository.findByUuid(uuid);
+
+        if(porudzbina.isPresent()){
+            return porudzbina.get();
+        }
+        return null;
     }
 
 }
