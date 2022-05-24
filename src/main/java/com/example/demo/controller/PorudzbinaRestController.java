@@ -75,7 +75,7 @@ public class PorudzbinaRestController {
 
                 //Trazenje porudzbina koje cekaju dostavu
                 for(Porudzbina p: listaSvihPorudzbina){
-                    if(p.getStatus() == EnumStatus.ceka_dostavljaca){
+                    if(p.getStatus() == EnumStatus.ceka_dostavljaca || p.getStatus() == EnumStatus.u_transportu){
                         listaVidljivihPorudzbina.add(p);
                     }
                 }
@@ -272,6 +272,48 @@ public class PorudzbinaRestController {
 
                 porudzbina.setStatus(EnumStatus.ceka_dostavljaca);
                 // this.porudzbinaService.save(porudzbina);
+            }
+            this.porudzbinaService.save(porudzbina);
+        }
+        return ResponseEntity.ok("Uspesno promenjen status porudzbine u: "+ porudzbina.getStatus().name()+".");
+    }
+
+
+    @PutMapping("/api/dostavljac-pregled-porudzbina/{uuid}")
+    public ResponseEntity<String> dostavljacMenjaStatus(@PathVariable(name = "uuid") String uuidPorudzbine, HttpSession session) {
+
+        UUID uuid_porudzbine = UUID.fromString(uuidPorudzbine);
+
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
+
+        if (uk == null) {
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        }
+
+        if (uk.getUloga() != EnumUloga.DOSTAVLJAC) {
+            return new ResponseEntity("Nemate prava pristupa.", HttpStatus.UNAUTHORIZED);
+        }
+
+        Porudzbina porudzbina = new Porudzbina();
+        porudzbina = this.porudzbinaService.findOneByUuid(uuid_porudzbine);
+
+        if (porudzbina == null) {
+            return new ResponseEntity("Porudzbina nije pronadjena.", HttpStatus.BAD_REQUEST);
+        }
+
+        if (porudzbina.getStatus() == EnumStatus.ceka_dostavljaca || porudzbina.getStatus() == EnumStatus.u_transportu) {
+
+            if (porudzbina.getStatus() == EnumStatus.ceka_dostavljaca) {
+                porudzbina.setStatus(EnumStatus.u_transportu);
+            }
+            else {
+                porudzbina.setStatus(EnumStatus.dostavljena);
+
+                Kupac kupacPorudzbine = porudzbina.getKupac();
+                double bodovi = porudzbina.getCena()/1000*133;
+                kupacPorudzbine.setBrojSakupljenihBodova(kupacPorudzbine.getBrojSakupljenihBodova()+(int)bodovi);
+
+                this.porudzbinaService.saveKupac(kupacPorudzbine);
             }
             this.porudzbinaService.save(porudzbina);
         }

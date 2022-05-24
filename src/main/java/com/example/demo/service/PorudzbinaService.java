@@ -15,6 +15,8 @@ public class PorudzbinaService {
     @Autowired
     private PorudzbinaRepository porudzbinaRepository;
 
+    @Autowired KupacService kupacService;
+
     public List<Porudzbina> findAllByRestoranOrderById(Restoran restoran){
         return porudzbinaRepository.findAllByRestoranOrderByUuid(restoran);
     }
@@ -47,5 +49,7 @@ public class PorudzbinaService {
         }
         return null;
     }
-
+    public Kupac saveKupac(Kupac kupac){
+        return this.kupacService.save(kupac);
+    }
 }
