@@ -25,6 +25,9 @@ public class KorisnikRestController {
     private PorudzbinaService porudzbinaService;
 
     @Autowired
+    private TipKupcaService tipKupcaService;
+
+    @Autowired
     private MenadzerService menadzerService;
 
     @Autowired
@@ -52,10 +55,12 @@ public class KorisnikRestController {
         noviKupac.setUloga(EnumUloga.KUPAC);
         noviKupac.setBrojSakupljenihBodova(0);
 
-        TipKupca tipKupca = new TipKupca();
-        tipKupca.setIme("Novi kupac");
-        tipKupca.setTrazeniBrojBodova(0);
-        tipKupca.setPopust(0);
+        TipKupca tipKupca = tipKupcaService.findByIme("Novi kupac");
+        if(tipKupca == null){
+            tipKupca.setIme("Novi kupac");
+            tipKupca.setTrazeniBrojBodova(0);
+            tipKupca.setPopust(0);
+        }
 
         noviKupac.setTk(tipKupca);
         this.kupacService.save(noviKupac);

@@ -2,7 +2,7 @@
 INSERT INTO TIP_KUPCA (ime,popust, trazeni_broj_bodova) VALUES('Zlatni',30,60);
 INSERT INTO TIP_KUPCA (ime,popust, trazeni_broj_bodova) VALUES('Srebrni',20,40);
 INSERT INTO TIP_KUPCA (ime,popust, trazeni_broj_bodova) VALUES('Bronzani',10,20);
-INSERT INTO TIP_KUPCA (ime,popust, trazeni_broj_bodova) VALUES('Neoznacen',0,0);
+INSERT INTO TIP_KUPCA (ime,popust, trazeni_broj_bodova) VALUES('Novi kupac',0,0);
 
 /*Kupci*/
 INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, broj_sakupljenih_bodova, id_tip_kupca) VALUES ('Kupac','MarkoM_12', 'sifra1', 'Marko', 'Markovic','M', '2004-02-10', 'KUPAC', 0, 4);
@@ -43,8 +43,9 @@ INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUE
 INSERT INTO RESTORAN(naziv, tip_restorana, id_lokacije, status_restorana ) VALUES ('Caribic Pizza ', 'Brza hrana', 8, 'RADI');
 
 /*Menadzeri*/
-INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','M_Arsa','jasamsifra123','Arsa','Arsic','Z','2001-12-02','MENADZER', 2);
-INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','L_Luka','nemamsifru','Luka','Stajic','Z','2002-03-03','MENADZER', 5);
+INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','A_Arsa','jasamsifra123','Arsa','Arsic','Z','2001-12-02','MENADZER', 2);
+INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','S_Luka','nemamsifru','Luka','Stajic','M','2002-03-03','MENADZER', 5);
+INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','D_Anica','dvaespetpoena','Anica','Djukic','Z','1999-08-16','MENADZER', 8);
 
 /*Komentari*/
 INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 'Dobar restoran', 1, 1);
@@ -69,10 +70,10 @@ INSERT INTO PORUDZBINA(uuid, cena, datumIvreme, status, kupac_id, id_restorana) 
 INSERT INTO PORUDZBINA(uuid, cena, datumIvreme, status, kupac_id, id_restorana) VALUES('212375e3b4744021b1b9fc19c4d00e13', 750, '2020-01-03', 'u_pripremi', 2, 2);
 
 /*Dostave*/
-INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(7, '0cba75e3b4744021b1b9fc19c4d00e18');
+INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(10, '0cba75e3b4744021b1b9fc19c4d00e18');
 INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(8, '4aba75e3b4744021b1b9fc19c4d00e15');
 INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(9, '812375e3b4744021b1b9fc19c4d00e14');
-INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(7, '212375e3b4744021b1b9fc19c4d00e13');
+INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(10, '212375e3b4744021b1b9fc19c4d00e13');
 
 /*Stavke porudzbine*/
 INSERT INTO STAVKA_PORUDZBINE(porucena_kolicina, id_artikla, uuid_porudzbine) VALUES (10, 1, '0cba75e3b4744021b1b9fc19c4d00e18');
