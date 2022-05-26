@@ -319,4 +319,45 @@ public class PorudzbinaRestController {
         }
         return ResponseEntity.ok("Uspesno promenjen status porudzbine u: "+ porudzbina.getStatus().name()+".");
     }
+
+    @PutMapping("/api/kupac-pregled-porudzbina/otkazi/{uuid}")
+    public ResponseEntity<String> otkaziPorudzbinu(@PathVariable(name = "uuid") String uuidPorudzbine, HttpSession session) {
+
+        UUID uuid_porudzbine = UUID.fromString(uuidPorudzbine);
+
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
+
+        if (uk == null) {
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        }
+
+        if (uk.getUloga() != EnumUloga.KUPAC) {
+            return new ResponseEntity("Nemate prava pristupa.", HttpStatus.UNAUTHORIZED);
+        }
+        Kupac kupac = (Kupac) session.getAttribute("korisnik");
+
+        Porudzbina porudzbina = new Porudzbina();
+        porudzbina = this.porudzbinaService.findOneByUuid(uuid_porudzbine);
+
+        //zbog testiranja u postaman-u
+        if (porudzbina == null) {
+            return new ResponseEntity("Porudzbina nije pronadjena.", HttpStatus.NOT_FOUND);
+        }
+
+        if(porudzbina.getStatus() != EnumStatus.Obrada){
+            return new ResponseEntity("Nije moguce otazati porudzbinu.\nStatus Vase oprudzbine je: U PRIPREMI.", HttpStatus.BAD_REQUEST);
+        }
+
+        porudzbina.setStatus(EnumStatus.otkazana);
+
+        //za sada samo menjamo status u otkazana
+        this.porudzbinaService.save(porudzbina);
+
+        // medju tabela DOSTAVA pravi problem
+        // potreban query u DostavljacRepository-u za brisanje  ove porudzbine  iz tabele dostava(?)
+        // TODO: promeniti u DeleteMapping i omoguciti brisanje otkazane porudzbine iz svih tabela gde postoji njen uuid,
+        //       nakon konsultacija
+
+        return ResponseEntity.ok("Porudzbina je otkazana.");
+    }
 }

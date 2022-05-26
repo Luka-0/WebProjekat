@@ -68,6 +68,8 @@ INSERT INTO PORUDZBINA(uuid, cena, datumIvreme, status, kupac_id, id_restorana) 
 INSERT INTO PORUDZBINA(uuid, cena, datumIvreme, status, kupac_id, id_restorana) VALUES('4bbb75e3b4744aa1b1b9fc19c4d00e15', 230, '2019-01-24', 'ceka_dostavljaca', 6, 8);
 INSERT INTO PORUDZBINA(uuid, cena, datumIvreme, status, kupac_id, id_restorana) VALUES('812375e3b4744021b1b9fc19c4d00e14', 500, '2022-07-11', 'dostavljena', 1, 5);
 INSERT INTO PORUDZBINA(uuid, cena, datumIvreme, status, kupac_id, id_restorana) VALUES('212375e3b4744021b1b9fc19c4d00e13', 750, '2020-01-03', 'u_pripremi', 2, 2);
+INSERT INTO PORUDZBINA(uuid, cena, datumIvreme, status, kupac_id, id_restorana) VALUES('999375e3b4744021b1b9fc19c4d00e13', 750, '2020-01-03', 'Obrada', 2, 2);
+
 
 /*Dostave*/
 INSERT INTO DOSTAVA(dostavljac_id, porudzbine_uuid) VALUES(10, '0cba75e3b4744021b1b9fc19c4d00e18');
