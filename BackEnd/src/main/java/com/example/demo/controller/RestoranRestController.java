@@ -286,7 +286,7 @@ public class RestoranRestController {
                 //brisanje iz restorana
                 this.restoranService.save(restoran);
                 //brisanje iz baze
-                this.restoranService.deleteArtikal(artikal);
+                //this.restoranService.deleteArtikal(artikal);
 
                 return ResponseEntity.ok("Uspesno obrisan artikal!");
             }

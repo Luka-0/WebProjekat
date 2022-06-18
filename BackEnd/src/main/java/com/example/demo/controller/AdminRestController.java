@@ -13,6 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
+
+//kreiraj restoran bolje
+//nemoj id lokacije nego unesi pdoatke pa kreoraj
+
+
+//pretraga resotrana prema IDju ne prema nazivu
+
+//artikal da se ne brise skroz nego iz restorana
+
 @RestController
 public class AdminRestController {
 

@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 @Service
 public class ImageUploadService {
 
-    private String uploadFolderPath = "e:\\Users\\PC\\Desktop\\WebProjekat\\artikal-photos\\";
+    private String uploadFolderPath = "E:\\Fax\\II\\VebProjekat\\artikal-photos";
 
     public void uploadToLocal(MultipartFile multipartFile) {
         try {
