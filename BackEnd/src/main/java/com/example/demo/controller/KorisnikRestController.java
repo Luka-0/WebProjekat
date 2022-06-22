@@ -70,17 +70,18 @@ public class KorisnikRestController {
 
     //LogIn korisnika
     @PostMapping("api/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpSession session){
+    public ResponseEntity<Korisnik> login(@RequestBody LoginDto loginDto, HttpSession session){
         //provera podataka
         if(loginDto.getKorisnickoIme().isEmpty() || loginDto.getLozinka().isEmpty())
             return new ResponseEntity("Uneti podaci su neispravni", HttpStatus.BAD_REQUEST);
 
         Korisnik ulogovaniKorisnik = korisnikService.login(loginDto.getKorisnickoIme(), loginDto.getLozinka());
         if (ulogovaniKorisnik == null)
-            return new ResponseEntity<>("Korisnik ne postoji!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Korisnik ne postoji!", HttpStatus.NOT_FOUND);
 
         session.setAttribute("korisnik", ulogovaniKorisnik);
-        return ResponseEntity.ok("Korisnik " + ulogovaniKorisnik.getKorisnickoIme() + " je uspesno ulogovan!");
+//        return ResponseEntity.ok("Korisnik " + ulogovaniKorisnik.getKorisnickoIme() + " je uspesno ulogovan!");
+        return ResponseEntity.ok(ulogovaniKorisnik);
     }
 
     //LogOut korisnika
@@ -251,8 +252,9 @@ public class KorisnikRestController {
     //Pregled podaatka
     @GetMapping("/api/pregled-licni-podaci")
     public ResponseEntity<Korisnik> pregledLicnihPodataka(HttpSession session){
-        Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
+
+        Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
         if(ulogovaniKorisnik == null){
             return new ResponseEntity(
                     "Korisnik nije ulogovan",
@@ -263,22 +265,20 @@ public class KorisnikRestController {
         }
     }
 
-    /*
-    @GetMapping("/api/logovani-korisnici")
-    public ResponseEntity<List<LoginDto>> getEmployees(HttpSession session){
-        List<Korisnik> employeeList = korisnikService.findAll();
 
-        Korisnik loggedEmployee = (Korisnik) session.getAttribute("korisnik");
-        if(loggedEmployee == null) {
-            System.out.println("Nema sesije");
-        } else {
-            System.out.println(loggedEmployee);
+    @GetMapping("/api/logovani-korisnik")
+    public ResponseEntity<Korisnik> getEmployees(HttpSession session){
+
+        Korisnik logovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if(logovaniKorisnik == null) {
+            return new ResponseEntity(
+                    "Korisnik nije ulogovan",
+                    HttpStatus.NOT_FOUND);
         }
 
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(logovaniKorisnik);
     }
-*/
+
 
 
 
