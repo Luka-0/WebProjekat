@@ -40,7 +40,7 @@ public class RestoranRestController {
 
     }
 
-    @PostMapping("/api/pretraga")
+    @GetMapping("/api/pretraga")
     public ResponseEntity<List<PretragaDto>> pretraziRestorane(@RequestBody PretragaDto dtoPretraga, HttpSession session) {
 
         Korisnik uk = (Korisnik) session.getAttribute("korisnik");
@@ -53,7 +53,7 @@ public class RestoranRestController {
 
         List<PretragaDto> rezultatPretrage = new ArrayList<>();
 
-        if(dtoPretraga.getNaziv() != null) {
+        if(!dtoPretraga.getNaziv().isEmpty()) {
 
             for (Restoran restoran : restorani) {
 
@@ -85,7 +85,7 @@ public class RestoranRestController {
             }
         }
 
-        if(dtoPretraga.getAdresaLokacije() != null) {
+        if(!dtoPretraga.getAdresaLokacije().isEmpty()) {
 
             for (Restoran restoran : restorani) {
 
@@ -111,7 +111,7 @@ public class RestoranRestController {
             }
         }
 
-        if(dtoPretraga.getTipRestorana() != null) {
+        if(!dtoPretraga.getTipRestorana().isEmpty()) {
             for (Restoran restoran : restorani) {
                 if (restoran.getTipRestorana().toLowerCase(Locale.ROOT).indexOf(dtoPretraga.getTipRestorana().toLowerCase(Locale.ROOT)) != -1) {
 
