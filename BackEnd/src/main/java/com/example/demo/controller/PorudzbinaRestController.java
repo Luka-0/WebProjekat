@@ -54,6 +54,35 @@ public class PorudzbinaRestController {
             }
         }
     }
+    @PostMapping("/api/kupac-pregled-porudzbina/{uuid}")
+    public ResponseEntity<String> ostaviKomentar(@PathVariable(name = "uuid") String uuidPorudzbine, @RequestBody noviKomentarDto dto, HttpSession session) {
+
+        UUID uuid_porudzbine = UUID.fromString(uuidPorudzbine);
+
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
+
+        if(uk == null)
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        if(uk.getUloga() != EnumUloga.KUPAC)
+            return new ResponseEntity("Funkcionalnost je dostupna samo kupcima.", HttpStatus.BAD_REQUEST);
+
+        Porudzbina porudzbina = new Porudzbina();
+        porudzbina = this.porudzbinaService.findOneByUuid(uuid_porudzbine);
+
+        if (porudzbina == null) {
+            return new ResponseEntity("Porudzbina nije pronadjena.", HttpStatus.BAD_REQUEST);
+        }
+        if (porudzbina.getStatus() == EnumStatus.dostavljena) {
+            Kupac kupac = (Kupac)uk;
+            Komentar noviKomentar = new Komentar(kupac, porudzbina.getRestoran(), dto.getTekstKomentara(), dto.getOcena());
+
+            this.porudzbinaService.save(noviKomentar);
+        }
+        else{
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok("Uspesno dodat komentar!");
+    }
 
     //Pregled porudzbina dostavljaca
     @GetMapping("/api/dostavljac-pregled-porudzbina")
