@@ -19,4 +19,7 @@ public class LokacijaService {
 
         return null;
     }
+    public Lokacija save(Lokacija l){
+        return this.lokacijaRepository.save(l);
+    }
 }

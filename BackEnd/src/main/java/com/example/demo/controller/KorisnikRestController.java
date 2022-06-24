@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 public class KorisnikRestController {
@@ -278,13 +279,4 @@ public class KorisnikRestController {
 
         return ResponseEntity.ok(logovaniKorisnik);
     }
-
-
-
-
-
-
-
-
-
 }

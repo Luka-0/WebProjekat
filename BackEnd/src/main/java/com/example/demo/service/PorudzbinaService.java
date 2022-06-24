@@ -17,6 +17,9 @@ public class PorudzbinaService {
 
     @Autowired KupacService kupacService;
 
+    @Autowired
+    private KomentarService komentarService;
+
     public List<Porudzbina> findAllByRestoranOrderById(Restoran restoran){
         return porudzbinaRepository.findAllByRestoranOrderByUuid(restoran);
     }
@@ -49,7 +52,17 @@ public class PorudzbinaService {
         }
         return null;
     }
-    public Kupac saveKupac(Kupac kupac){
-        return this.kupacService.save(kupac);
+    public Kupac saveKupac(Porudzbina porudzbina){
+
+        Kupac kupacPorudzbine = porudzbina.getKupac();
+        double bodovi = porudzbina.getCena()/1000*133;
+        kupacPorudzbine.setBrojSakupljenihBodova(kupacPorudzbine.getBrojSakupljenihBodova()+(int)bodovi);
+
+        return this.kupacService.save(kupacPorudzbine);
     }
+
+    public Komentar save(Komentar komentar){
+        return this.komentarService.save(komentar);
+    }
+
 }

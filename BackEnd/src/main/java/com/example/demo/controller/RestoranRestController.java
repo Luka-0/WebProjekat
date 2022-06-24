@@ -142,8 +142,8 @@ public class RestoranRestController {
 
         return ResponseEntity.ok(rezultatPretrage);
     }
-    @GetMapping("/api/pretraga/naziv/{naziv}")
-    public ResponseEntity<PrikazRestoranaDto> getRestoranByNaziv(@PathVariable(name = "naziv") String naziv, HttpSession session){
+    @GetMapping("/api/pretraga/{id}")
+    public ResponseEntity<PrikazRestoranaDto> getRestoranByNaziv(@PathVariable(name = "id") long id, HttpSession session){
 
         Korisnik uk = (Korisnik) session.getAttribute("korisnik");
 
@@ -152,7 +152,7 @@ public class RestoranRestController {
         }
 
         //pronalazenje izabranog restorana
-        Restoran restoran = restoranService.findByNaziv(naziv);
+        Restoran restoran = restoranService.findById(id);
 
         //dobavljanje svih komentara
         List<Komentar> komentariRestorana = restoranService.findAllComments(restoran);

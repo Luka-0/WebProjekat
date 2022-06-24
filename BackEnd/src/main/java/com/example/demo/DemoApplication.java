@@ -313,6 +313,7 @@ public class DemoApplication implements CommandLineRunner {
 
 
 		System.out.println("\nPROGRAM SE KOMPAJLIRA! \n\n");
+
 	}
 
 

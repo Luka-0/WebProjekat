@@ -2,17 +2,16 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.PregledStavkePorudzbineDto;
 import com.example.demo.dto.PregledKorpeDto;
+import com.example.demo.dto.noviKomentarDto;
 import com.example.demo.entity.*;
+import com.example.demo.service.KomentarService;
 import com.example.demo.service.KupacService;
 import com.example.demo.service.PorudzbinaService;
 import com.example.demo.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -30,6 +29,7 @@ public class PorudzbinaRestController {
 
     @Autowired
     private RestoranService restoranService;
+
 
 
     //Pregled porudzbina kupaca
@@ -309,11 +309,12 @@ public class PorudzbinaRestController {
             else {
                 porudzbina.setStatus(EnumStatus.dostavljena);
 
-                Kupac kupacPorudzbine = porudzbina.getKupac();
-                double bodovi = porudzbina.getCena()/1000*133;
-                kupacPorudzbine.setBrojSakupljenihBodova(kupacPorudzbine.getBrojSakupljenihBodova()+(int)bodovi);
-
-                this.porudzbinaService.saveKupac(kupacPorudzbine);
+                /*  --prebaceno u PorudzbinaService
+                    Kupac kupacPorudzbine = porudzbina.getKupac();
+                    double bodovi = porudzbina.getCena()/1000*133;
+                    kupacPorudzbine.setBrojSakupljenihBodova(kupacPorudzbine.getBrojSakupljenihBodova()+(int)bodovi);
+                */
+                this.porudzbinaService.saveKupac(porudzbina);
             }
             this.porudzbinaService.save(porudzbina);
         }
@@ -350,13 +351,7 @@ public class PorudzbinaRestController {
 
         porudzbina.setStatus(EnumStatus.otkazana);
 
-        //za sada samo menjamo status u otkazana
         this.porudzbinaService.save(porudzbina);
-
-        // medju tabela DOSTAVA pravi problem
-        // potreban query u DostavljacRepository-u za brisanje  ove porudzbine  iz tabele dostava(?)
-        // TODO: promeniti u DeleteMapping i omoguciti brisanje otkazane porudzbine iz svih tabela gde postoji njen uuid,
-        //       nakon konsultacija
 
         return ResponseEntity.ok("Porudzbina je otkazana.");
     }

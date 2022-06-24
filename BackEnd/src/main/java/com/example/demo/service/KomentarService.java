@@ -19,4 +19,8 @@ public class KomentarService {
 
         return komentarRepository.findAllByRestoran(restoran);
     }
+
+    public Komentar save(Komentar komentar){
+        return this.komentarRepository.save(komentar);
+    }
 }

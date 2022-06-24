@@ -8,13 +8,13 @@ public class RestoranDto {
 
     private String tipRestorana;
 
-    private long idLokacije;
+    private Lokacija lokacija;
 
     public RestoranDto() { }
-    public RestoranDto(String nazivRestorana, String tipRestorana, long idLokacije) {
+    public RestoranDto(String nazivRestorana, String tipRestorana, Lokacija lokacija) {
         this.nazivRestorana = nazivRestorana;
         this.tipRestorana = tipRestorana;
-        this.idLokacije = idLokacije;
+        this.lokacija = lokacija;
     }
 
     public String getNazivRestorana() {
@@ -25,8 +25,8 @@ public class RestoranDto {
         return tipRestorana;
     }
 
-    public long getIdLokacije() {
-        return idLokacije;
+    public Lokacija getLokacija() {
+        return lokacija;
     }
 
     public void setNazivRestorana(String nazivRestorana) {
@@ -37,7 +37,7 @@ public class RestoranDto {
         this.tipRestorana = tipRestorana;
     }
 
-    public void setLokacijaRestorana(long lokacijaRestorana) {
-        this.idLokacije = lokacijaRestorana;
+    public void setLokacijaRestorana(Lokacija lokacijaRestorana) {
+        this.lokacija = lokacijaRestorana;
     }
 }

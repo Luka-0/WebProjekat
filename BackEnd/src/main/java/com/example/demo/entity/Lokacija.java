@@ -21,6 +21,12 @@ public class Lokacija implements Serializable{
 
     public Lokacija(){}
 
+    public Lokacija(double geografskaSirina, double geografskaDuzina, String adresa) {
+        this.geografskaSirina = geografskaSirina;
+        this.geografskaDuzina = geografskaDuzina;
+        this.adresa = adresa;
+    }
+
     public double getGeografskaSirina() {
         return geografskaSirina;
     }

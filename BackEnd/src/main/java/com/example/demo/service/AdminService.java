@@ -40,6 +40,7 @@ public class AdminService {
         return this.restoranService.save(noviRestoran);
     }
 
+    public Lokacija saveLokacija(Lokacija novaLokacija){ return this.lokacijaService.save(novaLokacija);    }
     public List<Admin> findAll(){
         return adminRepository.findAll();
     }

@@ -14,13 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 
-//kreiraj restoran bolje
-//nemoj id lokacije nego unesi pdoatke pa kreoraj
 
-
-//pretraga resotrana prema IDju ne prema nazivu
-
-//artikal da se ne brise skroz nego iz restorana
 
 @RestController
 public class AdminRestController {
@@ -101,11 +95,9 @@ public class AdminRestController {
         noviRestoran.setNaziv(restoranDto.getNazivRestorana());
         noviRestoran.setTipRestorana(restoranDto.getTipRestorana());
 
-        Lokacija lokacija = this.adminService.getLokacijaById(restoranDto.getIdLokacije());
+        Lokacija lokacija = restoranDto.getLokacija();
 
-        if(this.adminService.getByLokacija(lokacija) != null){
-            return new ResponseEntity("Restoran na ovoj lokaciji vec postoji.", HttpStatus.BAD_REQUEST);
-        }
+        this.adminService.saveLokacija(lokacija);
 
         noviRestoran.setLokacija(lokacija);
 
