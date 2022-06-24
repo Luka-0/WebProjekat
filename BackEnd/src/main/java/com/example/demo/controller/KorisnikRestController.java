@@ -279,4 +279,112 @@ public class KorisnikRestController {
 
         return ResponseEntity.ok(logovaniKorisnik);
     }
+    @GetMapping("/api/admin-pregled/pretraga")
+    public ResponseEntity<List<PretragaKorisnikaDto>> pretraziKorisnike(@RequestBody PretragaKorisnikaDto dtoPretraga, HttpSession session) {
+        Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
+
+        if(ulogovaniKorisnik == null){
+            return new ResponseEntity(
+                    "Korisnik nije ulogovan",
+                    HttpStatus.NOT_FOUND);
+        }else{
+            if(ulogovaniKorisnik.getUloga() == EnumUloga.ADMIN){
+
+                List<Korisnik> sviKorisnici = korisnikService.findAll();
+
+                List<PretragaKorisnikaDto> rezultatPretrage = new ArrayList<>();
+
+                if(!dtoPretraga.getIme().isEmpty()) {
+
+                    for (Korisnik korisnik : sviKorisnici) {
+
+                        if (korisnik.getIme().toLowerCase(Locale.ROOT).indexOf(dtoPretraga.getIme().toLowerCase(Locale.ROOT)) != -1) {
+
+                            PretragaKorisnikaDto k = new PretragaKorisnikaDto(korisnik);
+
+                            boolean postoji = false;
+                            // rezliciti kriterijumi pretrage mogu odgovarati istom korisniku
+                            // ako je rezultat pretrage, tj. korisnik vec u listi ne dodaje se ponovo
+                            if(!rezultatPretrage.isEmpty()){
+                                for(PretragaKorisnikaDto dto : rezultatPretrage){
+                                    if(dto.getKorisnickoIme().equals(k.getKorisnickoIme())){
+                                        postoji = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if(postoji == false){
+                                rezultatPretrage.add(k);
+                            }
+                        }
+                    }
+                }
+
+                if(!dtoPretraga.getKorisnickoIme().isEmpty()) {
+
+                    for (Korisnik korisnik : sviKorisnici) {
+
+                        if (korisnik.getKorisnickoIme().toLowerCase(Locale.ROOT).indexOf(dtoPretraga.getKorisnickoIme().toLowerCase(Locale.ROOT)) != -1) {
+
+                            PretragaKorisnikaDto k = new PretragaKorisnikaDto(korisnik);
+
+                            boolean postoji = false;
+
+                            if(!rezultatPretrage.isEmpty()){
+                                for(PretragaKorisnikaDto dto : rezultatPretrage){
+                                    if(dto.getKorisnickoIme().equals(k.getKorisnickoIme())){
+                                        postoji = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if(postoji == false){
+                                rezultatPretrage.add(k);
+                            }
+                        }
+                    }
+                }
+
+                if(!dtoPretraga.getPrezime().isEmpty()) {
+
+                    for (Korisnik korisnik : sviKorisnici) {
+
+                        if (korisnik.getPrezime().toLowerCase(Locale.ROOT).indexOf(dtoPretraga.getPrezime().toLowerCase(Locale.ROOT)) != -1) {
+
+                            PretragaKorisnikaDto k = new PretragaKorisnikaDto(korisnik);
+
+                            boolean postoji = false;
+
+                            if(!rezultatPretrage.isEmpty()){
+                                for(PretragaKorisnikaDto dto : rezultatPretrage){
+                                    if(dto.getKorisnickoIme().equals(k.getKorisnickoIme())){
+                                        postoji = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if(postoji == false){
+                                rezultatPretrage.add(k);
+                            }
+                        }
+                    }
+                }
+
+                if(rezultatPretrage.size() == 0)
+                {
+                    return new ResponseEntity("Nema rezultata pretrage.", HttpStatus.BAD_REQUEST);
+                }
+
+                return ResponseEntity.ok(rezultatPretrage);
+            }
+            else{
+                return new ResponseEntity(
+                        "Ulogovani korisnik nije admin",
+                        HttpStatus.UNAUTHORIZED);
+            }
+        }
+    }
 }
