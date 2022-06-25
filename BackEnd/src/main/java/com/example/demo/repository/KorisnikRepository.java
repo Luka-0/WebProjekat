@@ -15,4 +15,5 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, Long>{
     List<Korisnik> findAllByUlogaOrderById(EnumUloga uloga);
 
     Korisnik getBykorisnickoIme(String korisnickoIme);
+
 }

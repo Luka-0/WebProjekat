@@ -7,13 +7,10 @@ import com.example.demo.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-
-
+import java.util.List;
 
 
 @RestController
@@ -104,5 +101,48 @@ public class AdminRestController {
         this.adminService.saveRestoran(noviRestoran);
 
         return ResponseEntity.ok("Dodavanje novog restorana: Uspesno");
+    }
+    @DeleteMapping("/api/brisanje-restorana/{id}")
+    public ResponseEntity<String> deleteRestoran(@PathVariable(name = "id") Long id, HttpSession session) {
+
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
+
+        if (uk == null) {
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        }
+
+        if (uk.getUloga() != EnumUloga.ADMIN) {
+            return new ResponseEntity("Nemate prava pristupa.", HttpStatus.UNAUTHORIZED);
+        }
+
+        Restoran restoran = this.adminService.findById(id);
+
+        Menadzer menadzer = this.adminService.findByRestoran(restoran);
+
+        if(menadzer != null) {
+            menadzer.setRestoran(null);
+            this.adminService.saveMenadzer(menadzer);
+        }
+        //dobavljanje svih komentara
+        List<Komentar> komentariRestorana = this.adminService.findAllComments(restoran);
+
+        for(Komentar komentar : komentariRestorana){
+
+            komentar.setRestoran(null);
+            this.adminService.saveKomentar(komentar);
+        }
+
+        //dobavljanje svih porudzbina
+        List<Porudzbina> porudzbineRestorana = this.adminService.findAllByRestoran(restoran);
+
+        for(Porudzbina porudzbina : porudzbineRestorana){
+
+            porudzbina.setRestoran(null);
+            this.adminService.save(porudzbina);
+        }
+
+        this.adminService.deleteRestoran(restoran);
+
+        return ResponseEntity.ok("Uspesno obrisan restoran!");
     }
 }

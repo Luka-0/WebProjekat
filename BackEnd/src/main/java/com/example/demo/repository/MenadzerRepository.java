@@ -14,6 +14,5 @@ import java.util.Optional;
 public interface MenadzerRepository extends JpaRepository<Menadzer, Long>{
     List<Menadzer> findAll();
     Optional<Menadzer> findByKorisnickoIme(String korisnickoIme);
-
     Optional<Menadzer> findByRestoran(Restoran restoran);
 }

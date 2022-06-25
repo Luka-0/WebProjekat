@@ -1,4 +1,5 @@
 package com.example.demo.service;
+import com.example.demo.entity.Artikal;
 import com.example.demo.entity.Menadzer;
 import com.example.demo.entity.Restoran;
 import com.example.demo.repository.MenadzerRepository;
@@ -45,5 +46,4 @@ public class MenadzerService {
     public Restoran findRestoranById(long idRestorana){
         return this.restoranService.findById(idRestorana);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.MenadzerRestController;
 import com.example.demo.entity.*;
 
 import com.example.demo.repository.RestoranRepository;
@@ -28,7 +29,7 @@ public class RestoranService {
     public Restoran save(Restoran restoran){
         return this.restoranRepository.save(restoran);
     }
-
+    public void deleteRestoran(Restoran restoran) {   this.restoranRepository.delete(restoran);  }
     //pronalazenje svih restorana
     public List<Restoran> findAll() {
         return restoranRepository.findAll();
@@ -94,6 +95,8 @@ public class RestoranService {
 
         return this.komentarService.findAllByRestoran(restoran);
     }
+    public Komentar saveKomentar(Komentar komentar){  return  this.komentarService.save(komentar);  }
+
 
     public Artikal saveArtikal(Artikal artikal){  return  this.artikalService.save(artikal);  }
 

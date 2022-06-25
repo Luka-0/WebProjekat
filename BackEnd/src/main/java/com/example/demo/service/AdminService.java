@@ -28,6 +28,9 @@ public class AdminService {
     @Autowired
     private  LokacijaService lokacijaService;
 
+    @Autowired
+    private PorudzbinaService porudzbinaService;
+
     public Menadzer saveMenadzer(Menadzer noviMenadzer){
         return this.menadzerService.save(noviMenadzer);
     }
@@ -41,6 +44,8 @@ public class AdminService {
     }
 
     public Lokacija saveLokacija(Lokacija novaLokacija){ return this.lokacijaService.save(novaLokacija);    }
+
+   public  Komentar saveKomentar(Komentar komentar){ return  this.restoranService.saveKomentar(komentar);   }
     public List<Admin> findAll(){
         return adminRepository.findAll();
     }
@@ -56,4 +61,24 @@ public class AdminService {
     public Lokacija getLokacijaById(Long id){
         return  this.lokacijaService.getLokacijaById(id);
     }
+
+    public Restoran findById(long idRestorana){
+        return this.restoranService.findById(idRestorana);
+    }
+    public Menadzer findByRestoran(Restoran restoran){
+        return this.menadzerService.findByRestoran(restoran);
+    }
+
+    public void deleteRestoran(Restoran restoran) {   this.restoranService.deleteRestoran(restoran);  }
+    public List<Komentar>  findAllComments(Restoran restoran){
+
+        return this.restoranService.findAllComments(restoran);
+    }
+    public List<Porudzbina> findAllByRestoran(Restoran restoran){
+        return this.porudzbinaService.findAllByRestoranOrderById(restoran);
+    }
+    public Porudzbina save(Porudzbina porudzbina){
+        return this.porudzbinaService.save(porudzbina);
+    }
+
 }

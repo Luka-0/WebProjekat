@@ -262,7 +262,7 @@ public class RestoranRestController {
         return ResponseEntity.ok(restoran);
     }
 
-    @DeleteMapping("/api/brisanje-artikla/{id}")
+    @PutMapping("/api/brisanje-artikla/{id}")
     public ResponseEntity<String> deleteArtikal(@PathVariable(name = "id") Long id, HttpSession session) {
 
         Korisnik uk = (Korisnik) session.getAttribute("korisnik");
