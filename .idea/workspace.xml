@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9db85ee-5ff0-4035-8a13-cf61812f0711" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/controller/AdminRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/controller/AdminRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/controller/RestoranRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/controller/RestoranRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/repository/KorisnikRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/repository/KorisnikRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/repository/MenadzerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/repository/MenadzerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/service/AdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/service/LokacijaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/service/LokacijaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/service/MenadzerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/service/MenadzerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/service/RestoranService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/example/demo/service/RestoranService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
