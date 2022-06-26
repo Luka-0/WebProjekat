@@ -87,7 +87,7 @@ public class KorisnikRestController {
 
     //LogOut korisnika
     @PostMapping("api/logout")
-    public ResponseEntity logOut(HttpSession session){
+    public ResponseEntity<String> logOut(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
         if (ulogovaniKorisnik == null)
@@ -102,7 +102,7 @@ public class KorisnikRestController {
         }
 
         session.invalidate();
-        return new ResponseEntity("Korisnik uspesno izlogovan", HttpStatus.OK);
+         return ResponseEntity.ok("Korisnik uspesno izlogovan");
     }
 
     /*
