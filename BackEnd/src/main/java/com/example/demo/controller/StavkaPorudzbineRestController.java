@@ -26,8 +26,8 @@ public class StavkaPorudzbineRestController {
     private ArtikalService artikalService;
 
     //Dodavanje stavke u korpu
-    @PostMapping("/api/dodaj-stavku")
-    public ResponseEntity<String> dodajStavkuPorudzbine(@RequestBody NovaStavkaDto novaStavkaDto, HttpSession session){
+    @PostMapping("/api/dodaj-stavku/{id}")
+    public ResponseEntity<String> dodajStavkuPorudzbine(@PathVariable(name = "id") long artikalID, HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
         if(ulogovaniKorisnik == null){
@@ -40,8 +40,8 @@ public class StavkaPorudzbineRestController {
                 Porudzbina korpa = porudzbinaService.findFirstByStatus(EnumStatus.kreira_se, ulogovaniKupac.getId());
 
                 StavkaPorudzbine stavkaKojaSeDodaje = new StavkaPorudzbine();
-                stavkaKojaSeDodaje.setArtikal(artikalService.findById(novaStavkaDto.getIdArtikla()));
-                stavkaKojaSeDodaje.setPorucenaKolicina(novaStavkaDto.getPorucenaKolicina());
+                stavkaKojaSeDodaje.setArtikal(artikalService.findById(artikalID));
+                stavkaKojaSeDodaje.setPorucenaKolicina(1);
 
                 korpa.dodajStavku(stavkaKojaSeDodaje);
                 stavkaPorudzbineService.save(stavkaKojaSeDodaje);

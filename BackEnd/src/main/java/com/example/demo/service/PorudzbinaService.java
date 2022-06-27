@@ -32,6 +32,10 @@ public class PorudzbinaService {
         return porudzbinaRepository.findAllByKupac(kupac);
     }
 
+    public List<Porudzbina> findAllByStatusAndKupacid(EnumStatus status, long id){
+        return porudzbinaRepository.findAllByStatusAndKupac_Id(status, id);
+    }
+
     public Porudzbina save(Porudzbina porudzbina){
         return porudzbinaRepository.save(porudzbina);
     }

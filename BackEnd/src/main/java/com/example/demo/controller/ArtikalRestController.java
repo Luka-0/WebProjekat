@@ -22,7 +22,7 @@ public class ArtikalRestController {
     private RestoranService restoranService;
 
     //Prikaz artikala restorana
-    @GetMapping("/api/pregled-artikala-resotrana/{id}")
+    @GetMapping("/api/pregled-artikala-restorana/{id}")
     public ResponseEntity<List<PrikazListeArtikalaDto>> prikaziArtikleRestorana(@PathVariable(name = "id") long id){
         Restoran trazeniRestoran = restoranService.findOneById(id);
         if(trazeniRestoran == null){

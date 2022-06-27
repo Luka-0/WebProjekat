@@ -151,7 +151,7 @@ public class PorudzbinaRestController {
     // ---------------- NARUCIVANJE -------------------
 
     //Kreiranje porudzbine
-    @GetMapping("/api/kreiranje-porudzbine/{id}")
+    @PostMapping("/api/kreiranje-porudzbine/{id}")
     public ResponseEntity<String> kreiranjePorudzbine(@PathVariable(name = "id") long idRestorana, HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
@@ -172,9 +172,19 @@ public class PorudzbinaRestController {
                 if(trazeniRestoran.getStatusRestorana() == EnumStatusRestorana.NE_RADI){
                     return new ResponseEntity("Restoran ne radi", HttpStatus.FORBIDDEN);
                 }else{
+                    List<Porudzbina> korpe = porudzbinaService.findAllByStatusAndKupacid(EnumStatus.kreira_se, ulogovaniKorisnik.getId());
+                    for(Porudzbina p: korpe){
+                        if(p != null){
+                            p.setRestoran(null);
+                            p.setStatus(EnumStatus.otkazana);
+                            porudzbinaService.save(p);
+                        }
+                    }
+
                     Porudzbina kreiranaPorudzbina = new Porudzbina();
                     kreiranaPorudzbina.setStatus(EnumStatus.kreira_se);
                     kreiranaPorudzbina.setKupac(ulogovaniKupac);
+                    kreiranaPorudzbina.setRestoran(trazeniRestoran);
                     porudzbinaService.save(kreiranaPorudzbina);
                     return ResponseEntity.ok("Porudzbina je kreirana!\n");
                 }
@@ -214,11 +224,12 @@ public class PorudzbinaRestController {
                     pregledArtikla.setCenaArtikla(st.getArtikal().getCena());
                     pregledArtikla.setPorucenaKolicina(st.getPorucenaKolicina());
                     pregledArtikla.setKolicinaArtikla(st.getArtikal().getKolicina());
-
+                    pregledArtikla.setTip(st.getArtikal().getTip());
                     listaP.add(pregledArtikla);
                 }
                 pregledKorpe.setUkupnaCenaPorudzbine(korpa.izracunajCenu());
                 pregledKorpe.setPregledArtikala(listaP);
+                pregledKorpe.setRestoran(korpa.getRestoran());
 
                 return ResponseEntity.ok(pregledKorpe);
             }

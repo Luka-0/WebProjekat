@@ -20,6 +20,21 @@ public class RestoranRestController {
     @Autowired
     private RestoranService restoranService;
 
+    @GetMapping("/api/svi-restorani")
+    public ResponseEntity<List<Restoran>> getSviRestorani(HttpSession session){
+
+        Korisnik uk = (Korisnik) session.getAttribute("korisnik");
+
+        if(uk == null) {
+            return new ResponseEntity("Niste ulogovani.", HttpStatus.BAD_REQUEST);
+        }
+
+        List<Restoran> restorani = this.restoranService.findAll();
+
+        return ResponseEntity.ok(restorani);
+
+    }
+
     @GetMapping("/api/restorani")
     public ResponseEntity<List<PretragaDto>> getRestorani(HttpSession session){
 

@@ -94,10 +94,13 @@ public class KorisnikRestController {
             return new ResponseEntity("Niste se ulogovali", HttpStatus.FORBIDDEN);
 
         if(ulogovaniKorisnik.getUloga() == EnumUloga.KUPAC){
-            Porudzbina korpa = porudzbinaService.findFirstByStatus(EnumStatus.kreira_se, ulogovaniKorisnik.getId());
-            if(korpa != null){
-                korpa.setStatus(EnumStatus.otkazana);
-                porudzbinaService.save(korpa);
+            List<Porudzbina> korpe = porudzbinaService.findAllByStatusAndKupacid(EnumStatus.kreira_se, ulogovaniKorisnik.getId());
+            for(Porudzbina p: korpe){
+                if(p != null){
+                    p.setStatus(EnumStatus.otkazana);
+                    p.setRestoran(null);
+                    porudzbinaService.save(p);
+                }
             }
         }
 

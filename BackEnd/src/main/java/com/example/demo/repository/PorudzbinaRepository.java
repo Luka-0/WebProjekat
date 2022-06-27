@@ -14,6 +14,7 @@ public interface PorudzbinaRepository extends JpaRepository<Porudzbina, UUID> {
     List<Porudzbina> findAllByKupac(Kupac kupac);
     List<Porudzbina> findAll();
     List<Porudzbina> findAllByStatus(EnumStatus status);
+    List<Porudzbina> findAllByStatusAndKupac_Id(EnumStatus status, long id);
     Porudzbina findFirstByStatusAndKupac_Id(EnumStatus status, long id);
     Optional<Porudzbina> findByUuid(UUID uuid);
 }
