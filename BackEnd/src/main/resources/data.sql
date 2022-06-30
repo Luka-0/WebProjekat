@@ -48,7 +48,7 @@ INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rod
 INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','D_Anica','dvaespetpoena','Anica','Djukic','Z','1999-08-16','MENADZER', 8);
 
 /*Komentari*/
-INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 'Dobar restoran', 1, 1);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(4, 'Dobar restoran', 1, 1);
 
 /*Artikli*/
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(380,10, 'Gyros','Greek Salad Gyros','JELO', 5);
@@ -63,8 +63,8 @@ INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(110,20
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(270,300, 'Krilca','Sa dodatkom parmezana i bosiljka','JELO', 5);
 
 /*Komentari*/
-INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 'Solidan restoran', 2, 1);
-INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 'Sjajan restoran', 3, 2);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(5, 'Solidan restoran', 2, 1);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(5, 'Sjajan restoran', 3, 2);
 
 /*Porudzbine*/
 INSERT INTO PORUDZBINA(uuid, cena, datumIvreme, status, kupac_id, id_restorana) VALUES('0cba75e3b4744021b1b9fc19c4d00e18', 6360, '2002-03-04', 'dostavljena', 4, 3);
