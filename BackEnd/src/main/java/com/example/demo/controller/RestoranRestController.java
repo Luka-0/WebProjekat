@@ -55,8 +55,8 @@ public class RestoranRestController {
 
     }
 
-    @GetMapping("/api/pretraga")
-    public ResponseEntity<List<PretragaDto>> pretraziRestorane(@RequestBody PretragaDto dtoPretraga, HttpSession session) {
+    @PostMapping("/api/pretraga")
+    public ResponseEntity<List<PrikazRestoranaDto>> pretraziRestorane(@RequestBody PretragaDto dtoPretraga, HttpSession session) {
 
         Korisnik uk = (Korisnik) session.getAttribute("korisnik");
 
@@ -66,7 +66,7 @@ public class RestoranRestController {
 
         List<Restoran> restorani = restoranService.findAll();
 
-        List<PretragaDto> rezultatPretrage = new ArrayList<>();
+        List<PrikazRestoranaDto> rezultatPretrage = new ArrayList<>();
 
         if(!dtoPretraga.getNaziv().isEmpty()) {
 
@@ -78,15 +78,15 @@ public class RestoranRestController {
 
                 if (restoran.getNaziv().toLowerCase(Locale.ROOT).indexOf(dtoPretraga.getNaziv().toLowerCase(Locale.ROOT)) != -1) {
 
-                    PretragaDto r = new PretragaDto((restoran));
+                    PrikazRestoranaDto r = new PrikazRestoranaDto((restoran));
 
                     boolean postoji = false;
-                // rezliciti kriterijumi pretrage mogu odgovarati istom restoranu
-                // ako je rezultat pretrage, tj. restoran vec u listi ne dodaje se ponovo
+                    // rezliciti kriterijumi pretrage mogu odgovarati istom restoranu
+                    // ako je rezultat pretrage, tj. restoran vec u listi ne dodaje se ponovo
                     if(!rezultatPretrage.isEmpty()){
-                        for(PretragaDto dto : rezultatPretrage){
-                //uporedjivanje adresa - jer mogu postojati dva restorana sa istim nazivom, ali ne na istoj adresi
-                            if(dto.getAdresaLokacije().equals(r.getAdresaLokacije())){
+                        for(PrikazRestoranaDto dto : rezultatPretrage){
+                            //uporedjivanje adresa - jer mogu postojati dva restorana sa istim nazivom, ali ne na istoj adresi
+                            if(dto.getLokacija().getAdresa().equals(r.getLokacija().getAdresa())){
                                 postoji = true;
                                 break;
                             }
@@ -106,13 +106,14 @@ public class RestoranRestController {
 
                 if (restoran.getLokacija().getAdresa().toLowerCase(Locale.ROOT).indexOf(dtoPretraga.getAdresaLokacije().toLowerCase()) != -1) {
 
-                    PretragaDto r = new PretragaDto((restoran));
+                    PrikazRestoranaDto r = new PrikazRestoranaDto((restoran));
 
                     boolean postoji = false;
 
                     if(!rezultatPretrage.isEmpty()){
-                        for(PretragaDto dto : rezultatPretrage){
-                            if(dto.getAdresaLokacije().equals(r.getAdresaLokacije())){
+                        for(PrikazRestoranaDto dto : rezultatPretrage){
+
+                            if(dto.getLokacija().getAdresa().equals(r.getLokacija().getAdresa())){
                                 postoji = true;
                                 break;
                             }
@@ -130,13 +131,14 @@ public class RestoranRestController {
             for (Restoran restoran : restorani) {
                 if (restoran.getTipRestorana().toLowerCase(Locale.ROOT).indexOf(dtoPretraga.getTipRestorana().toLowerCase(Locale.ROOT)) != -1) {
 
-                    PretragaDto r = new PretragaDto((restoran));
+                    PrikazRestoranaDto r = new PrikazRestoranaDto((restoran));
 
                     boolean postoji = false;
 
                     if(!rezultatPretrage.isEmpty()){
-                        for(PretragaDto dto : rezultatPretrage){
-                            if(dto.getAdresaLokacije().equals(r.getAdresaLokacije())){
+                        for(PrikazRestoranaDto dto : rezultatPretrage){
+
+                            if(dto.getLokacija().getAdresa().equals(r.getLokacija().getAdresa())){
                                 postoji = true;
                                 break;
                             }

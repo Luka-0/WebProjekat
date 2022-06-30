@@ -1,14 +1,13 @@
 package com.example.demo.dto;
 
-import com.example.demo.entity.Artikal;
-import com.example.demo.entity.EnumStatusRestorana;
-import com.example.demo.entity.Komentar;
-import com.example.demo.entity.Lokacija;
+import com.example.demo.entity.*;
 
 import java.util.List;
 import java.util.Set;
 
 public class PrikazRestoranaDto {
+
+    private long id;
 
     private String naziv;
 
@@ -26,9 +25,10 @@ public class PrikazRestoranaDto {
 
     public  PrikazRestoranaDto() { }
 
-    public PrikazRestoranaDto(String naziv, String tipRestorana, Lokacija lokacija,
+    public PrikazRestoranaDto(long id, String naziv, String tipRestorana, Lokacija lokacija,
                               String status, double prosecnaOcena,
                               List<KomentarRestoranaDto> komentari, Set<ArtikalPrikazDto> artikli) {
+        this.id = id;
         this.naziv = naziv;
         this.tipRestorana = tipRestorana;
         this.lokacija = lokacija;
@@ -36,6 +36,16 @@ public class PrikazRestoranaDto {
         this.prosecnaOcena = prosecnaOcena;
         this.komentari = komentari;
         this.artikli = artikli;
+    }
+
+
+
+    public PrikazRestoranaDto(Restoran restoran) {
+        this.id = restoran.getId();
+        this.naziv = restoran.getNaziv();
+        this.tipRestorana = restoran.getTipRestorana();
+        this.lokacija = restoran.getLokacija();
+        this.status = restoran.getStatusRestorana().toString();
     }
 
     //getters
@@ -95,6 +105,14 @@ public class PrikazRestoranaDto {
 
     public void setArtikli(Set<ArtikalPrikazDto> artikli) {
 
-         this.artikli = artikli;
+        this.artikli = artikli;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
