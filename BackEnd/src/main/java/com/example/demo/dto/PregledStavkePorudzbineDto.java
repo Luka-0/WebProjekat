@@ -3,6 +3,7 @@ package com.example.demo.dto;
 import com.example.demo.entity.EnumTip;
 
 public class PregledStavkePorudzbineDto {
+    private long idStavke;
     private String nazivArtikla;
     private double cenaArtikla;
     private double kolicinaArtikla;
@@ -11,12 +12,21 @@ public class PregledStavkePorudzbineDto {
 
     public PregledStavkePorudzbineDto(){}
 
-    public PregledStavkePorudzbineDto(String nazivArtikla, double cenaArtikla, double kolicinaArtikla, int porucenaKolicina, EnumTip tip) {
+    public PregledStavkePorudzbineDto(String nazivArtikla, double cenaArtikla, double kolicinaArtikla, int porucenaKolicina, EnumTip tip, long idStavke) {
         this.nazivArtikla = nazivArtikla;
         this.cenaArtikla = cenaArtikla;
         this.kolicinaArtikla = kolicinaArtikla;
         this.porucenaKolicina = porucenaKolicina;
         this.tip = tip;
+        this.idStavke = idStavke;
+    }
+
+    public long getIdStavke() {
+        return idStavke;
+    }
+
+    public void setIdStavke(long idStavke) {
+        this.idStavke = idStavke;
     }
 
     public EnumTip getTip() {

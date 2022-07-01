@@ -225,6 +225,7 @@ public class PorudzbinaRestController {
                     pregledArtikla.setPorucenaKolicina(st.getPorucenaKolicina());
                     pregledArtikla.setKolicinaArtikla(st.getArtikal().getKolicina());
                     pregledArtikla.setTip(st.getArtikal().getTip());
+                    pregledArtikla.setIdStavke(st.getId());
                     listaP.add(pregledArtikla);
                 }
                 pregledKorpe.setUkupnaCenaPorudzbine(korpa.izracunajCenu());
@@ -242,8 +243,8 @@ public class PorudzbinaRestController {
     }
 
     //Porucivanje
-    @PutMapping("/api/poruci/{id}")
-    public ResponseEntity<String> porucivanje(@PathVariable(name = "id") long idRestorana, HttpSession session){
+    @PutMapping("/api/poruci")
+    public ResponseEntity<String> porucivanje(HttpSession session){
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
         if(ulogovaniKorisnik == null){
@@ -256,9 +257,6 @@ public class PorudzbinaRestController {
                 Porudzbina korpa = porudzbinaService.findFirstByStatus(EnumStatus.kreira_se, ulogovaniKupac.getId());
                 korpa.setStatus(EnumStatus.Obrada);
                 korpa.setCena(korpa.izracunajCenu());
-
-                Restoran trazeniRestoran = restoranService.findOneById(idRestorana);
-                korpa.setRestoran(trazeniRestoran);
 
                 porudzbinaService.save(korpa);
                 return ResponseEntity.ok("Kraj narucivanja. Porudzbina se obradjuje!");
