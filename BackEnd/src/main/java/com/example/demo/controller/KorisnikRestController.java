@@ -282,7 +282,7 @@ public class KorisnikRestController {
 
         return ResponseEntity.ok(logovaniKorisnik);
     }
-    @PutMapping("/api/admin-pregled/pretraga")
+    @PostMapping("/api/admin-pregled/pretraga")
     public ResponseEntity<List<PretragaKorisnikaDto>> pretraziKorisnike(@RequestBody PretragaKorisnikaDto dtoPretraga, HttpSession session) {
         Korisnik ulogovaniKorisnik = (Korisnik) session.getAttribute("korisnik");
 
