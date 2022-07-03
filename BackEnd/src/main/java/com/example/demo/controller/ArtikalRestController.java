@@ -88,10 +88,11 @@ public class ArtikalRestController {
         noviArtikal.setNaziv(noviDto.getNaziv());
         noviArtikal.setKolicina(noviDto.getKolicina());
         noviArtikal.setPhoto(noviDto.getUrl());
-        restoran.dodajArtikal(noviArtikal);
 
+
+        restoran.getArtikli().add(noviArtikal);
         restoranService.saveArtikal(noviArtikal);
-
+        this.restoranService.save(restoran);
         return ResponseEntity.ok(noviArtikal);
 
     }
