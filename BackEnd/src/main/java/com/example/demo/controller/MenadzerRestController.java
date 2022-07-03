@@ -9,6 +9,7 @@ import com.example.demo.service.MenadzerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +22,8 @@ public class MenadzerRestController {
     @Autowired
     private MenadzerService menadzerService;
 
-    @PutMapping("/api/admin/postavljanje-manadzera")
-    public ResponseEntity<Menadzer> addRestoranMenadzer(@RequestBody RestoranMenadzerDto dto, HttpSession session) {
+    @PutMapping("/api/admin/postavljanje-manadzera/{id}")
+    public ResponseEntity<Menadzer> addRestoranMenadzer(@PathVariable(name = "id") Long id, @RequestBody RestoranMenadzerDto dto, HttpSession session) {
 
         Korisnik uk = (Korisnik) session.getAttribute("korisnik");
 
@@ -33,21 +34,21 @@ public class MenadzerRestController {
 
         //pronalazenje restorana po izabranom id-u
           Restoran restoran = new Restoran();
-          restoran = this.menadzerService.findRestoranById(dto.getIdRestorana());
+          restoran = this.menadzerService.findRestoranById(id);
 
         if(restoran == null){
             return new ResponseEntity("Izabrani restoran ne postoji.", HttpStatus.BAD_REQUEST);
         }
 
-        if(this.menadzerService.findByRestoran(restoran) != null){
+       /* if(this.menadzerService.findByRestoran(restoran) != null){
             return new ResponseEntity("Izabrani restoran vec ima menadzera.", HttpStatus.BAD_REQUEST);
-        }
+        }*/
 
         //pronalazenje menadzera po izabranom korisnickom imenu
         Menadzer menadzer = new Menadzer();
         menadzer = this.menadzerService.findByKorisnickoIme(dto.getKorisnickoIme());
 
-        if(menadzer == null || menadzer.getUloga() != EnumUloga.MENADZER){
+        if(menadzer == null || menadzer.getUloga() != EnumUloga.MENADZER || menadzer.getRestoran()!=null){
             return new ResponseEntity("Ne postoji menadzer sa izabranim korisnickim imenom.", HttpStatus.BAD_REQUEST);
         }
 

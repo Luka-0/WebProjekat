@@ -4,20 +4,15 @@ public class RestoranMenadzerDto {
 
     private String korisnickoIme;
 
-    private long idRestorana;
 
     public  RestoranMenadzerDto() { }
 
-    public RestoranMenadzerDto(String korinickoIme, long idRestorana) {
+    public RestoranMenadzerDto(String korinickoIme) {
         this.korisnickoIme = korinickoIme;
-        this.idRestorana = idRestorana;
     }
 
     public String getKorisnickoIme() {  return korisnickoIme;  }
 
-    public long getIdRestorana() {  return idRestorana;  }
-
     public void setKorisnickoIme(String korisnickoIme) {  this.korisnickoIme = korisnickoIme;  }
 
-    public void setIdRestorana(long idRestorana) {  this.idRestorana = idRestorana; }
 }
