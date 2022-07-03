@@ -33,8 +33,8 @@ public class MenadzerRestController {
             return new ResponseEntity("Funkcionalnost je dostupna samo administratorima aplikacije", HttpStatus.BAD_REQUEST);
 
         //pronalazenje restorana po izabranom id-u
-          Restoran restoran = new Restoran();
-          restoran = this.menadzerService.findRestoranById(id);
+        Restoran restoran = new Restoran();
+        restoran = this.menadzerService.findRestoranById(id);
 
         if(restoran == null){
             return new ResponseEntity("Izabrani restoran ne postoji.", HttpStatus.BAD_REQUEST);
