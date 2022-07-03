@@ -62,9 +62,47 @@ INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(220,20
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(110,200, 'Niksicko pivo','18+','PICE', 2);
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(270,300, 'Krilca','Sa dodatkom parmezana i bosiljka','JELO', 5);
 
+
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(230,300, 'Palacinka nutela','Ukusno punjenje nutelom','JELO', 1);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(280,320, 'Palacinke kinder','kinder izuva bre','JELO', 1);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(220,200, 'Pljeskavica','junece meso','JELO', 1);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(110,200, 'Niksicko pivo','18+','PICE', 1);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(270,300, 'Krilca','Sa dodatkom parmezana i bosiljka','JELO', 1);
+
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(230,300, 'Palacinka nutela','Ukusno punjenje nutelom','JELO', 3);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(280,320, 'Palacinke kinder','kinder izuva bre','JELO', 3);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(220,200, 'Pljeskavica','junece meso','JELO', 3);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(110,200, 'Niksicko pivo','18+','PICE', 3);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(270,300, 'Krilca','Sa dodatkom parmezana i bosiljka','JELO', 3);
+
+
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(230,300, 'Palacinka nutela','Ukusno punjenje nutelom','JELO', 4);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(280,320, 'Palacinke kinder','kinder izuva bre','JELO', 4);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(220,200, 'Pljeskavica','junece meso','JELO', 4);
+
+
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(230,300, 'Palacinka nutela','Ukusno punjenje nutelom','JELO', 5);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(280,320, 'Palacinke kinder','kinder izuva bre','JELO', 5);
+
+
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(230,300, 'Palacinka nutela','Ukusno punjenje nutelom','JELO', 7);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(280,320, 'Palacinke kinder','kinder izuva bre','JELO', 7);
+
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(230,300, 'Palacinka nutela','Ukusno punjenje nutelom','JELO', 6);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(280,320, 'Palacinke kinder','kinder izuva bre','JELO', 6);
+INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(220,200, 'Pljeskavica','junece meso','JELO', 6);
+
+
+
 /*Komentari*/
-INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(5, 'Solidan restoran', 2, 1);
-INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(5, 'Sjajan restoran', 3, 2);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(5, 'Kul restoran', 2, 1);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(4, 'Nije lose', 1, 1);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(5, 'Sve preporuke', 3, 1);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(5, 'Dobar restoran', 3, 2);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(2, 'Ne toliko kul', 1, 6);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(2, 'Ne toliko kul', 2, 6);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(3, 'Ne toliko kul', 1, 2);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(5, 'Kul', 2, 2);
 
 /*Porudzbine*/
 INSERT INTO PORUDZBINA(uuid, cena, datumIvreme, status, kupac_id, id_restorana) VALUES('0cba75e3b4744021b1b9fc19c4d00e18', 6360, '2002-03-04', 'dostavljena', 4, 3);

@@ -202,8 +202,8 @@ public class RestoranRestController {
         if(komentariRestorana.size() > 0) {
             prosecnaOcena = prosecnaOcena / komentariRestorana.size();
         }
-
-        prikazDto.setProsecnaOcena(prosecnaOcena);
+        double roundOff = Math.round(prosecnaOcena * 100.0) / 100.0;
+        prikazDto.setProsecnaOcena(roundOff);
 
         for(Artikal artikal : artikliRestorana){
             ArtikalPrikazDto dto = new ArtikalPrikazDto(artikal);
