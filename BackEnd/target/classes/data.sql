@@ -48,7 +48,7 @@ INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rod
 INSERT INTO KORISNIK (dtype, korisnicko_ime, lozinka,ime,prezime, pol, datum_rodjenja,uloga, id_restorana) VALUES ('Menadzer','D_Anica','dvaespetpoena','Anica','Djukic','Z','1999-08-16','MENADZER', 8);
 
 /*Komentari*/
-INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(10, 'Dobar restoran', 1, 1);
+INSERT INTO KOMENTAR(ocena, tekst_komentara, id_kupca, id_restorana) VALUES(4, 'Dobar restoran', 1, 1);
 
 /*Artikli*/
 INSERT INTO ARTIKAL(cena, kolicina, naziv, opis, tip, id_restorana)VALUES(380,10, 'Gyros','Greek Salad Gyros','JELO', 5);
